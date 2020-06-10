@@ -6,7 +6,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 import read
-from train import to_3D
+from Train import to_3D
 
 features = [
             'tyresWear0',

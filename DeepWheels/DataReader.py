@@ -42,6 +42,7 @@ def load_data_from_sqlite3():
     conn.close()
     return data_list
 
+# TODO Add Functions of reader.py
 
 if __name__ == "__main__":
     # for testing
