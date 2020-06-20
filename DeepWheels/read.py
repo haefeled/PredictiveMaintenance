@@ -15,7 +15,7 @@ def replay_database(filename):
     os.system('python -m f1_2019_telemetry.cli.player -r 100 ' + filename)
 
 def is_faulty(wear_data):
-    return 1 if wear_data >= 6.0 else 0
+    return 1 if wear_data >= 80.0 else 0
 
 def database_as_list(filename):
     """reads F1 2019 telemetry packets stored in a SQLite3 database file and returns the data as a list as soon as reading is completed"""
@@ -118,6 +118,7 @@ def apply_to_live_data(func, buffer_time_in_seconds = 3):
                 if var_changed:
                     var_changed = False
                     live_buffer.append([
+                        (packet.header.sessionTime / 60),
                         #data.fuelInTank,
                         #data.fuelRemainingLaps,
                         data.tyresWear[0],
@@ -127,13 +128,15 @@ def apply_to_live_data(func, buffer_time_in_seconds = 3):
                         data.tyresWear[2],
                         #data.tyresDamage[2],
                         data.tyresWear[3],
-                        #data.tyresDamage[3]
+                        #data.tyresDamage[3],
+                        is_faulty(data.tyresWear[0])
                         ])
                     current_buffer_time = datetime.datetime.now() - start_buffer_time
                     if current_buffer_time.seconds > buffer_time_in_seconds:
                         #apply function on live data buffer after every buffer interval
                         func(live_buffer)  
-                        start_buffer_time = datetime.datetime.now()     
+                        start_buffer_time = datetime.datetime.now() 
+                        #live_buffer = []    
         #if no packets were received
         except socket.error:
             if packet_already_received == True:

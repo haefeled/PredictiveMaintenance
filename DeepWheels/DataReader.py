@@ -25,7 +25,7 @@ def load_data_from_sqlite3():
         progressbar.Percentage(),
         progressbar.Bar(marker='\x1b[32m#\x1b[39m'),
     ]
-    bar = progressbar.ProgressBar(widgets=widgets, max_value=max_rows).start()
+    #bar = progressbar.ProgressBar(widgets=widgets, max_value=max_rows).start()
     data_list = []
     for i in range(1, max_rows):
         # Collecting data
@@ -34,10 +34,10 @@ def load_data_from_sqlite3():
             (timestamp, packet) = timestamped_packet
             packet = unpack_udp_packet(packet)
             data_list.append(packet)
-        bar.update(i + 1)
+        #bar.update(i + 1)
     # sort data by sessionTime
     # sorted_data_collection = dict(sorted(data_collection.items()))
-    bar.finish()
+    #bar.finish()
     cursor.close()
     conn.close()
     return data_list

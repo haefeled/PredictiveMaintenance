@@ -55,8 +55,9 @@ def main():
     df['RUL'] = MAX_RUL - df['sessionTime']
     target = 'RUL'
 
+    print(df)
     #remove rows after failure
-    #df[df['is_faulty'] == 0]
+    df[df['is_faulty'] == 0]
 
     # remove unused columns
     del df['sessionTime']
@@ -86,14 +87,14 @@ def main():
 
     model = Sequential()
     model.add(LSTM(input_shape=(timesteps, len(features)), units=15, return_sequences=True))
-    model.add(Dropout(0.2))
+    model.add(Dropout(0.5))
     model.add(LSTM(input_shape=(timesteps,len(features)), units=10, return_sequences=False))
-    model.add(Dropout(0.2))
+    model.add(Dropout(0.5))
     model.add(Dense(units=1, activation = 'relu'))
     model.compile(loss='mean_squared_error', optimizer='adam')
     print(model.summary())
 
-    model_path = r".\Data\AllData\lstm_model.h5"
+    model_path = r".\Model\lstm_model.h5"
 
     history = model.fit(to_3D(x_train_lstm, features), y_train, 
                         epochs=1000, batch_size= 8, validation_split=0.2, verbose=1, 
@@ -134,5 +135,5 @@ def main():
     plt.show()
 
 if __name__ == "__main__":
-   # stuff only to run when not called via 'import' here
+   # code is only run when module is not called via 'import'
    main()
