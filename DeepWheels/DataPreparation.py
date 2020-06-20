@@ -58,7 +58,6 @@ def filter_data(data_list):
             for key in data_dict:
                 rel_data_dict[counter]['h'][key] = data_dict[key]
 
-        #data = packet.header
         packet_id = packet.header.packetId
 
         # sort
