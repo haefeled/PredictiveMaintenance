@@ -9,6 +9,13 @@ from f1_2019_telemetry.packets import unpack_udp_packet
 # output dict (key=sessionTime, value=dict(key=feature, value=value))
 # reason: maybe easier to give packets grouped by sessionTime and resolve dict.keys() as features for NN
 def all_data_to_list():
+    """
+    Reads and filters all telemetry packets of some database.
+
+    :return: list<dict('h' : dict, '0' : dict, '2' : dict, '6' : dict, '7' : dict)> 
+             A list of hashmaps representing header data and packets 0, 2, 6, 7. 
+             Each list item includes data for one timestep.
+    """
     data = DataReader.load_data_from_sqlite3()
     data = filter_data(data)
 
@@ -18,11 +25,15 @@ def all_data_to_list():
 
     return data
 
-# input list of unpacked packets
-# return list of relevant data dependent on player's carindex
-# format [[header], [packetId, data], [packetId, data], ...]
-# caution weather data is a dictonary inside an array
 def filter_data(data_list):
+    """
+    Filters a list of incoming packets and convert packet objects to dictionaries.
+
+    :param data_list: A list of telemetry packets including headers.
+    :return: list<dict('h' : dict, '0' : dict, '2' : dict, '6' : dict, '7' : dict)> 
+             A list of hashmaps representing header data and packets 0, 2, 6, 7. 
+             Each list item includes data for one timestep.
+    """
     rel_data_dict = []
     counter = 0
     # counts header and packets 0, 2, 6, 7

@@ -22,6 +22,12 @@ timesteps = 5
 timer_start = datetime.datetime.now()
 
 def predict(data):
+    """
+    Predicts RUL values for a list of a list of timestep-related features.
+
+    :param data: list<list<float>> A list of a list of timestep-related features.
+    :return: list<float> A list of predicted RUL values.
+    """
     df = pd.DataFrame(data, columns = feature_col_names)
     
     # Removing target and unused columns
@@ -60,6 +66,8 @@ def predict(data):
     plt.xlabel('time in packet-send-cycles')
     plt.ylabel('RUL in minutes')
     plt.legend()
+
+    return rul_pred
 
 # load model from single file
 model_path = r".\Model\lstm_model.h5"

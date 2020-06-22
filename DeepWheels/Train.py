@@ -12,7 +12,13 @@ import read
 
 def to_3D(X, features, timesteps=5):
     '''
-        Shapes the dataset so it can fit into LSTM's format requirement.
+    Shapes the dataset so it can fit into LSTM's format requirement.
+
+        :param X: DataFrame<timestamp, features> A DataFrame with timestamps as rows and features as columns.
+        :param features: list<str> A list of all feature names.
+        :param timesteps: int The number of timesteps to use for constructing a sequence of previous values. 
+        :return: DataFrame<timestamps, features, previous_values> 
+                 A DataFrame with timestamps as rows and features as columns and a sequence of previous values for each value.
     '''
     # Creating an empty tridimensional array
     X_trans = np.empty((X.shape[0], timesteps, 0))
