@@ -24,7 +24,7 @@ def database_as_list(filename):
 
     udp_socket = socket.socket(family=socket.AF_INET, type=socket.SOCK_DGRAM)
     udp_socket.bind(('', 20777))
-    udp_socket.setblocking(0)
+    udp_socket.setblocking(False)
 
     start_packet_missing_time = datetime.datetime.now()
 
