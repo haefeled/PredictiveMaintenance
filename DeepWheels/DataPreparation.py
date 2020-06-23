@@ -8,6 +8,9 @@ from f1_2019_telemetry.packets import unpack_udp_packet
 # output dict with key=feature value=value or
 # output dict (key=sessionTime, value=dict(key=feature, value=value))
 # reason: maybe easier to give packets grouped by sessionTime and resolve dict.keys() as features for NN
+
+
+
 def all_data_to_list():
     """
     Reads and filters all telemetry packets of some database.
@@ -16,7 +19,7 @@ def all_data_to_list():
              A list of hashmaps representing header data and packets 0, 2, 6, 7. 
              Each list item includes data for one timestep.
     """
-    data = DataReader.load_data_from_sqlite3()
+    data = DataReader.load_data_from_sqlite3(r".\Data\AllData\example.sqlite3")
     data = filter_data(data)
 
     # for testing
