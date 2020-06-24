@@ -10,10 +10,14 @@ from copy import deepcopy
 
 def filter_entries(entries, data):
     """
-    
-    :param entries: 
-    :param data: 
-    :return: 
+    This function is the third step to transform all received packets of f1_2019_telemetry.
+    The function is responsible to handle the _fields of PackedLittleEndianStructure classes.
+    In case of a PackedLittleEndianStructure as _field a callback to filter_object() is done.
+    In all other cases the features are gathered and returned as dictionary.
+
+    :param entries: _fields of the handled PackedLittleEndianStructure class
+    :param data: PackedLittleEndianStructure Object
+    :return: dict<string, (int, float)
     """
     tmp_dict_second = dict()
     for fname in entries:
@@ -40,9 +44,13 @@ def filter_entries(entries, data):
 
 def filter_objects(data):
     """
+    This function is the second step to transform all received packets of f1_2019_telemetry.
+    The function is responsible to view at PackedLittleEndianStructure classes. Furthermore
+    the _fields of the class are collected from the function filter_entries() and returned
+    as dictionary.
 
-    :param data:
-    :return:
+    :param data: PackedLittleEndianStructure variable
+    :return:    dict<string, (int, float)>
     """
     tmp_dict = dict()
     if isinstance(data, PackedLittleEndianStructure) and not isinstance(data, PacketHeader):
@@ -60,10 +68,14 @@ def filter_objects(data):
 
 def sort_dict_into_list(data, train_flag):
     """
+    This function is the first step to transform all received packets of f1_2019_telemetry.
+    This function has the task to split the list and put the results of the transform into a list.
+    At the end there is a validity test.
+    In case of training, a progressbar show the state of progress.
 
-    :param train_flag:
-    :param data:
-    :return:
+    :param train_flag:  Boolean variable to indicate a training session
+    :param data:    list<PackedLittleEndianStructure>, a list with all received packets
+    :return:    list<dict>  A list containing the dictionaries including the filtered features
     """
     result = []
     if train_flag:
@@ -93,9 +105,12 @@ def sort_dict_into_list(data, train_flag):
 
 def check_dict_in_list(data):
     """
+    This function is a validity test. The Input is the list with all filtered features.
+    The function tests the length of dictionaries inside a list and removes a dictionary
+    if it hasn't 130 entries.
 
-    :param data:
-    :return:
+    :param data: list<dict>
+    :return: list<dict>
     """
     list_of_removable = []
     for tmp_dict in data:
