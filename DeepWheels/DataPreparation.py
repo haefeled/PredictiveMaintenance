@@ -42,6 +42,7 @@ def filter_entries(entries, data):
                     tmp_dict_second[key] = deepcopy(tmp[key])
     return tmp_dict_second
 
+
 def filter_objects(data):
     """
     This function is the second step to transform all received packets of f1_2019_telemetry.
@@ -139,40 +140,58 @@ def list_to_dataframe(list_data):
 
 
 if __name__ == "__main__":
-    # train
-    data = DataReader.load_data_from_sqlite3(r".\Data\AllData\example.sqlite3")
-    # sleep just for ide terminal output, else progressbar not properly displayed
-    time.sleep(0.2)
-    print('got %i packets' % len(data))
-    result = sort_dict_into_list(data, True)
-    # sleep just for ide terminal output, else progressbar not properly displayed
-    time.sleep(0.2)
-    print('data filtered!')
-    print('got %i cycles with relevant data' % len(result))
+    # # train
+    # data = DataReader.load_data_from_sqlite3(r".\Data\AllData\example.sqlite3")
+    # # sleep just for ide terminal output, else progressbar not properly displayed
+    # time.sleep(0.2)
+    # print('got %i packets' % len(data))
+    # result = sort_dict_into_list(data, True)
+    # # sleep just for ide terminal output, else progressbar not properly displayed
+    # time.sleep(0.2)
+    # print('data filtered!')
+    # print('got %i cycles with relevant data' % len(result))
 
-    # # live
-    # udp_socket = socket.socket(family=socket.AF_INET, type=socket.SOCK_DGRAM)
-    # udp_socket.bind(('', 20777))
-    # for i in range(0, 20):
-    #     t_begin = time.time()
-    #     print('collecting data')
-    #     data = DataReader.listen_udp(udp_socket, 1)
-    #
-    #     t1 = time.time()
-    #     print('got %i packets in %.3f ms' % (len(data), ((t1-t_begin)*1000)))
-    #     result = []
-    #     result = sort_dict_into_list(data, False)
-    #     t2 = time.time()
-    #     print('data filtered in %.3f ms' % ((t2-t1)*1000))
-    #     print('got %i cycles with relevant data' % len(result))
-    #     print(result)
-    #     t_end = time.time()
-    #     print("total time: %.3f ms" % ((t_end-t_begin)*1000))
-    #     print('hier wird dann die Vorhersage gestartet')
+    # live
+    print('starting test')
+    quit_flag = True
+    udp_socket = socket.socket(family=socket.AF_INET, type=socket.SOCK_DGRAM)
+    udp_socket.bind(('', 20777))
+    time_for_receiving_cycles = []
+    time_for_filter = []
+    t_start = time.time()
+    counter = 0
+    for i in range(0, (1800*5)):
+        t_begin = time.time()
+        # print('collecting data')
+        data = DataReader.listen_udp(udp_socket, 1)
+        t1 = time.time()
+        # print('got %i packets in %.3f ms' % (len(data), ((t1-t_begin)*1000)))
+        time_for_receiving_cycles.append(((t1-t_begin)*1000))
+        result = []
+        result = sort_dict_into_list(data, False)
+        t2 = time.time()
+        # print('data filtered in %.3f ms' % ((t2-t1)*1000))
+        time_for_filter.append(((t2-t1)*1000))
+        # print('got %i cycles with relevant data' % len(result))
+        # print(result)
+        t_end = time.time()
+        # print("total time: %.3f ms" % ((t_end-t_begin)*1000))
+        # print('hier wird dann die Vorhersage gestartet')
+        counter += 1
+    t_finish = time.time()
+    print('max receiving time: %.5f ms' % max(time_for_receiving_cycles))
+    print('min receiving time: %.5f ms' % min(time_for_receiving_cycles))
+    print('average receiving time: %.5f ms' % (sum(time_for_receiving_cycles) / len(time_for_receiving_cycles)))
+    print('max filter time: %.5f ms' % max(time_for_filter))
+    print('min filter time: %.5f ms' % min(time_for_filter))
+    print('average filter time: %.5f ms' % (sum(time_for_filter) / len(time_for_filter)))
+    print('time elapsed: %.3f s' % (t_finish-t_start))
+    print('total cycles received: %i' % counter)
+    print('average received cycles per second: %.5f' % (counter / (t_finish - t_start)))
 
-    '''
     # list_to_dataframe test
     data = DataReader.load_data_from_sqlite3(r".\Data\AllData\example.sqlite3")
     data = sort_dict_into_list(data, False)
     print(list_to_dataframe(data))
+    '''
     '''
