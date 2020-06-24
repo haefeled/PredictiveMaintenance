@@ -35,11 +35,10 @@ def filter_entries(entries, data):
                     str_key = fname + '%i' % wheel
                     tmp_dict_second[str_key] = deepcopy(e)
                     wheel += 1
-            elif isinstance(value, ctypes.Array):
-                for e in value:
-                    tmp = dict(filter_objects(e))
-                    for key in tmp.keys():
-                        tmp_dict_second[key] = deepcopy(tmp[key])
+            elif isinstance(value, ctypes.Array) and len(value) == 20:
+                tmp = dict(filter_objects(value[data.header.playerCarIndex]))
+                for key in tmp.keys():
+                    tmp_dict_second[key] = deepcopy(tmp[key])
     return tmp_dict_second
 
 def filter_objects(data):
