@@ -2,6 +2,7 @@ import ctypes
 import socket
 import time
 import progressbar
+import pandas
 import DataReader
 
 from f1_2019_telemetry.packets import PackedLittleEndianStructure, PacketHeader
@@ -98,7 +99,7 @@ def sort_dict_into_list(data, train_flag):
             bar.update(bar_counter)
     if train_flag:
         bar.finish()
-        result = check_dict_in_list(result)
+    result = check_dict_in_list(result)
     return result
 
 
@@ -120,6 +121,22 @@ def check_dict_in_list(data):
     return data
 
 
+def list_to_dataframe(list_data):
+    '''
+    Converts a list of maps to a pandas DataFrame.
+
+    :param list_data: list<dict<number>> A list of maps which contain non-collection data.
+    :return: pandas.DataFrame A pandas DataFrame.
+    '''
+    outer_list = []
+    for row in list_data:
+        key_list = row.keys()
+        inner_list = []
+        for key in key_list:
+            inner_list.append(row[key])
+        outer_list.append(inner_list)
+    return pandas.DataFrame(outer_list, columns = list(list_data[0].keys()))
+
 
 if __name__ == "__main__":
     # train
@@ -132,7 +149,6 @@ if __name__ == "__main__":
     time.sleep(0.2)
     print('data filtered!')
     print('got %i cycles with relevant data' % len(result))
-
 
     # # live
     # udp_socket = socket.socket(family=socket.AF_INET, type=socket.SOCK_DGRAM)
@@ -153,3 +169,10 @@ if __name__ == "__main__":
     #     t_end = time.time()
     #     print("total time: %.3f ms" % ((t_end-t_begin)*1000))
     #     print('hier wird dann die Vorhersage gestartet')
+
+    '''
+    # list_to_dataframe test
+    data = DataReader.load_data_from_sqlite3(r".\Data\AllData\example.sqlite3")
+    data = sort_dict_into_list(data, False)
+    print(list_to_dataframe(data))
+    '''
