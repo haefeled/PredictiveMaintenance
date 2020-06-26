@@ -130,11 +130,7 @@ def list_to_dataframe(list_data):
     '''
     outer_list = []
     for row in list_data:
-        key_list = row.keys()
-        inner_list = []
-        for key in key_list:
-            inner_list.append(row[key])
-        outer_list.append(inner_list)
+        outer_list.append(list(row[key] for key in row.keys()))
     return pandas.DataFrame(outer_list, columns = list(list_data[0].keys()))
 
 
