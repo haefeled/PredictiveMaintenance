@@ -146,7 +146,7 @@ if __name__ == "__main__":
     # time.sleep(0.2)
     # print('data filtered!')
     # print('got %i cycles with relevant data' % len(result))
-
+    '''
     # live
     print('starting test')
     quit_flag = True
@@ -184,10 +184,8 @@ if __name__ == "__main__":
     print('time elapsed: %.3f s' % (t_finish-t_start))
     print('total cycles received: %i' % counter)
     print('average received cycles per second: %.5f' % (counter / (t_finish - t_start)))
-
+    '''
     # list_to_dataframe test
     data = DataReader.load_data_from_sqlite3(r".\Data\AllData\example.sqlite3")
     data = sort_dict_into_list(data, False)
     print(list_to_dataframe(data))
-    '''
-    '''
