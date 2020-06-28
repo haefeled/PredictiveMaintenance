@@ -189,3 +189,4 @@ if __name__ == "__main__":
     data = DataReader.load_data_from_sqlite3(r".\Data\AllData\example.sqlite3")
     data = sort_dict_into_list(data, False)
     print(list_to_dataframe(data))
+
