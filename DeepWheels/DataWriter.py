@@ -3,7 +3,7 @@ from datetime import time
 from InfluxManager import InfluxManager
 import DataPreparation
 import DataReader
-
+from InfluxManager import InfluxManager
 from influxdb import InfluxDBClient
 
 
@@ -13,7 +13,6 @@ class DataWriter:
         self.database_name = table_name
         self.client = InfluxDBClient(host='localhost', port=8086)
         self.create_table()
-
 
     def create_table(self):
         self.client.create_database(self.database_name)
