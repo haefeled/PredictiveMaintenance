@@ -1,9 +1,8 @@
 import subprocess
 
-def startInfluxDB():
+def startInfluxDBServer():
 
-    process = subprocess.Popen([r'C:\Users\fabianaust\PycharmProjects\PredictiveMaintenance\DeepWheels\Data\InfluxDB\InfluxServer\influxd.exe',
-                                '-config', r'C:\Users\fabianaust\PycharmProjects\PredictiveMaintenance\DeepWheels\Data\InfluxDB\InfluxServer\influxdb.conf'],
+    process = subprocess.Popen([r".\Data\InfluxDB\InfluxServer\influxd.exe"],
                                stdout=subprocess.PIPE,
                                universal_newlines=True)
 
@@ -21,4 +20,4 @@ def startInfluxDB():
 
 
 if __name__ == "__main__":
-    startInfluxDB()
+    startInfluxDBServer()

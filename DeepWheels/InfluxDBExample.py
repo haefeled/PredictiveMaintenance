@@ -12,7 +12,7 @@ def createInfluxDB():
             "time": "2009-11-10T23:00:00Z",
             "fields": {
                 "value": 0.64
-            }from influxdb import InfluxDBClient
+            }
         }
     ]
 
