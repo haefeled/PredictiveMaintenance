@@ -8,6 +8,7 @@ from DataReader import DataReader
 from f1_2019_telemetry.packets import PackedLittleEndianStructure, PacketHeader
 from copy import deepcopy
 
+
 class DataPreparation:
     def filter_entries(self, entries, data):
         """
@@ -118,7 +119,6 @@ class DataPreparation:
             data.remove(data[removable_index])
         return data
 
-
     def list_to_dataframe(list_data):
         '''
         Converts a list of maps to a pandas DataFrame.
@@ -129,7 +129,7 @@ class DataPreparation:
         outer_list = []
         for row in list_data:
             outer_list.append(list(row[key] for key in row.keys()))
-        return pandas.DataFrame(outer_list, columns = list(list_data[0].keys()))
+        return pandas.DataFrame(outer_list, columns=list(list_data[0].keys()))
 
 
 if __name__ == "__main__":
@@ -187,4 +187,3 @@ if __name__ == "__main__":
     # data = DataReader.load_data_from_sqlite3(r".\Data\AllData\example.sqlite3")
     # data = sort_dict_into_list(data, False)
     # print(list_to_dataframe(data))
-

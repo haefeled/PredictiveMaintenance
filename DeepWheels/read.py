@@ -8,14 +8,17 @@ from threading import Thread
 import f1_2019_telemetry.cli.player
 from f1_2019_telemetry.packets import unpack_udp_packet, PacketID, PacketHeader
 
-#if data should be played back standalone from a database file, run: python -m f1_2019_telemetry.cli.player -r 100 database.sqlite3
+
+# if data should be played back standalone from a database file, run: python -m f1_2019_telemetry.cli.player -r 100 database.sqlite3
 
 def replay_database(filename):
     """reads F1 2019 telemetry packets stored in a SQLite3 database file and sends them out over UDP, effectively replaying a session of the F1 2019 game"""
     os.system('python -m f1_2019_telemetry.cli.player -r 100 ' + filename)
 
+
 def is_faulty(wear_data):
     return 1 if wear_data >= 80.0 else 0
+
 
 def database_as_list(filename):
     """reads F1 2019 telemetry packets stored in a SQLite3 database file and returns the data as a list as soon as reading is completed"""
@@ -33,7 +36,7 @@ def database_as_list(filename):
 
     dataset_raw = []
 
-    thread = Thread(target = replay_database, args = [filename])
+    thread = Thread(target=replay_database, args=[filename])
     thread.start()
 
     while True:
@@ -54,23 +57,23 @@ def database_as_list(filename):
                         var_changed = True
                 if var_changed:
                     var_changed = False
-                    #add new row to dataset
+                    # add new row to dataset
                     dataset_raw.append(
                         [
-                        (packet.header.sessionTime / 60),
-                        #data.fuelInTank,
-                        #data.fuelRemainingLaps,
-                        data.tyresWear[0],
-                        #data.tyresDamage[0],
-                        data.tyresWear[1],
-                        #data.tyresDamage[1],
-                        data.tyresWear[2],
-                        #data.tyresDamage[2],
-                        data.tyresWear[3],
-                        #data.tyresDamage[3],
-                        is_faulty(data.tyresWear[0])
+                            (packet.header.sessionTime / 60),
+                            # data.fuelInTank,
+                            # data.fuelRemainingLaps,
+                            data.tyresWear[0],
+                            # data.tyresDamage[0],
+                            data.tyresWear[1],
+                            # data.tyresDamage[1],
+                            data.tyresWear[2],
+                            # data.tyresDamage[2],
+                            data.tyresWear[3],
+                            # data.tyresDamage[3],
+                            is_faulty(data.tyresWear[0])
                         ])
-        #if no packets were received
+        # if no packets were received
         except socket.error:
             if packet_already_received == True:
                 end_packet_missing_time = datetime.datetime.now()
@@ -78,7 +81,8 @@ def database_as_list(filename):
                 if packet_missing_duration.seconds > 5:
                     return dataset_raw
 
-def apply_to_live_data(func, buffer_time_in_seconds = 3):
+
+def apply_to_live_data(func, buffer_time_in_seconds=3):
     """reads live F1 2019 telemetry packets, converts them into lists and applies a given function on each list"""
     packet_already_received = False
     var_changed = True
@@ -92,8 +96,8 @@ def apply_to_live_data(func, buffer_time_in_seconds = 3):
 
     live_buffer = []
 
-    #only for testing purposes
-    thread = Thread(target = replay_database, args = [r".\Data\AllData\example.sqlite3"])
+    # only for testing purposes
+    thread = Thread(target=replay_database, args=[r".\Data\AllData\example.sqlite3"])
     thread.start()
 
     start_packet_missing_time = datetime.datetime.now()
@@ -119,25 +123,25 @@ def apply_to_live_data(func, buffer_time_in_seconds = 3):
                     var_changed = False
                     live_buffer.append([
                         (packet.header.sessionTime / 60),
-                        #data.fuelInTank,
-                        #data.fuelRemainingLaps,
+                        # data.fuelInTank,
+                        # data.fuelRemainingLaps,
                         data.tyresWear[0],
-                        #data.tyresDamage[0],
+                        # data.tyresDamage[0],
                         data.tyresWear[1],
-                        #data.tyresDamage[1],
+                        # data.tyresDamage[1],
                         data.tyresWear[2],
-                        #data.tyresDamage[2],
+                        # data.tyresDamage[2],
                         data.tyresWear[3],
-                        #data.tyresDamage[3],
+                        # data.tyresDamage[3],
                         is_faulty(data.tyresWear[0])
-                        ])
+                    ])
                     current_buffer_time = datetime.datetime.now() - start_buffer_time
                     if current_buffer_time.seconds > buffer_time_in_seconds:
-                        #apply function on live data buffer after every buffer interval
-                        func(live_buffer)  
-                        start_buffer_time = datetime.datetime.now() 
-                        #live_buffer = []    
-        #if no packets were received
+                        # apply function on live data buffer after every buffer interval
+                        func(live_buffer)
+                        start_buffer_time = datetime.datetime.now()
+                        # live_buffer = []
+        # if no packets were received
         except socket.error:
             if packet_already_received == True:
                 end_packet_missing_time = datetime.datetime.now()

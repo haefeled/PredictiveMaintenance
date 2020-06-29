@@ -9,6 +9,7 @@ import matplotlib.pyplot as plt
 import DataPreparation
 from Train import to_3D
 
+
 class Predict:
     # Beispielinit
     def __init__(self):
@@ -28,7 +29,7 @@ class Predict:
         """
         # number of last timesteps to use for training
         TIMESTEPS = 5
-        
+
         # Removing target and unused columns
         features = df.columns.tolist()
         features.remove('sessionTime')
@@ -37,19 +38,19 @@ class Predict:
         del df['sessionTime']
 
         # List of shifted dataframes according to the number of TIMESTEPS
-        df_list = [df[features].shift(shift_val) if (shift_val == 0) 
-                                    else df[features].shift(-shift_val).add_suffix(f'_{shift_val}') 
-                                    for shift_val in range(0,TIMESTEPS)]
+        df_list = [df[features].shift(shift_val) if (shift_val == 0)
+                   else df[features].shift(-shift_val).add_suffix(f'_{shift_val}')
+                   for shift_val in range(0, TIMESTEPS)]
 
         # Concatenating list
         df_concat = pd.concat(df_list, axis=1, sort=False)
-        df_test = df_concat.iloc[:-TIMESTEPS,:]
+        df_test = df_concat.iloc[:-TIMESTEPS, :]
 
         scaler = StandardScaler()
         scaler.fit(df_test)
 
         df_test_lstm = pd.DataFrame(data=scaler.transform(df_test), columns=df_test.columns)
-        current_rul = self.model.predict(to_3D(df_test_lstm,features, TIMESTEPS=TIMESTEPS))
+        current_rul = self.model.predict(to_3D(df_test_lstm, features, TIMESTEPS=TIMESTEPS))
         self.current_rul = current_rul
 
         return current_rul

@@ -1,7 +1,7 @@
 import subprocess
 
-def startInfluxDBServer():
 
+def startInfluxDBServer():
     process = subprocess.Popen([r".\Data\InfluxDB\InfluxServer\influxd.exe"],
                                stdout=subprocess.PIPE,
                                universal_newlines=True)

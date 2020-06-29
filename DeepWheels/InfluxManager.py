@@ -54,4 +54,3 @@ if __name__ == '__main__':
     dw = InfluxManager()
     print('Hallo')
     dwe = InfluxManager()
-
