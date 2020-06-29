@@ -1,8 +1,8 @@
 from datetime import time
 
 from InfluxManager import InfluxManager
-import DataPreparation
-import DataReader
+from DataPreparation import DataPreparation
+from DataReader import DataReader
 from InfluxManager import InfluxManager
 from influxdb import InfluxDBClient
 
@@ -39,8 +39,8 @@ class DataWriter:
 
 
 if __name__ == '__main__':
-    data = DataReader.load_data_from_sqlite3(r".\Data\AllData\example.sqlite3")
-    data = DataPreparation.sort_dict_into_list(data, True)
+    data = DataReader().load_data_from_sqlite3(r".\Data\AllData\example.sqlite3")
+    data = DataPreparation().sort_dict_into_list(data, True)
     data_writer = DataWriter("testboom")
     data_writer.insert_data(data)
     data_writer.print_data()
