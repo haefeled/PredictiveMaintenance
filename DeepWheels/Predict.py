@@ -28,9 +28,6 @@ class Predict:
         """
         # number of last timesteps to use for training
         TIMESTEPS = 5
-
-        # convert sessionTime to minutes
-        df['sessionTime'] = df['sessionTime'] / 60
         
         # Removing target and unused columns
         features = df.columns.tolist()

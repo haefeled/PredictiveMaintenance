@@ -26,9 +26,6 @@ def predict(data_list):
     data = DataPreparation.sort_dict_into_list(data_list, False)
     df = DataPreparation.list_to_dataframe(data)
 
-    # convert sessionTime to minutes
-    df['sessionTime'] = df['sessionTime'] / 60
-    
     # Removing target and unused columns
     features = df.columns.tolist()
     features.remove('sessionTime')
