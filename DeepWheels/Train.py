@@ -10,8 +10,8 @@ import numpy as np
 from os import listdir
 from os.path import isfile, join
 
-import DataReader
-import DataPreparation
+from DataReader import DataReader
+from DataPreparation import DataPreparation
 
 def to_3D(X, features, timesteps=5):
     '''
@@ -61,9 +61,11 @@ def train(filename, use_existing_model, failure_threshold):
     # fix random seed for reproducibility
     np.random.seed(7)
 
-    data = DataReader.load_data_from_sqlite3(r".\Data\AllData\\" + filename)
-    data = DataPreparation.sort_dict_into_list(data, False)
-    df = DataPreparation.list_to_dataframe(data)
+    data_reader = DataReader()
+    data_prep = DataPreparation()
+    data = data_reader.load_data_from_sqlite3(r".\Data\AllData\\" + filename)
+    data = data_prep.sort_dict_into_list(data, False)
+    df = data_prep.list_to_dataframe(data)
 
     # convert sessionTime to minutes
     df['sessionTime'] = df['sessionTime'] / 60
@@ -82,7 +84,7 @@ def train(filename, use_existing_model, failure_threshold):
     failure_row_index = df.query('is_faulty == 0').is_faulty.count()
     MAX_RUL = df.loc[failure_row_index, 'sessionTime']
     print("{} maxRUL: {}".format(filename, MAX_RUL))
-
+"""
     # backpropagate the RUL of every row
     df['RUL'] = MAX_RUL - df['sessionTime']
     target = 'RUL'
@@ -124,9 +126,9 @@ def train(filename, use_existing_model, failure_threshold):
 
     if use_existing_model == False:
         model = Sequential()
-        model.add(LSTM(input_shape=(TIMESTEPS, len(features)), units=200, return_sequences=True))
+        model.add(LSTM(input_shape=(TIMESTEPS, len(features)), units=50, return_sequences=True))
         model.add(Dropout(0.5))
-        model.add(LSTM(input_shape=(TIMESTEPS, len(features)), units=150, return_sequences=False))
+        model.add(LSTM(input_shape=(TIMESTEPS, len(features)), units=50, return_sequences=False))
         model.add(Dropout(0.5))
         model.add(Dense(units=1, activation='relu'))
     else:
@@ -175,7 +177,7 @@ def train(filename, use_existing_model, failure_threshold):
     plt.ylabel('RUL in minutes')
     plt.legend()
     plt.show()
-
+"""
 
 def train_on_all_datasets(path_to_datasets, failure_threshold):
     """
@@ -184,6 +186,8 @@ def train_on_all_datasets(path_to_datasets, failure_threshold):
     :param path_to_datasets: str Represents the path where all databases can be located.
     :param failure_threshold: int A percentage of tyreWear representing a failure.
     """
+    data_reader = DataReader()
+    data_prep = DataPreparation()
 
     #db_file_names = [f for f in listdir(path_to_datasets) if isfile(join(path_to_datasets, f))]
 
@@ -192,7 +196,7 @@ def train_on_all_datasets(path_to_datasets, failure_threshold):
         content = f.readlines()
         for line in content:
             maxTyreWear = int(line.strip().split(':')[1].split('%')[0])
-            if maxTyreWear >= failure_threshold:
+            if maxTyreWear >= failure_threshold and maxTyreWear <= 50:
                 db_file_names.append(line.split(' ')[0])
 
     for i in range(len(db_file_names)):
