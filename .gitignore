@@ -4,7 +4,8 @@
 example_big.sqlite3
 Dani_ohne_Fahrhilfe_extremeWerte_Reifendurchdrehen_hinten.sqlite3
 Dani_ohne_Fahrhilfe_extremeWerte_Reifendurchdrehen_hinten2.sqlite3
-__pycache__/
+DeepWheels/__pycache__/
 DeepWheels/.idea/
+.idea/
 
 DeepWheels/Data/AllData/.DS_Store

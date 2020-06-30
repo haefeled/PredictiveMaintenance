@@ -13,38 +13,38 @@ from os.path import isfile, join
 import DataReader
 import DataPreparation
 
-def to_3D(X, features, TIMESTEPS=5):
+def to_3D(X, features, timesteps=5):
     '''
     Shapes the dataset so it can fit into LSTM's format requirement.
 
         :param X: DataFrame<timestamp, features> A DataFrame with timestamps as rows and features as columns.
         :param features: list<str> A list of all feature names.
-        :param TIMESTEPS: int The number of TIMESTEPS to use for constructing a sequence of previous values. 
+        :param timesteps: int The number of timesteps to use for constructing a sequence of previous values. 
         :return: DataFrame<timestamps, features, previous_values> 
                  A DataFrame with timestamps as rows and features as columns and a sequence of previous values for each value.
     '''
     # Creating an empty tridimensional array
-    X_trans = np.empty((X.shape[0], TIMESTEPS, 0))
+    X_trans = np.empty((X.shape[0], timesteps, 0))
 
     # Adjusting the shape of the data
     for feat in features:
         # Regular expressions to filter each feature and
         # drop the NaN values generated from the shift
         df_filtered = X.filter(regex=f'{feat}(_|$)')
-        df_filtered = df_filtered.values.reshape(df_filtered.shape[0], TIMESTEPS, 1)
+        df_filtered = df_filtered.values.reshape(df_filtered.shape[0], timesteps, 1)
         X_trans = np.append(X_trans, df_filtered, axis=2)
     
     return X_trans
 
-def is_faulty(df, FAILURE_THRESHOLD):
+def is_faulty(df, failure_threshold):
     """
     Calculates a failure flag for every sample.
 
     :param df: DataFrame DataFrame object which includes tyreWear data.
-    :param FAILURE_THRESHOLD: int tyreWear in percent.
+    :param failure_threshold: int tyreWear in percent.
     :return: numpy array of failure flags.
     """
-    return np.where(((df.tyresWear0 < FAILURE_THRESHOLD) & (df.tyresWear1 < FAILURE_THRESHOLD) & (df.tyresWear2 < FAILURE_THRESHOLD) & (df.tyresWear3 < FAILURE_THRESHOLD)), 0, 1)
+    return np.where(((df.tyresWear0 < failure_threshold) & (df.tyresWear1 < failure_threshold) & (df.tyresWear2 < failure_threshold) & (df.tyresWear3 < failure_threshold)), 0, 1)
 
 def train(filename, use_existing_model):
     """
