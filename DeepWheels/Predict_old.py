@@ -47,7 +47,7 @@ def predict(data_list):
     scaler.fit(df_test)
 
     df_test_lstm = pd.DataFrame(data=scaler.transform(df_test), columns=df_test.columns)
-    rul_pred = model.predict(to_3D(df_test_lstm, features, TIMESTEPS=TIMESTEPS))
+    rul_pred = model.predict(to_3D(df_test_lstm, features, timesteps=TIMESTEPS))
     # print(df_test_lstm)
     time_since_start = datetime.datetime.now() - timer_start
     minutes_since_start = time_since_start.seconds / 60
@@ -79,5 +79,5 @@ timer_start = datetime.datetime.now()
 udp_socket = socket.socket(family=socket.AF_INET, type=socket.SOCK_DGRAM)
 udp_socket.bind(('', 20777))
 udp_socket.setblocking(False)
-DataReader.apply_to_live_data(udp_socket, predict, buffer_time_in_seconds=2)
+DataReader.apply_to_live_data(udp_socket, predict, buffer_time_in_seconds=1)
 plt.show()

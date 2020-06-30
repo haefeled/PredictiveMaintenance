@@ -47,15 +47,14 @@ def is_faulty(df, failure_threshold):
     return np.where(((df.tyresWear0 < failure_threshold) & (df.tyresWear1 < failure_threshold) & (df.tyresWear2 < failure_threshold) & (df.tyresWear3 < failure_threshold)), 0, 1)
 
 
-def train(filename, use_existing_model):
+def train(filename, use_existing_model, failure_threshold):
     """
     Trains a model for a given database.
 
     :param filename: str Name of database file to train on.
     :param use_existing_model: Boolean Loads existing model for training if set to True.
+    :param failure_threshold: int A percentage of tyreWear representing a failure.
     """
-    # tyreWear in percent
-    FAILURE_THRESHOLD = 3
     # number of last timesteps to use for training
     TIMESTEPS = 5
 
@@ -70,7 +69,7 @@ def train(filename, use_existing_model):
     df['sessionTime'] = df['sessionTime'] / 60
 
     # add failure flag to samples
-    df['is_faulty'] = is_faulty(df, FAILURE_THRESHOLD)
+    df['is_faulty'] = is_faulty(df, failure_threshold)
 
     # checking if dataset contains failure
     if 1 not in pd.Series(list(df['is_faulty'])).unique():
@@ -84,11 +83,10 @@ def train(filename, use_existing_model):
     features.remove('sessionTime')
     features.remove('is_faulty')
 
-    print(df['is_faulty'])
-
     # get number of rows which are intact to obtain the RUL of the first element
     failure_row_index = df.query('is_faulty == 0').is_faulty.count()
     MAX_RUL = df.loc[failure_row_index, 'sessionTime']
+    print("{} maxRUL: {}".format(filename, MAX_RUL))
 
     # backpropagate the RUL of every row
     df['RUL'] = MAX_RUL - df['sessionTime']
@@ -178,22 +176,33 @@ def train(filename, use_existing_model):
     plt.show()
 
 
-def train_on_all_datasets(path_to_datasets):
+def train_on_all_datasets(path_to_datasets, failure_threshold):
     """
     Initiates training on a series of databases.
 
     :param path_to_datasets: str Represents the path where all databases can be located.
+    :param failure_threshold: int A percentage of tyreWear representing a failure.
     """
-    db_file_names = [f for f in listdir(path_to_datasets) if isfile(join(path_to_datasets, f))]
+
+    #db_file_names = [f for f in listdir(path_to_datasets) if isfile(join(path_to_datasets, f))]
+
+    db_file_names = []
+    with open(r".\Data\analysis_results.txt") as f:
+        content = f.readlines()
+        for line in content:
+            maxTyreWear = int(line.strip().split(':')[1].split('%')[0])
+            if maxTyreWear >= failure_threshold:
+                db_file_names.append(line.split(' ')[0])
+
     for i in range(len(db_file_names)):
         if i > 0:
-            train(db_file_names[i], False)
+            train(db_file_names[i], False, failure_threshold)
         else:
-            train(db_file_names[i], True)
+            train(db_file_names[i], True, failure_threshold)
 
 
 def main():
-    train_on_all_datasets(r".\Data\AllData")
+    train_on_all_datasets(r".\Data\AllData", 30)
 
 
 if __name__ == "__main__":

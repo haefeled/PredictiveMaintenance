@@ -8,7 +8,6 @@ from copy import deepcopy
 from threading import Thread
 from f1_2019_telemetry.packets import unpack_udp_packet
 
-
 class DataReader:
     def __init__(self):
         pass
@@ -74,7 +73,7 @@ class DataReader:
             counter = 0
             tmp_list = []
             last_sessiontime = 0
-            while counter / 4 < 1:
+            while counter/4 < 1:
                 try:
                     udp_packet = udp_conn.recv(2048)
                     packet = unpack_udp_packet(udp_packet)
@@ -165,6 +164,7 @@ if __name__ == "__main__":
     data_reader = DataReader()
     path_to_db = r".\Data\AllData\example.sqlite3"
     data = data_reader.load_data_from_sqlite3(path_to_db)
+
 
     # # just for testing
     # udp_socket = socket.socket(family=socket.AF_INET, type=socket.SOCK_DGRAM)

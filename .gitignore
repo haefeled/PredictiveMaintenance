@@ -1,9 +1,7 @@
 # Specifies intentionally untracked files to ignore when using Git
 # http://git-scm.com/docs/gitignore
 
-example_big.sqlite3
-Dani_ohne_Fahrhilfe_extremeWerte_Reifendurchdrehen_hinten.sqlite3
-Dani_ohne_Fahrhilfe_extremeWerte_Reifendurchdrehen_hinten2.sqlite3
+*.sqlite3
 DeepWheels/__pycache__/
 DeepWheels/.idea/
 .idea/
