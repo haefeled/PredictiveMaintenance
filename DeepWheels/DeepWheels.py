@@ -8,7 +8,7 @@ class DeepWheels:
     def __init__(self):
         self.data_reader = DataReader()
         self.data_prep = DataPreparation()
-        self.data_writer = DataWriter("live_data")
+        self.data_writer = DataWriter("live_data2")
         # self.predict_process = Process(target=Predict.predict, args=('bob',))
 
     def predict(self):
@@ -21,10 +21,11 @@ class DeepWheels:
         data = self.data_prep.sort_dict_into_list(data, True)
         for i in range(0, 100):
             self.data_writer.insert_data(data[i])
-            self.data_writer.print_data(data[i]['sessionTime'])
+            # self.data_writer.print_data(data[i])
 
 
 if __name__ == '__main__':
-    DeepWheels().predict()
+    deepwheels = DeepWheels()
+    deepwheels.predict()
     while True:
         x = 1
