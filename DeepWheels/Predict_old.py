@@ -7,10 +7,12 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import socket
 
-import DataReader
-import DataPreparation
+from DataReader import DataReader
+from DataPreparation import DataPreparation
 from Train import to_3D, is_faulty
 
+data_reader = DataReader()
+data_prep = DataPreparation()
 timer_start = datetime.datetime.now()
 
 
@@ -24,8 +26,8 @@ def predict(data_list):
     # number of last timesteps to use for training
     TIMESTEPS = 5
 
-    data = DataPreparation.sort_dict_into_list(data_list, False)
-    df = DataPreparation.list_to_dataframe(data)
+    data = data_prep.sort_dict_into_list(data_list, False)
+    df = data_prep.list_to_dataframe(data)
 
     # Removing target and unused columns
     features = df.columns.tolist()
@@ -47,7 +49,7 @@ def predict(data_list):
     scaler.fit(df_test)
 
     df_test_lstm = pd.DataFrame(data=scaler.transform(df_test), columns=df_test.columns)
-    rul_pred = model.predict(to_3D(df_test_lstm, features, TIMESTEPS=TIMESTEPS))
+    rul_pred = model.predict(to_3D(df_test_lstm, features, timesteps=TIMESTEPS))
     # print(df_test_lstm)
     time_since_start = datetime.datetime.now() - timer_start
     minutes_since_start = time_since_start.seconds / 60
@@ -56,7 +58,8 @@ def predict(data_list):
         current_rul = 0
     current_rul_min = int(current_rul)
     current_rul_sec = int((current_rul - int(current_rul)) * 60)
-    print("\nRUL: {}min {}s\n".format(current_rul_min, current_rul_sec))
+    print("\nRUL: {}min\n".format(rul_pred[0][0]))
+    #print("\nRUL: {}min {}s\n".format(current_rul_min, current_rul_sec))
 
     plt.figure(figsize=(10, 8), dpi=90)
     plt.plot(rul_pred[:], label='Pred RUL')
@@ -79,5 +82,5 @@ timer_start = datetime.datetime.now()
 udp_socket = socket.socket(family=socket.AF_INET, type=socket.SOCK_DGRAM)
 udp_socket.bind(('', 20777))
 udp_socket.setblocking(False)
-DataReader.apply_to_live_data(udp_socket, predict, buffer_time_in_seconds=2)
+data_reader.apply_to_live_data(udp_socket, predict, buffer_time_in_seconds=1)
 plt.show()

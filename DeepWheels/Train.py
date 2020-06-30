@@ -10,70 +10,68 @@ import numpy as np
 from os import listdir
 from os.path import isfile, join
 
-import DataReader
-import DataPreparation
+from DataReader import DataReader
+from DataPreparation import DataPreparation
 
-
-def to_3D(X, features, TIMESTEPS=5):
+def to_3D(X, features, timesteps=5):
     '''
     Shapes the dataset so it can fit into LSTM's format requirement.
 
         :param X: DataFrame<timestamp, features> A DataFrame with timestamps as rows and features as columns.
         :param features: list<str> A list of all feature names.
-        :param TIMESTEPS: int The number of TIMESTEPS to use for constructing a sequence of previous values. 
+        :param timesteps: int The number of timesteps to use for constructing a sequence of previous values. 
         :return: DataFrame<timestamps, features, previous_values> 
                  A DataFrame with timestamps as rows and features as columns and a sequence of previous values for each value.
     '''
     # Creating an empty tridimensional array
-    X_trans = np.empty((X.shape[0], TIMESTEPS, 0))
+    X_trans = np.empty((X.shape[0], timesteps, 0))
 
     # Adjusting the shape of the data
     for feat in features:
         # Regular expressions to filter each feature and
         # drop the NaN values generated from the shift
         df_filtered = X.filter(regex=f'{feat}(_|$)')
-        df_filtered = df_filtered.values.reshape(df_filtered.shape[0], TIMESTEPS, 1)
+        df_filtered = df_filtered.values.reshape(df_filtered.shape[0], timesteps, 1)
         X_trans = np.append(X_trans, df_filtered, axis=2)
 
     return X_trans
 
-
-def is_faulty(df, FAILURE_THRESHOLD):
+def is_faulty(df, failure_threshold):
     """
     Calculates a failure flag for every sample.
 
     :param df: DataFrame DataFrame object which includes tyreWear data.
-    :param FAILURE_THRESHOLD: int tyreWear in percent.
+    :param failure_threshold: int tyreWear in percent.
     :return: numpy array of failure flags.
     """
-    return np.where(((df.tyresWear0 < FAILURE_THRESHOLD) & (df.tyresWear1 < FAILURE_THRESHOLD) & (
-                df.tyresWear2 < FAILURE_THRESHOLD) & (df.tyresWear3 < FAILURE_THRESHOLD)), 0, 1)
+    return np.where(((df.tyresWear0 < failure_threshold) & (df.tyresWear1 < failure_threshold) & (df.tyresWear2 < failure_threshold) & (df.tyresWear3 < failure_threshold)), 0, 1)
 
 
-def train(filename, use_existing_model):
+def train(filename, use_existing_model, failure_threshold):
     """
     Trains a model for a given database.
 
     :param filename: str Name of database file to train on.
     :param use_existing_model: Boolean Loads existing model for training if set to True.
+    :param failure_threshold: int A percentage of tyreWear representing a failure.
     """
-    # tyreWear in percent
-    FAILURE_THRESHOLD = 3
     # number of last timesteps to use for training
     TIMESTEPS = 5
 
     # fix random seed for reproducibility
     np.random.seed(7)
 
-    data = DataReader.load_data_from_sqlite3(r".\Data\AllData\\" + filename)
-    data = DataPreparation.sort_dict_into_list(data, False)
-    df = DataPreparation.list_to_dataframe(data)
+    data_reader = DataReader()
+    data_prep = DataPreparation()
+    data = data_reader.load_data_from_sqlite3(r".\Data\AllData\\" + filename)
+    data = data_prep.sort_dict_into_list(data, False)
+    df = data_prep.list_to_dataframe(data)
 
     # convert sessionTime to minutes
     df['sessionTime'] = df['sessionTime'] / 60
 
     # add failure flag to samples
-    df['is_faulty'] = is_faulty(df, FAILURE_THRESHOLD)
+    df['is_faulty'] = is_faulty(df, failure_threshold)
 
     # checking if dataset contains failure
     if 1 not in pd.Series(list(df['is_faulty'])).unique():
@@ -82,24 +80,24 @@ def train(filename, use_existing_model):
     else:
         print('dataset ok')
 
-    # Removing target and unused columns
-    features = df.columns.tolist()
-    features.remove('sessionTime')
-    features.remove('is_faulty')
-
-    print(df['is_faulty'])
-
     # get number of rows which are intact to obtain the RUL of the first element
     failure_row_index = df.query('is_faulty == 0').is_faulty.count()
     MAX_RUL = df.loc[failure_row_index, 'sessionTime']
-
+    print("{} maxRUL: {}".format(filename, MAX_RUL))
+"""
     # backpropagate the RUL of every row
     df['RUL'] = MAX_RUL - df['sessionTime']
     target = 'RUL'
 
+    # Removing target and unused columns
+    features = df.columns.tolist()
+    features.remove('sessionTime')
+    features.remove('is_faulty')
+    features.remove(target)
+
     print(df)
     # remove rows after failure
-    df[df['is_faulty'] == 0]
+    #df[df['is_faulty'] == 0]
 
     # remove unused columns
     del df['sessionTime']
@@ -128,9 +126,9 @@ def train(filename, use_existing_model):
 
     if use_existing_model == False:
         model = Sequential()
-        model.add(LSTM(input_shape=(TIMESTEPS, len(features)), units=15, return_sequences=True))
+        model.add(LSTM(input_shape=(TIMESTEPS, len(features)), units=50, return_sequences=True))
         model.add(Dropout(0.5))
-        model.add(LSTM(input_shape=(TIMESTEPS, len(features)), units=10, return_sequences=False))
+        model.add(LSTM(input_shape=(TIMESTEPS, len(features)), units=50, return_sequences=False))
         model.add(Dropout(0.5))
         model.add(Dense(units=1, activation='relu'))
     else:
@@ -179,24 +177,37 @@ def train(filename, use_existing_model):
     plt.ylabel('RUL in minutes')
     plt.legend()
     plt.show()
+"""
 
-
-def train_on_all_datasets(path_to_datasets):
+def train_on_all_datasets(path_to_datasets, failure_threshold):
     """
     Initiates training on a series of databases.
 
     :param path_to_datasets: str Represents the path where all databases can be located.
+    :param failure_threshold: int A percentage of tyreWear representing a failure.
     """
-    db_file_names = [f for f in listdir(path_to_datasets) if isfile(join(path_to_datasets, f))]
+    data_reader = DataReader()
+    data_prep = DataPreparation()
+
+    #db_file_names = [f for f in listdir(path_to_datasets) if isfile(join(path_to_datasets, f))]
+
+    db_file_names = []
+    with open(r".\Data\analysis_results.txt") as f:
+        content = f.readlines()
+        for line in content:
+            maxTyreWear = int(line.strip().split(':')[1].split('%')[0])
+            if maxTyreWear >= failure_threshold and maxTyreWear <= 50:
+                db_file_names.append(line.split(' ')[0])
+
     for i in range(len(db_file_names)):
         if i > 0:
-            train(db_file_names[i], False)
+            train(db_file_names[i], True, failure_threshold)
         else:
-            train(db_file_names[i], True)
+            train(db_file_names[i], False, failure_threshold)
 
 
 def main():
-    train_on_all_datasets(r".\Data\AllData")
+    train_on_all_datasets(r".\Data\AllData", 30)
 
 
 if __name__ == "__main__":
