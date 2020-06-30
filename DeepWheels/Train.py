@@ -78,11 +78,6 @@ def train(filename, use_existing_model, failure_threshold):
     else:
         print('dataset ok')
 
-    # Removing target and unused columns
-    features = df.columns.tolist()
-    features.remove('sessionTime')
-    features.remove('is_faulty')
-
     # get number of rows which are intact to obtain the RUL of the first element
     failure_row_index = df.query('is_faulty == 0').is_faulty.count()
     MAX_RUL = df.loc[failure_row_index, 'sessionTime']
@@ -92,9 +87,15 @@ def train(filename, use_existing_model, failure_threshold):
     df['RUL'] = MAX_RUL - df['sessionTime']
     target = 'RUL'
 
+    # Removing target and unused columns
+    features = df.columns.tolist()
+    features.remove('sessionTime')
+    features.remove('is_faulty')
+    features.remove(target)
+
     print(df)
     # remove rows after failure
-    df[df['is_faulty'] == 0]
+    #df[df['is_faulty'] == 0]
 
     # remove unused columns
     del df['sessionTime']
