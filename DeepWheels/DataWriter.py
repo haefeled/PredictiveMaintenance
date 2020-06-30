@@ -23,8 +23,8 @@ class DataWriter:
         metrics['measurement'] = 'livepenishoden'
         metrics['tags'] = {}
         metrics['fields'] = {}
-        for feature in data.keys():
-            metrics['fields'][feature] = data[feature]
+        for feature in data[0].keys():
+            metrics['fields'][feature] = data[0][feature]
         self.client.write_points([metrics])
 
     def print_data(self, key):

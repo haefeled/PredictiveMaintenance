@@ -56,7 +56,7 @@ class DataReader:
         conn.close()
         return data_list
 
-    def listen_udp(self, udp_conn, nmb_of_cycles):
+    def listen_udp(self, nmb_of_cycles):
         """
         The function will receive a bunch of packages depended on the number of cycles you want to listen.
         In this case a cycle contains all packets with the same timestamp of the session.
