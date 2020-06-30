@@ -13,12 +13,7 @@ from os.path import isfile, join
 import DataReader
 import DataPreparation
 
-<<<<<<< HEAD
 def to_3D(X, features, timesteps=5):
-=======
-
-def to_3D(X, features, TIMESTEPS=5):
->>>>>>> f8a35708cc9d77daf8a20c8280218e596d0e6506
     '''
     Shapes the dataset so it can fit into LSTM's format requirement.
 
