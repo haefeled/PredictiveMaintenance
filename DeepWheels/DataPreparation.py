@@ -119,7 +119,7 @@ class DataPreparation:
             data.remove(data[removable_index])
         return data
 
-    def list_to_dataframe(self,list_data):
+    def list_to_dataframe(self, list_data):
         '''
         Converts a list of maps to a pandas DataFrame.
 

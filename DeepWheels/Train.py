@@ -124,9 +124,9 @@ def train(filename, use_existing_model, failure_threshold):
 
     if use_existing_model == False:
         model = Sequential()
-        model.add(LSTM(input_shape=(TIMESTEPS, len(features)), units=15, return_sequences=True))
+        model.add(LSTM(input_shape=(TIMESTEPS, len(features)), units=200, return_sequences=True))
         model.add(Dropout(0.5))
-        model.add(LSTM(input_shape=(TIMESTEPS, len(features)), units=10, return_sequences=False))
+        model.add(LSTM(input_shape=(TIMESTEPS, len(features)), units=150, return_sequences=False))
         model.add(Dropout(0.5))
         model.add(Dense(units=1, activation='relu'))
     else:
@@ -197,9 +197,9 @@ def train_on_all_datasets(path_to_datasets, failure_threshold):
 
     for i in range(len(db_file_names)):
         if i > 0:
-            train(db_file_names[i], False, failure_threshold)
-        else:
             train(db_file_names[i], True, failure_threshold)
+        else:
+            train(db_file_names[i], False, failure_threshold)
 
 
 def main():
