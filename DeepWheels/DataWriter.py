@@ -1,17 +1,17 @@
-from datetime import time
-
-from InfluxManager import InfluxManager
 from DataPreparation import DataPreparation
 from DataReader import DataReader
 from InfluxManager import InfluxManager
 from influxdb import InfluxDBClient
+from GrafanaManager import GrafanaManager
 
 
 class DataWriter:
     def __init__(self, table_name):
         self.influx_manager = InfluxManager()
+        self.grafana_manager = GrafanaManager()
         self.database_name = table_name
         self.client = InfluxDBClient(host='localhost', port=8086)
+
         self.create_table()
 
     def create_table(self):
@@ -20,7 +20,7 @@ class DataWriter:
 
     def insert_data(self, data):
         metrics = {}
-        metrics['measurement'] = "kartoffel"
+        metrics['measurement'] = "sessionTime"
         metrics['tags'] = {}
         metrics['fields'] = {}
         for feature in data[0].keys():
@@ -28,7 +28,7 @@ class DataWriter:
         self.client.write_points([metrics])
 
     def print_data(self):
-        loginRecords = self.client.query('select * from kartoffel;')
+        loginRecords = self.client.query('select * from sessionTime;')
 
         # Print the time series query results
 

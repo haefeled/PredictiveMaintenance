@@ -47,7 +47,4 @@ class GrafanaManager:
 
 
 if __name__ == '__main__':
-
     dw = GrafanaManager()
-    print('Hallo')
-
