@@ -20,15 +20,15 @@ class DataWriter:
 
     def insert_data(self, data):
         metrics = {}
-        metrics['measurement'] = "sessionTime"
+        metrics['measurement'] = str(data['sessionTime'])
         metrics['tags'] = {}
         metrics['fields'] = {}
-        for feature in data[0].keys():
-            metrics['fields'][feature] = data[0][feature]
+        for feature in data.keys():
+            metrics['fields'][feature] = data[feature]
         self.client.write_points([metrics])
 
-    def print_data(self):
-        loginRecords = self.client.query('select * from sessionTime;')
+    def print_data(self, key):
+        loginRecords = self.client.query('select * from key;')
 
         # Print the time series query results
 
