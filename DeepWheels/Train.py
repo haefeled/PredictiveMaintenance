@@ -13,7 +13,12 @@ from os.path import isfile, join
 import DataReader
 import DataPreparation
 
+<<<<<<< HEAD
 def to_3D(X, features, timesteps=5):
+=======
+
+def to_3D(X, features, TIMESTEPS=5):
+>>>>>>> f8a35708cc9d77daf8a20c8280218e596d0e6506
     '''
     Shapes the dataset so it can fit into LSTM's format requirement.
 
@@ -33,7 +38,7 @@ def to_3D(X, features, timesteps=5):
         df_filtered = X.filter(regex=f'{feat}(_|$)')
         df_filtered = df_filtered.values.reshape(df_filtered.shape[0], timesteps, 1)
         X_trans = np.append(X_trans, df_filtered, axis=2)
-    
+
     return X_trans
 
 def is_faulty(df, failure_threshold):
@@ -45,6 +50,7 @@ def is_faulty(df, failure_threshold):
     :return: numpy array of failure flags.
     """
     return np.where(((df.tyresWear0 < failure_threshold) & (df.tyresWear1 < failure_threshold) & (df.tyresWear2 < failure_threshold) & (df.tyresWear3 < failure_threshold)), 0, 1)
+
 
 def train(filename, use_existing_model):
     """
@@ -88,13 +94,13 @@ def train(filename, use_existing_model):
     # get number of rows which are intact to obtain the RUL of the first element
     failure_row_index = df.query('is_faulty == 0').is_faulty.count()
     MAX_RUL = df.loc[failure_row_index, 'sessionTime']
-    
+
     # backpropagate the RUL of every row
     df['RUL'] = MAX_RUL - df['sessionTime']
     target = 'RUL'
 
     print(df)
-    #remove rows after failure
+    # remove rows after failure
     df[df['is_faulty'] == 0]
 
     # remove unused columns
@@ -102,16 +108,17 @@ def train(filename, use_existing_model):
     del df['is_faulty']
 
     # List of shifted dataframes according to the number of TIMESTEPS
-    df_list = [df[features].shift(shift_val) if (shift_val == 0) 
-                                    else df[features].shift(-shift_val).add_suffix(f'_{shift_val}') 
-                                    for shift_val in range(0,TIMESTEPS)]
+    df_list = [df[features].shift(shift_val) if (shift_val == 0)
+               else df[features].shift(-shift_val).add_suffix(f'_{shift_val}')
+               for shift_val in range(0, TIMESTEPS)]
 
     # Concatenating list
     df_concat = pd.concat(df_list, axis=1, sort=False)
-    df_concat = df_concat.iloc[:-TIMESTEPS,:]
+    df_concat = df_concat.iloc[:-TIMESTEPS, :]
 
     # Default train_test_split - test_size=0.25
-    x_train, x_test, y_train, y_test = train_test_split(df_concat, df[target].iloc[:-TIMESTEPS], random_state=10, shuffle=True)
+    x_train, x_test, y_train, y_test = train_test_split(df_concat, df[target].iloc[:-TIMESTEPS], random_state=10,
+                                                        shuffle=True)
 
     scaler = StandardScaler()
 
@@ -125,9 +132,9 @@ def train(filename, use_existing_model):
         model = Sequential()
         model.add(LSTM(input_shape=(TIMESTEPS, len(features)), units=15, return_sequences=True))
         model.add(Dropout(0.5))
-        model.add(LSTM(input_shape=(TIMESTEPS,len(features)), units=10, return_sequences=False))
+        model.add(LSTM(input_shape=(TIMESTEPS, len(features)), units=10, return_sequences=False))
         model.add(Dropout(0.5))
-        model.add(Dense(units=1, activation = 'relu'))
+        model.add(Dense(units=1, activation='relu'))
     else:
         model_path = r".\Model\lstm_model.h5"
         model = load_model(model_path)
@@ -137,24 +144,24 @@ def train(filename, use_existing_model):
 
     model_path = r".\Model\lstm_model.h5"
 
-    history = model.fit(to_3D(x_train_lstm, features), y_train, 
-                        epochs=25, batch_size= 8, validation_split=0.2, verbose=1, 
-                        callbacks = [
-                                keras.callbacks.EarlyStopping(monitor='val_loss',
-                                                            min_delta=0, 
-                                                            patience=200,
-                                                            verbose=1,
-                                                            mode='min'),
+    history = model.fit(to_3D(x_train_lstm, features), y_train,
+                        epochs=25, batch_size=8, validation_split=0.2, verbose=1,
+                        callbacks=[
+                            keras.callbacks.EarlyStopping(monitor='val_loss',
+                                                          min_delta=0,
+                                                          patience=200,
+                                                          verbose=1,
+                                                          mode='min'),
 
-                                keras.callbacks.ModelCheckpoint(model_path, 
-                                                                monitor='val_loss',
-                                                                save_best_only=True, 
-                                                                mode='min',
-                                                                verbose=1)])
+                            keras.callbacks.ModelCheckpoint(model_path,
+                                                            monitor='val_loss',
+                                                            save_best_only=True,
+                                                            mode='min',
+                                                            verbose=1)])
 
-    plt.figure(figsize=(10,8), dpi=90)
-    plt.plot(history.history['val_loss'],label='val_loss')
-    plt.plot(history.history['loss'],label='loss')
+    plt.figure(figsize=(10, 8), dpi=90)
+    plt.plot(history.history['val_loss'], label='val_loss')
+    plt.plot(history.history['loss'], label='loss')
     plt.xlabel('Epochs')
     plt.ylabel('Mean Squared Error (MSE)')
     plt.legend()
@@ -163,17 +170,18 @@ def train(filename, use_existing_model):
     model.compile(loss='mean_squared_error', optimizer='adam')
 
     print(x_test_lstm)
-    rul_pred = model.predict(to_3D(x_test_lstm,features))
-    print(f"R2 Score: {round(r2_score(y_test, rul_pred),4)}")
+    rul_pred = model.predict(to_3D(x_test_lstm, features))
+    print(f"R2 Score: {round(r2_score(y_test, rul_pred), 4)}")
     print(rul_pred)
 
-    plt.figure(figsize = (10,8), dpi=90)
-    plt.plot(y_test.iloc[:].values,label = 'Actual RUL')
-    plt.plot(rul_pred[:],label='Pred RUL')
+    plt.figure(figsize=(10, 8), dpi=90)
+    plt.plot(y_test.iloc[:].values, label='Actual RUL')
+    plt.plot(rul_pred[:], label='Pred RUL')
     plt.xlabel('time in packet-send-cycles')
     plt.ylabel('RUL in minutes')
     plt.legend()
     plt.show()
+
 
 def train_on_all_datasets(path_to_datasets):
     """
@@ -187,11 +195,12 @@ def train_on_all_datasets(path_to_datasets):
             train(db_file_names[i], False)
         else:
             train(db_file_names[i], True)
-        
+
 
 def main():
     train_on_all_datasets(r".\Data\AllData")
 
+
 if __name__ == "__main__":
-   # code is only run when module is not called via 'import'
-   main()
+    # code is only run when module is not called via 'import'
+    main()

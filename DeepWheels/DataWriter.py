@@ -28,7 +28,6 @@ class DataWriter:
         self.client.write_points([metrics])
 
     def print_data(self):
-
         loginRecords = self.client.query('select * from kartoffel;')
 
         # Print the time series query results
@@ -44,4 +43,5 @@ if __name__ == '__main__':
     data_writer = DataWriter("testboom")
     data_writer.insert_data(data)
     data_writer.print_data()
-
+    while True:
+        x = 1

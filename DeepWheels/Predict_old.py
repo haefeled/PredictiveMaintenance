@@ -13,6 +13,7 @@ from Train import to_3D, is_faulty
 
 timer_start = datetime.datetime.now()
 
+
 def predict(data_list):
     """
     Predicts RUL values for a list of a list of timestep-related features.
@@ -34,20 +35,20 @@ def predict(data_list):
     del df['sessionTime']
 
     # List of shifted dataframes according to the number of TIMESTEPS
-    df_list = [df[features].shift(shift_val) if (shift_val == 0) 
-                                else df[features].shift(-shift_val).add_suffix(f'_{shift_val}') 
-                                for shift_val in range(0,TIMESTEPS)]
+    df_list = [df[features].shift(shift_val) if (shift_val == 0)
+               else df[features].shift(-shift_val).add_suffix(f'_{shift_val}')
+               for shift_val in range(0, TIMESTEPS)]
 
     # Concatenating list
     df_concat = pd.concat(df_list, axis=1, sort=False)
-    df_test = df_concat.iloc[:-TIMESTEPS,:]
+    df_test = df_concat.iloc[:-TIMESTEPS, :]
 
     scaler = StandardScaler()
     scaler.fit(df_test)
 
     df_test_lstm = pd.DataFrame(data=scaler.transform(df_test), columns=df_test.columns)
-    rul_pred = model.predict(to_3D(df_test_lstm,features, TIMESTEPS=TIMESTEPS))
-    #print(df_test_lstm)
+    rul_pred = model.predict(to_3D(df_test_lstm, features, TIMESTEPS=TIMESTEPS))
+    # print(df_test_lstm)
     time_since_start = datetime.datetime.now() - timer_start
     minutes_since_start = time_since_start.seconds / 60
     current_rul = rul_pred[0][0] - minutes_since_start
@@ -56,14 +57,15 @@ def predict(data_list):
     current_rul_min = int(current_rul)
     current_rul_sec = int((current_rul - int(current_rul)) * 60)
     print("\nRUL: {}min {}s\n".format(current_rul_min, current_rul_sec))
-    
-    plt.figure(figsize = (10,8), dpi=90)
-    plt.plot(rul_pred[:],label='Pred RUL')
+
+    plt.figure(figsize=(10, 8), dpi=90)
+    plt.plot(rul_pred[:], label='Pred RUL')
     plt.xlabel('time in packet-send-cycles')
     plt.ylabel('RUL in minutes')
     plt.legend()
 
     return current_rul
+
 
 # load model from single file
 model_path = r".\Model\lstm_model.h5"

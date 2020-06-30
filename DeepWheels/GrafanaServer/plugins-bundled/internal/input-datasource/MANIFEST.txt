@@ -1,0 +1,28 @@
+
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+{
+  "plugin": "input",
+  "version": "1.0.0",
+  "files": {
+    "LICENSE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "README.md": "5bfefcdce6eafce3388d1fb200f3b10954cfeac6c7a45fd7dec42687e01ac75d",
+    "module.js": "3c07596a6a4796c65ef10ba2bc0805e7f3bc9e4e8fc9970a1307b97e29db1c0a",
+    "module.js.LICENSE.txt": "fdbc28c10f3d21976b4bc16464ad7c630538c0c3101347b5fd44af9066f7022b",
+    "module.js.map": "c3ac1e8aa98d83c54fd13e43b65e1cf4182a924d2eb23a2f1a6fe40b7785a1bb",
+    "plugin.json": "cf26a3afb7c10cd9ae40b5296d04172b5dac927d69a51082e6d085b34341ccc3"
+  },
+  "time": 1593068053181,
+  "keyId": "7e4d0c6a708866e7"
+}
+-----BEGIN PGP SIGNATURE-----
+Version: OpenPGP.js v4.10.1
+Comment: https://openpgpjs.org
+
+wqAEARMKAAYFAl70ShUACgkQfk0ManCIZud09gIIvWPcvP7PGX+4zxz6tk6z
+nJkyRQgo5npGpXpA5EeVxLAoUEOgSK1bg29JLq5ZUhO6rjN+HBAHO+CeIyEl
+tqx+Nk8CCMPbVsBuls8faM+Acn4doObOv/EpQFflU5/V1yE6GGpARrQM/ogk
+qOgXFgDBHoSo/99kIetaLcqEZ9lZxTe/B78l
+=Sdjf
+-----END PGP SIGNATURE-----
