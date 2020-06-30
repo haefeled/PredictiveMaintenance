@@ -1,23 +1,20 @@
 import os
 import subprocess
-from _thread import start_new_thread
 
 import psutil
-
-from multiprocessing import Process
-from influxdb import InfluxDBClient
 
 
 class InfluxManager:
     def __init__(self):
         self.start_influx_server()
-        self.db_client = InfluxDBClient(host='localhost', port=8086)
+        # self.db_client = InfluxDBClient(host='localhost', port=8086)
 
     def start_influx_server(self):
         if not self.check_if_server_running():
-            subprocess.Popen([r".\Data\InfluxDB\InfluxServer\influxd.exe"],
-                             stdout=subprocess.PIPE,
-                             universal_newlines=True)
+            subprocess.Popen(
+                [r".\Data\InfluxDB\InfluxServer\influxd.exe", "-config", r".\Data\InfluxDB\InfluxServer\influxdb.conf"],
+                stdout=subprocess.PIPE,
+                universal_newlines=True)
 
         elif self.check_if_server_running():
             print('Server already running.')

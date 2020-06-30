@@ -43,3 +43,5 @@ if __name__ == '__main__':
     data_writer = DataWriter("testboom")
     data_writer.insert_data(data)
     data_writer.print_data()
+    while True:
+        x = 1
