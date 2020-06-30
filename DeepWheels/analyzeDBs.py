@@ -3,14 +3,17 @@ import numpy as np
 from os import listdir
 from os.path import isfile, join
 
-from DataReader import load_data_from_sqlite3
-from DataPreparation import sort_dict_into_list, list_to_dataframe
+from DataReader import DataReader
+from DataPreparation import DataPreparation
+
+data_reader = DataReader()
+data_prep = DataPreparation()
 
 def analyze(filename, isFirst):
     print("read {}".format(filename))
-    data = load_data_from_sqlite3(r".\Data\AllData\\" + filename)
-    data = sort_dict_into_list(data, False)
-    df = list_to_dataframe(data)
+    data = data_reader.load_data_from_sqlite3(r".\Data\AllData\\" + filename)
+    data = data_prep.sort_dict_into_list(data, False)
+    df = data_prep.list_to_dataframe(data)
 
     max_vals = [df['tyresWear0'].max(), df['tyresWear1'].max(), df['tyresWear2'].max(), df['tyresWear3'].max()]
 
