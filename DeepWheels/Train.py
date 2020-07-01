@@ -186,8 +186,6 @@ def train_on_all_datasets(path_to_datasets, failure_threshold):
     :param path_to_datasets: str Represents the path where all databases can be located.
     :param failure_threshold: int A percentage of tyreWear representing a failure.
     """
-    data_reader = DataReader()
-    data_prep = DataPreparation()
 
     #db_file_names = [f for f in listdir(path_to_datasets) if isfile(join(path_to_datasets, f))]
 
@@ -196,7 +194,7 @@ def train_on_all_datasets(path_to_datasets, failure_threshold):
         content = f.readlines()
         for line in content:
             maxTyreWear = int(line.strip().split(':')[1].split('%')[0])
-            if maxTyreWear >= failure_threshold:
+            if maxTyreWear >= failure_threshold and maxTyreWear <= 50:
                 db_file_names.append(line.split(' ')[0])
 
     for i in range(len(db_file_names)):
