@@ -10,8 +10,7 @@ from f1_2019_telemetry.packets import unpack_udp_packet
 
 class DataReader:
     def __init__(self):
-        self.udp_socket = socket.socket(family=socket.AF_INET, type=socket.SOCK_DGRAM)
-        self.udp_socket.bind(('', 20777))
+        pass
 
     @staticmethod
     def load_data_from_sqlite3(path):
@@ -56,7 +55,8 @@ class DataReader:
         conn.close()
         return data_list
 
-    def listen_udp(self, nmb_of_cycles):
+    @staticmethod
+    def listen_udp(udp_conn, nmb_of_cycles):
         """
         The function will receive a bunch of packages depended on the number of cycles you want to listen.
         In this case a cycle contains all packets with the same timestamp of the session.
@@ -75,7 +75,7 @@ class DataReader:
             last_sessiontime = 0
             while counter/4 < 1:
                 try:
-                    udp_packet = self.udp_socket.recv(2048)
+                    udp_packet = udp_conn.recv(2048)
                     packet = unpack_udp_packet(udp_packet)
                     ident = packet.header.packetId
                     current_sessiontime = packet.header.sessionTime
@@ -94,9 +94,8 @@ class DataReader:
         return data_list
 
     def __del__(self):
-        self.udp_socket.close()
+        pass
 
-    """
     # not necessary
     @staticmethod
     def replay_database(filename):
@@ -119,7 +118,7 @@ class DataReader:
         data_list = []
     
         #only for testing purposes
-        thread = Thread(target = DataReader.replay_database, args = [r".\Data\AllData\example.sqlite3"])
+        thread = Thread(target = DataReader.replay_database, args = [r".\Data\AllData\Dani_ohneFahrhilfe_namuellGetriebe_ABSaktiviert_crash.sqlite3"])
         thread.start()
     
         packet_already_received = False
@@ -160,7 +159,6 @@ class DataReader:
             if current_buffer_time.seconds > buffer_time_in_seconds:
                 func(data_list)
                 start_buffer_time = datetime.datetime.now()
-    """
 
 if __name__ == "__main__":
     # just for testing
