@@ -84,7 +84,7 @@ def train(filename, use_existing_model, failure_threshold):
     failure_row_index = df.query('is_faulty == 0').is_faulty.count()
     MAX_RUL = df.loc[failure_row_index, 'sessionTime']
     print("{} maxRUL: {}".format(filename, MAX_RUL))
-"""
+
     # backpropagate the RUL of every row
     df['RUL'] = MAX_RUL - df['sessionTime']
     target = 'RUL'
@@ -177,7 +177,7 @@ def train(filename, use_existing_model, failure_threshold):
     plt.ylabel('RUL in minutes')
     plt.legend()
     plt.show()
-"""
+
 
 def train_on_all_datasets(path_to_datasets, failure_threshold):
     """
@@ -196,7 +196,7 @@ def train_on_all_datasets(path_to_datasets, failure_threshold):
         content = f.readlines()
         for line in content:
             maxTyreWear = int(line.strip().split(':')[1].split('%')[0])
-            if maxTyreWear >= failure_threshold and maxTyreWear <= 50:
+            if maxTyreWear >= failure_threshold:
                 db_file_names.append(line.split(' ')[0])
 
     for i in range(len(db_file_names)):
