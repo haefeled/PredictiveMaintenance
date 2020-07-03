@@ -1,2 +1,5 @@
 Dani_mittlere_Fahrhilfe_manuellGetriebe_kaputerFrontFluegel_Boxstop_30min_97%.sqlite3 maxTyreWear: 99%
 Dani_volle_Fahrhilfe_frontfluegelRechts_kaputt_SpritLeer.sqlite3 maxTyreWear: 65%
+Ernoe_keine_Fahrhilfe_ABS_ON_Crash_Reifen_56%.sqlite3 maxTyreWear: 58%
+Ernoe_keine_Fahrhilfe_ABS_ON_Crash_Reifen_83%.sqlite3 maxTyreWear: 87%
+Ernoe_keine_Fahrhilfe_ABS_ON_Reifen_80%.sqlite3 maxTyreWear: 82%

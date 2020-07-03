@@ -58,8 +58,8 @@ def predict(data_list):
         current_rul = 0
     current_rul_min = int(current_rul)
     current_rul_sec = int((current_rul - int(current_rul)) * 60)
-    #print("\nRUL: {}min\n".format(rul_pred[0][0]))
-    print("\nRUL: {}min {}s\n".format(current_rul_min, current_rul_sec))
+    print("\nRUL: {}min\n".format(rul_pred[0][0]))
+    #print("\nRUL: {}min {}s\n".format(current_rul_min, current_rul_sec))
 
     plt.figure(figsize=(10, 8), dpi=90)
     plt.plot(rul_pred[:], label='Pred RUL')

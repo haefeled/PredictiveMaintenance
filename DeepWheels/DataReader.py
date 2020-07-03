@@ -118,7 +118,7 @@ class DataReader:
         data_list = []
     
         #only for testing purposes
-        thread = Thread(target = DataReader.replay_database, args = [r".\Data\AllData\Dani_ohneFahrhilfe_namuellGetriebe_ABSaktiviert_crash.sqlite3"])
+        thread = Thread(target = DataReader.replay_database, args = [r".\Data\AllData\Dani_volle_Fahrhilfe_frontfluegelRechts_kaputt_SpritLeer.sqlite3"])
         thread.start()
     
         packet_already_received = False
@@ -159,6 +159,7 @@ class DataReader:
             if current_buffer_time.seconds > buffer_time_in_seconds:
                 func(data_list)
                 start_buffer_time = datetime.datetime.now()
+                data_list = []
 
 if __name__ == "__main__":
     # just for testing
