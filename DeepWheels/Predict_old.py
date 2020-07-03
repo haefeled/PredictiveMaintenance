@@ -24,7 +24,7 @@ def predict(data_list):
     :return: list<float> A list of predicted RUL values.
     """
     # number of last timesteps
-    TIMESTEPS = 20
+    TIMESTEPS = 5
 
     data = data_prep.sort_dict_into_list(data_list, False)
     df = data_prep.list_to_dataframe(data)

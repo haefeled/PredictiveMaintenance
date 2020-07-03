@@ -29,7 +29,7 @@ class Predict:
         :return: list<float> A list of predicted RUL values.
         """
         # number of last timesteps
-        TIMESTEPS = 10
+        TIMESTEPS = 20
 
         self.df.append(current_df)
 
@@ -54,6 +54,7 @@ class Predict:
 
         df_test_lstm = pd.DataFrame(data=scaler.transform(df_test), columns=df_test.columns)
         current_rul = self.model.predict(Train.to_3D(df_test_lstm, features, timesteps=TIMESTEPS))
-        self.current_rul = current_rul
+        current_rul = current_rul[0][0] - current_df.iloc[len(current_df.index) - 1]['sessionTime'] / 60
+        print('RUL = ' + current_rul)
 
-        return current_rul
+        #prep_writer.insert_data({'rul' : current_rul})

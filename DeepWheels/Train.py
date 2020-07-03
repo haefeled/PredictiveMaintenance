@@ -59,7 +59,7 @@ class Train:
         :param failure_threshold: int A percentage of tyreWear representing a failure.
         """
         # number of last timesteps to use for training
-        TIMESTEPS = 20
+        TIMESTEPS = 5
 
         # fix random seed for reproducibility
         np.random.seed(7)
@@ -144,7 +144,7 @@ class Train:
         model_path = r".\Model\lstm_model.h5"
 
         history = model.fit(Train.to_3D(x_train_lstm, features, TIMESTEPS), y_train,
-                            epochs=10, batch_size=8, validation_split=0.2, verbose=1,
+                            epochs=20, batch_size=8, validation_split=0.2, verbose=1,
                             callbacks=[
                                 keras.callbacks.EarlyStopping(monitor='val_loss',
                                                             min_delta=0,
