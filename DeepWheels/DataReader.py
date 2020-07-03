@@ -10,7 +10,8 @@ from f1_2019_telemetry.packets import unpack_udp_packet
 
 class DataReader:
     def __init__(self):
-        pass
+        self.udp_socket = socket.socket(family=socket.AF_INET, type=socket.SOCK_DGRAM)
+        self.udp_socket.bind(('', 20777))
 
     @staticmethod
     def load_data_from_sqlite3(path):
@@ -55,8 +56,7 @@ class DataReader:
         conn.close()
         return data_list
 
-    @staticmethod
-    def listen_udp(udp_conn, nmb_of_cycles):
+    def listen_udp(self, nmb_of_cycles):
         """
         The function will receive a bunch of packages depended on the number of cycles you want to listen.
         In this case a cycle contains all packets with the same timestamp of the session.
@@ -75,7 +75,7 @@ class DataReader:
             last_sessiontime = 0
             while counter/4 < 1:
                 try:
-                    udp_packet = udp_conn.recv(2048)
+                    udp_packet = self.udp_socket.recv(2048)
                     packet = unpack_udp_packet(udp_packet)
                     ident = packet.header.packetId
                     current_sessiontime = packet.header.sessionTime
