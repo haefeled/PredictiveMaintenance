@@ -21,7 +21,7 @@ class Predict:
         self.df = pd.DataFrame()
         self.current_rul = []
 
-    def predict(self, current_df):
+    def predict(self, current_df, prep_writer):
         """
         Predicts RUL values for a list of a list of timestep-related features.
 
