@@ -1,24 +1,2 @@
 Dani_mittlere_Fahrhilfe_manuellGetriebe_kaputerFrontFluegel_Boxstop_30min_97%.sqlite3 maxTyreWear: 99%
-Dani_ohneFahrhilfe_namuellGetriebe_ABSaktiviert_crash.sqlite3 maxTyreWear: 42%
-Dani_ohne_Fahrhilfe_extremeWerte_Reifendurchdrehen_hinten.sqlite3 maxTyreWear: 100%
-Dani_ohne_Fahrhilfe_extremeWerte_Reifendurchdrehen_hinten2.sqlite3 maxTyreWear: 100%
 Dani_volle_Fahrhilfe_frontfluegelRechts_kaputt_SpritLeer.sqlite3 maxTyreWear: 65%
-example.sqlite3 maxTyreWear: 6%
-Fabi_mittlere_Fahrhilfe_manuellGetriebe_crash.sqlite3 maxTyreWear: 6%
-Fabi_mittlere_Fahrhilfe_manuellGetriebe_crash2.sqlite3 maxTyreWear: 13%
-Fabi_mittlere_Fahrhilfe_manuellGetriebe_crash3.sqlite3 maxTyreWear: 19%
-Fabi_mittlere_Fahrhilfe_manuellGetriebe_crash4.sqlite3 maxTyreWear: 47%
-Fabi_mittlere_Fahrhilfe_manuellGetriebe_kaputterFrontFluegel_crash.sqlite3 maxTyreWear: 11%
-Fabi_mittlere_Fahrilfe_abbruch.sqlite3 maxTyreWear: 6%
-Fabi_ohneFahrhilfe_ABSaktiviert_crash.sqlite3 maxTyreWear: 48%
-Fabi_ohneFahrhilfe_crash (2).sqlite3 maxTyreWear: 10%
-Fabi_ohneFahrhilfe_crash.sqlite3 maxTyreWear: 16%
-Fabi_ohneFahrhilfe_crash3.sqlite3 maxTyreWear: 36%
-Fabi_ohneFahrhilfe_crash4.sqlite3 maxTyreWear: 7%
-Fabi_ohneFahrhilfe_crash5.sqlite3 maxTyreWear: 7%
-Fabi_ohneFahrhilfe_crash6.sqlite3 maxTyreWear: 14%
-Fabi_ohneFahrhilfe_extremLangsaam.sqlite3 maxTyreWear: 28%
-Fabi_ohneFAhrhilfe_extremLangsam.sqlite3 maxTyreWear: 1%
-Fabi_volle_Fahrhilfe_crash.sqlite3 maxTyreWear: 2%
-Fabi_volle_Fahrhilfe_kaputerFrontFluegel_crash.sqlite3 maxTyreWear: 32%
-Fabi_volle_Fahrhilfe_kaputerFrontFluegel_crash2.sqlite3 maxTyreWear: 21%

@@ -7,7 +7,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 import DataPreparation
-from Train import to_3D
+from Train import Train
 
 
 class Predict:
@@ -28,8 +28,8 @@ class Predict:
         :param current_df: DataFrame A DataFrame containing more than one sample.
         :return: list<float> A list of predicted RUL values.
         """
-        # number of last timesteps to use for training
-        TIMESTEPS = 5
+        # number of last timesteps
+        TIMESTEPS = 10
 
         self.df.append(current_df)
 
@@ -53,7 +53,7 @@ class Predict:
         scaler.fit(df_test)
 
         df_test_lstm = pd.DataFrame(data=scaler.transform(df_test), columns=df_test.columns)
-        current_rul = self.model.predict(to_3D(df_test_lstm, features, timesteps=TIMESTEPS))
+        current_rul = self.model.predict(Train.to_3D(df_test_lstm, features, timesteps=TIMESTEPS))
         self.current_rul = current_rul
 
         return current_rul

@@ -9,7 +9,7 @@ import socket
 
 from DataReader import DataReader
 from DataPreparation import DataPreparation
-from Train import to_3D, is_faulty
+from Train import Train
 
 data_reader = DataReader()
 data_prep = DataPreparation()
@@ -23,8 +23,8 @@ def predict(data_list):
     :param data: list<packet> List of timestep-related packets.
     :return: list<float> A list of predicted RUL values.
     """
-    # number of last timesteps to use for training
-    TIMESTEPS = 5
+    # number of last timesteps
+    TIMESTEPS = 20
 
     data = data_prep.sort_dict_into_list(data_list, False)
     df = data_prep.list_to_dataframe(data)
@@ -49,7 +49,7 @@ def predict(data_list):
     scaler.fit(df_test)
 
     df_test_lstm = pd.DataFrame(data=scaler.transform(df_test), columns=df_test.columns)
-    rul_pred = model.predict(to_3D(df_test_lstm, features, timesteps=TIMESTEPS))
+    rul_pred = model.predict(Train.to_3D(df_test_lstm, features, timesteps=TIMESTEPS))
     # print(df_test_lstm)
     time_since_start = datetime.datetime.now() - timer_start
     minutes_since_start = time_since_start.seconds / 60
