@@ -29,7 +29,7 @@ class Predict:
         :return: list<float> A list of predicted RUL values.
         """
         # number of last timesteps
-        TIMESTEPS = 20
+        TIMESTEPS = 5
 
         self.df.append(current_df)
 
@@ -54,4 +54,4 @@ class Predict:
         current_rul = current_rul[0][0] - current_df.iloc[len(current_df.index) - 1]['sessionTime'] / 60
         print('RUL = ' + current_rul)
 
-        #prep_writer.insert_data({'rul' : current_rul})
+        prep_writer.insert_data({'rul' : current_rul})
