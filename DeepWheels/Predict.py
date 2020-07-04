@@ -37,9 +37,6 @@ class Predict:
         features = self.df.columns.tolist()
         features.remove('sessionTime')
 
-        # remove unused columns
-        del self.df['sessionTime']
-
         # List of shifted dataframes according to the number of TIMESTEPS
         df_list = [self.df[features].shift(shift_val) if (shift_val == 0)
                    else self.df[features].shift(-shift_val).add_suffix(f'_{shift_val}')

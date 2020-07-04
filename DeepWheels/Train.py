@@ -207,4 +207,6 @@ class Train:
                 Train.train(db_file_names[i], False, failure_threshold)
 
 
-# example usage: train_on_all_datasets(r".\Data\AllData", 30)
+if __name__ == "__main__":
+    train = Train()
+    train.train_on_all_datasets(r".\Data\AllData", 50)

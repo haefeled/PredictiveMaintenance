@@ -159,7 +159,7 @@ class DataReader:
             if current_buffer_time.seconds > buffer_time_in_seconds:
                 func(data_list)
                 start_buffer_time = datetime.datetime.now()
-                data_list = []
+                #data_list = []
 
 if __name__ == "__main__":
     # just for testing

@@ -33,9 +33,6 @@ def predict(data_list):
     features = df.columns.tolist()
     features.remove('sessionTime')
 
-    # remove unused columns
-    del df['sessionTime']
-
     # List of shifted dataframes according to the number of TIMESTEPS
     df_list = [df[features].shift(shift_val) if (shift_val == 0)
                else df[features].shift(-shift_val).add_suffix(f'_{shift_val}')
@@ -58,7 +55,7 @@ def predict(data_list):
         current_rul = 0
     current_rul_min = int(current_rul)
     current_rul_sec = int((current_rul - int(current_rul)) * 60)
-    print("\nRUL: {}min\n".format(rul_pred[0][0]))
+    print("\nRUL: {}min\n".format(rul_pred[0][0] - df.iloc[len(df.index) - 1]['sessionTime'] / 60))
     #print("\nRUL: {}min {}s\n".format(current_rul_min, current_rul_sec))
 
     plt.figure(figsize=(10, 8), dpi=90)
