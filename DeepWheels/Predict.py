@@ -80,4 +80,4 @@ class Predict:
                 current_rul = 0
             print("\nRUL: {} min\n".format(current_rul))
 
-    #prep_writer.insert_data({'rul' : current_rul})
+        prep_writer.insert_data({'rul0' : current_rul_list[0], 'rul1' : current_rul_list[1], 'rul2' : current_rul_list[2], 'rul3' : current_rul_list[3]})

@@ -31,7 +31,7 @@ class DeepWheels:
             data = self.data_prep.sort_dict_into_list(data, False)
             self.data_writer.insert_data(data[0])
             tmp_list.append(self.data_prep.list_to_dataframe(data))
-        prep_list = deepcopy(tmp_list)
+        self.prep_list = deepcopy(tmp_list)
         predict_process = Process(target=Predict.predict, args=(self.prep_list, self.prep_writer))
         predict_process.start()
         # self.data_writer.print_data(data[i])
