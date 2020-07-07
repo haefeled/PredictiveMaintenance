@@ -13,8 +13,6 @@ from Train import Train
 
 data_reader = DataReader()
 data_prep = DataPreparation()
-timer_start = datetime.datetime.now()
-
 
 def predict(data_list):
     """
@@ -46,34 +44,49 @@ def predict(data_list):
     scaler.fit(df_test)
 
     df_test_lstm = pd.DataFrame(data=scaler.transform(df_test), columns=df_test.columns)
-    rul_pred = model.predict(Train.to_3D(df_test_lstm, features, timesteps=TIMESTEPS))
-    # print(df_test_lstm)
-    time_since_start = datetime.datetime.now() - timer_start
-    minutes_since_start = time_since_start.seconds / 60
-    current_rul = rul_pred[0][0] - minutes_since_start
-    if current_rul < 0:
-        current_rul = 0
-    current_rul_min = int(current_rul)
-    current_rul_sec = int((current_rul - int(current_rul)) * 60)
-    print("\nRUL: {}min\n".format(rul_pred[0][0] - df.iloc[len(df.index) - 1]['sessionTime'] / 60))
-    #print("\nRUL: {}min {}s\n".format(current_rul_min, current_rul_sec))
+    df_3D = Train.to_3D(df_test_lstm, features, timesteps=TIMESTEPS)
+    rul_pred0 = model0.predict(df_3D)
+    rul_pred1 = model1.predict(df_3D)
+    rul_pred2 = model2.predict(df_3D)
+    rul_pred3 = model3.predict(df_3D)
 
-    plt.figure(figsize=(10, 8), dpi=90)
-    plt.plot(rul_pred[:], label='Pred RUL')
-    plt.xlabel('time in packet-send-cycles')
-    plt.ylabel('RUL in minutes')
-    plt.legend()
+    session_time_min = df.iloc[len(df.index) - 1]['sessionTime'] / 60
+    current_rul0 = rul_pred0[0][0] - session_time_min
+    current_rul1 = rul_pred1[0][0] - session_time_min
+    current_rul2 = rul_pred2[0][0] - session_time_min
+    current_rul3 = rul_pred3[0][0] - session_time_min
 
-    return current_rul
+    current_rul_list = [current_rul0, current_rul1, current_rul2, current_rul3]
+
+    for current_rul in current_rul_list:
+        if current_rul < 0:
+            current_rul = 0
+        print("\nRUL: {} min\n".format(current_rul))
+        #plt.figure(figsize=(10, 8), dpi=90)
+        #plt.plot(rul_pred[:], label='Pred RUL')
+        #plt.xlabel('time in packet-send-cycles')
+        #plt.ylabel('RUL in minutes')
+        #plt.legend()
+    return current_rul_list
 
 
-# load model from single file
-model_path = r".\Model\lstm_model.h5"
-model = load_model(model_path)
-model.load_weights(model_path)
-model.compile(loss='mean_squared_error', optimizer='adam')
-
-timer_start = datetime.datetime.now()
+# load models
+model_path0 = r".\Model\lstm_model0.h5"
+model_path1 = r".\Model\lstm_model1.h5"
+model_path2 = r".\Model\lstm_model2.h5"
+model_path3 = r".\Model\lstm_model3.h5"
+model0 = load_model(model_path0)
+model1 = load_model(model_path1)
+model2 = load_model(model_path2)
+model3 = load_model(model_path3)
+model0.load_weights(model_path0)
+model1.load_weights(model_path1)
+model2.load_weights(model_path2)
+model3.load_weights(model_path3)
+model0.compile(loss='mean_squared_error', optimizer='adam')
+model1.compile(loss='mean_squared_error', optimizer='adam')
+model2.compile(loss='mean_squared_error', optimizer='adam')
+model3.compile(loss='mean_squared_error', optimizer='adam')
 
 # apply prediction function to each dataset
 udp_socket = socket.socket(family=socket.AF_INET, type=socket.SOCK_DGRAM)

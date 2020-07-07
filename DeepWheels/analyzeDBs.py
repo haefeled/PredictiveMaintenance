@@ -17,12 +17,12 @@ def analyze(filename, isFirst):
 
     max_vals = [df['tyresWear0'].max(), df['tyresWear1'].max(), df['tyresWear2'].max(), df['tyresWear3'].max()]
 
+    write_mode = "a"
     if isFirst:
-        with open(r".\Data\analysis_results.txt", "w") as out_file:
-            out_file.write("{} maxTyreWear: {}%\n".format(filename, max(max_vals)))
-    else:
-        with open(r".\Data\analysis_results.txt", "a") as out_file:
-            out_file.write("{} maxTyreWear: {}%\n".format(filename, max(max_vals)))
+        write_mode = "w"
+
+    with open(r".\Data\analysis_results.txt", write_mode) as out_file:
+            out_file.write("{} maxTyreWear: {}%{}%{}%{}%\n".format(filename, max_vals[0], max_vals[1], max_vals[2], max_vals[3]))
 
 def analyze_all_datasets(path_to_datasets):
     """

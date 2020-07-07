@@ -9,14 +9,25 @@ import matplotlib.pyplot as plt
 import DataPreparation
 from Train import Train
 
-
 class Predict:
     # Beispielinit
     def __init__(self):
-        self.model_path = r".\Model\lstm_model.h5"
-        self.model = load_model(self.model_path)
-        self.model.load_weights(self.model_path)
-        self.model.compile(loss='mean_squared_error', optimizer='adam')
+        self.model_path0 = r".\Model\lstm_model0.h5"
+        self.model_path1 = r".\Model\lstm_model1.h5"
+        self.model_path2 = r".\Model\lstm_model2.h5"
+        self.model_path3 = r".\Model\lstm_model3.h5"
+        self.model0 = load_model(self.model_path0)
+        self.model1 = load_model(self.model_path1)
+        self.model2 = load_model(self.model_path2)
+        self.model3 = load_model(self.model_path3)
+        self.model0.load_weights(self.model_path0)
+        self.model1.load_weights(self.model_path1)
+        self.model2.load_weights(self.model_path2)
+        self.model3.load_weights(self.model_path3)
+        self.model0.compile(loss='mean_squared_error', optimizer='adam')
+        self.model1.compile(loss='mean_squared_error', optimizer='adam')
+        self.model2.compile(loss='mean_squared_error', optimizer='adam')
+        self.model3.compile(loss='mean_squared_error', optimizer='adam')
         
         self.df = pd.DataFrame()
         self.current_rul = []
@@ -50,8 +61,23 @@ class Predict:
         scaler.fit(df_test)
 
         df_test_lstm = pd.DataFrame(data=scaler.transform(df_test), columns=df_test.columns)
-        current_rul = self.model.predict(Train.to_3D(df_test_lstm, features, timesteps=TIMESTEPS))
-        current_rul = current_rul[0][0] - current_df.iloc[len(current_df.index) - 1]['sessionTime'] / 60
-        print('RUL = ' + current_rul)
+        df_3D = Train.to_3D(df_test_lstm, features, timesteps=TIMESTEPS)
+        rul_pred0 = self.model0.predict(df_3D)
+        rul_pred1 = self.model1.predict(df_3D)
+        rul_pred2 = self.model2.predict(df_3D)
+        rul_pred3 = self.model3.predict(df_3D)
 
-        prep_writer.insert_data({'rul' : current_rul})
+        session_time_min = self.df.iloc[len(self.df.index) - 1]['sessionTime'] / 60
+        current_rul0 = rul_pred0[0][0] - session_time_min
+        current_rul1 = rul_pred1[0][0] - session_time_min
+        current_rul2 = rul_pred2[0][0] - session_time_min
+        current_rul3 = rul_pred3[0][0] - session_time_min
+
+        current_rul_list = [current_rul0, current_rul1, current_rul2, current_rul3]
+
+        for current_rul in current_rul_list:
+            if current_rul < 0:
+                current_rul = 0
+            print("\nRUL: {} min\n".format(current_rul))
+
+    #prep_writer.insert_data({'rul' : current_rul})
