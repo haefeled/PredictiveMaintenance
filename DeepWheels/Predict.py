@@ -10,7 +10,6 @@ import DataPreparation
 from Train import Train
 
 class Predict:
-    # Beispielinit
     def __init__(self):
         self.model_path0 = r".\Model\lstm_model0.h5"
         self.model_path1 = r".\Model\lstm_model1.h5"
@@ -73,6 +72,7 @@ class Predict:
         current_rul2 = rul_pred2[0][0] - session_time_min
         current_rul3 = rul_pred3[0][0] - session_time_min
 
+        # RUL [RL, RR, FL, FR]
         current_rul_list = [current_rul0, current_rul1, current_rul2, current_rul3]
 
         for current_rul in current_rul_list:
