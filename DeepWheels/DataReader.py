@@ -118,7 +118,7 @@ class DataReader:
         data_list = []
     
         #only for testing purposes
-        thread = Thread(target = DataReader.replay_database, args = [r".\Data\AllData\Dani_volle_Fahrhilfe_frontfluegelRechts_kaputt_SpritLeer.sqlite3"])
+        thread = Thread(target = DataReader.replay_database, args = [r".\Data\AllData\Fabi_ohneFahrhilfe_crash3.sqlite3"])
         thread.start()
     
         packet_already_received = False
