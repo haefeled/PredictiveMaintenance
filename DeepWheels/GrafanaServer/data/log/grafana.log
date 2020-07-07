@@ -1506,6 +1506,547 @@ t=2020-07-03T20:30:05+0200 lvl=info msg="Starting plugin search" logger=plugins
 t=2020-07-03T20:30:05+0200 lvl=info msg="Registering plugin" logger=plugins name="Direct Input"
 t=2020-07-03T20:30:05+0200 lvl=warn msg="Plugin file's signature has been modified versus manifest" logger=plugins plugin=input filename=GrafanaServer\\plugins-bundled\\internal\\input-datasource/plugin.json
 t=2020-07-03T20:30:05+0200 lvl=info msg="HTTP Server Listen" logger=http.server address=[::]:3000 protocol=http subUrl= socket=
+t=2020-07-07T17:39:04+0200 lvl=info msg="Starting Grafana" logger=server version=7.0.4 commit=c4d8d0c2ae branch=HEAD compiled=2020-06-25T08:45:15+0200
+t=2020-07-07T17:39:04+0200 lvl=info msg="Config loaded from" logger=settings file=.\\GrafanaServer/conf/defaults.ini
+t=2020-07-07T17:39:04+0200 lvl=info msg="Path Home" logger=settings path=.\\GrafanaServer
+t=2020-07-07T17:39:04+0200 lvl=info msg="Path Data" logger=settings path=GrafanaServer\\data
+t=2020-07-07T17:39:04+0200 lvl=info msg="Path Logs" logger=settings path=GrafanaServer\\data\\log
+t=2020-07-07T17:39:04+0200 lvl=info msg="Path Plugins" logger=settings path=GrafanaServer\\data\\plugins
+t=2020-07-07T17:39:04+0200 lvl=info msg="Path Provisioning" logger=settings path=GrafanaServer\\conf\\provisioning
+t=2020-07-07T17:39:04+0200 lvl=info msg="App mode production" logger=settings
+t=2020-07-07T17:39:04+0200 lvl=info msg="Connecting to DB" logger=sqlstore dbtype=sqlite3
+t=2020-07-07T17:39:04+0200 lvl=info msg="Starting DB migration" logger=migrator
+t=2020-07-07T17:39:04+0200 lvl=info msg="Starting plugin search" logger=plugins
+t=2020-07-07T17:39:05+0200 lvl=info msg="Registering plugin" logger=plugins name="Direct Input"
+t=2020-07-07T17:39:05+0200 lvl=info msg="HTTP Server Listen" logger=http.server address=[::]:3000 protocol=http subUrl= socket=
+t=2020-07-07T17:40:43+0200 lvl=info msg="Starting Grafana" logger=server version=7.0.4 commit=c4d8d0c2ae branch=HEAD compiled=2020-06-25T08:45:15+0200
+t=2020-07-07T17:40:43+0200 lvl=info msg="Config loaded from" logger=settings file=.\\GrafanaServer/conf/defaults.ini
+t=2020-07-07T17:40:43+0200 lvl=info msg="Path Home" logger=settings path=.\\GrafanaServer
+t=2020-07-07T17:40:43+0200 lvl=info msg="Path Data" logger=settings path=GrafanaServer\\data
+t=2020-07-07T17:40:43+0200 lvl=info msg="Path Logs" logger=settings path=GrafanaServer\\data\\log
+t=2020-07-07T17:40:43+0200 lvl=info msg="Path Plugins" logger=settings path=GrafanaServer\\data\\plugins
+t=2020-07-07T17:40:43+0200 lvl=info msg="Path Provisioning" logger=settings path=GrafanaServer\\conf\\provisioning
+t=2020-07-07T17:40:43+0200 lvl=info msg="App mode production" logger=settings
+t=2020-07-07T17:40:43+0200 lvl=info msg="Connecting to DB" logger=sqlstore dbtype=sqlite3
+t=2020-07-07T17:40:43+0200 lvl=info msg="Starting DB migration" logger=migrator
+t=2020-07-07T17:40:43+0200 lvl=info msg="Starting plugin search" logger=plugins
+t=2020-07-07T17:40:43+0200 lvl=info msg="Registering plugin" logger=plugins name="Direct Input"
+t=2020-07-07T17:40:43+0200 lvl=info msg="HTTP Server Listen" logger=http.server address=[::]:3000 protocol=http subUrl= socket=
+t=2020-07-07T17:41:01+0200 lvl=eror msg="Failed to look up user based on cookie" logger=context error="user token not found"
+t=2020-07-07T17:41:01+0200 lvl=info msg="Request Completed" logger=context userId=0 orgId=0 uname= method=GET path=/dashboard/new status=302 remote_addr=[::1] time_ms=1 size=29 referer=
+t=2020-07-07T17:41:07+0200 lvl=info msg="Successful Login" logger=http.server User=admin@localhost
+t=2020-07-07T17:47:40+0200 lvl=info msg="Starting Grafana" logger=server version=7.0.4 commit=c4d8d0c2ae branch=HEAD compiled=2020-06-25T08:45:15+0200
+t=2020-07-07T17:47:40+0200 lvl=info msg="Config loaded from" logger=settings file=.\\GrafanaServer/conf/defaults.ini
+t=2020-07-07T17:47:40+0200 lvl=info msg="Path Home" logger=settings path=.\\GrafanaServer
+t=2020-07-07T17:47:40+0200 lvl=info msg="Path Data" logger=settings path=GrafanaServer\\data
+t=2020-07-07T17:47:40+0200 lvl=info msg="Path Logs" logger=settings path=GrafanaServer\\data\\log
+t=2020-07-07T17:47:40+0200 lvl=info msg="Path Plugins" logger=settings path=GrafanaServer\\data\\plugins
+t=2020-07-07T17:47:40+0200 lvl=info msg="Path Provisioning" logger=settings path=GrafanaServer\\conf\\provisioning
+t=2020-07-07T17:47:40+0200 lvl=info msg="App mode production" logger=settings
+t=2020-07-07T17:47:40+0200 lvl=info msg="Connecting to DB" logger=sqlstore dbtype=sqlite3
+t=2020-07-07T17:47:40+0200 lvl=info msg="Starting DB migration" logger=migrator
+t=2020-07-07T17:47:40+0200 lvl=info msg="Starting plugin search" logger=plugins
+t=2020-07-07T17:47:40+0200 lvl=info msg="Registering plugin" logger=plugins name="Direct Input"
+t=2020-07-07T17:47:40+0200 lvl=info msg="HTTP Server Listen" logger=http.server address=[::]:3000 protocol=http subUrl= socket=
+t=2020-07-07T17:48:47+0200 lvl=info msg="Starting Grafana" logger=server version=7.0.4 commit=c4d8d0c2ae branch=HEAD compiled=2020-06-25T08:45:15+0200
+t=2020-07-07T17:48:47+0200 lvl=info msg="Config loaded from" logger=settings file=.\\GrafanaServer/conf/defaults.ini
+t=2020-07-07T17:48:47+0200 lvl=info msg="Path Home" logger=settings path=.\\GrafanaServer
+t=2020-07-07T17:48:47+0200 lvl=info msg="Path Data" logger=settings path=GrafanaServer\\data
+t=2020-07-07T17:48:47+0200 lvl=info msg="Path Logs" logger=settings path=GrafanaServer\\data\\log
+t=2020-07-07T17:48:47+0200 lvl=info msg="Path Plugins" logger=settings path=GrafanaServer\\data\\plugins
+t=2020-07-07T17:48:47+0200 lvl=info msg="Path Provisioning" logger=settings path=GrafanaServer\\conf\\provisioning
+t=2020-07-07T17:48:47+0200 lvl=info msg="App mode production" logger=settings
+t=2020-07-07T17:48:47+0200 lvl=info msg="Connecting to DB" logger=sqlstore dbtype=sqlite3
+t=2020-07-07T17:48:47+0200 lvl=info msg="Starting DB migration" logger=migrator
+t=2020-07-07T17:48:47+0200 lvl=info msg="Starting plugin search" logger=plugins
+t=2020-07-07T17:48:47+0200 lvl=info msg="Registering plugin" logger=plugins name="Direct Input"
+t=2020-07-07T17:48:48+0200 lvl=info msg="HTTP Server Listen" logger=http.server address=[::]:3000 protocol=http subUrl= socket=
+t=2020-07-07T17:53:06+0200 lvl=info msg="Starting Grafana" logger=server version=7.0.4 commit=c4d8d0c2ae branch=HEAD compiled=2020-06-25T08:45:15+0200
+t=2020-07-07T17:53:06+0200 lvl=info msg="Config loaded from" logger=settings file=.\\GrafanaServer/conf/defaults.ini
+t=2020-07-07T17:53:06+0200 lvl=info msg="Path Home" logger=settings path=.\\GrafanaServer
+t=2020-07-07T17:53:06+0200 lvl=info msg="Path Data" logger=settings path=GrafanaServer\\data
+t=2020-07-07T17:53:06+0200 lvl=info msg="Path Logs" logger=settings path=GrafanaServer\\data\\log
+t=2020-07-07T17:53:06+0200 lvl=info msg="Path Plugins" logger=settings path=GrafanaServer\\data\\plugins
+t=2020-07-07T17:53:06+0200 lvl=info msg="Path Provisioning" logger=settings path=GrafanaServer\\conf\\provisioning
+t=2020-07-07T17:53:06+0200 lvl=info msg="App mode production" logger=settings
+t=2020-07-07T17:53:06+0200 lvl=info msg="Connecting to DB" logger=sqlstore dbtype=sqlite3
+t=2020-07-07T17:53:06+0200 lvl=info msg="Starting DB migration" logger=migrator
+t=2020-07-07T17:53:06+0200 lvl=info msg="Starting plugin search" logger=plugins
+t=2020-07-07T17:53:06+0200 lvl=info msg="Registering plugin" logger=plugins name="Direct Input"
+t=2020-07-07T17:53:06+0200 lvl=info msg="HTTP Server Listen" logger=http.server address=[::]:3000 protocol=http subUrl= socket=
+t=2020-07-07T17:57:05+0200 lvl=info msg="Starting Grafana" logger=server version=7.0.4 commit=c4d8d0c2ae branch=HEAD compiled=2020-06-25T08:45:15+0200
+t=2020-07-07T17:57:05+0200 lvl=info msg="Config loaded from" logger=settings file=.\\GrafanaServer/conf/defaults.ini
+t=2020-07-07T17:57:05+0200 lvl=info msg="Path Home" logger=settings path=.\\GrafanaServer
+t=2020-07-07T17:57:05+0200 lvl=info msg="Path Data" logger=settings path=GrafanaServer\\data
+t=2020-07-07T17:57:05+0200 lvl=info msg="Path Logs" logger=settings path=GrafanaServer\\data\\log
+t=2020-07-07T17:57:05+0200 lvl=info msg="Path Plugins" logger=settings path=GrafanaServer\\data\\plugins
+t=2020-07-07T17:57:05+0200 lvl=info msg="Path Provisioning" logger=settings path=GrafanaServer\\conf\\provisioning
+t=2020-07-07T17:57:05+0200 lvl=info msg="App mode production" logger=settings
+t=2020-07-07T17:57:05+0200 lvl=info msg="Connecting to DB" logger=sqlstore dbtype=sqlite3
+t=2020-07-07T17:57:05+0200 lvl=info msg="Starting DB migration" logger=migrator
+t=2020-07-07T17:57:05+0200 lvl=info msg="Starting plugin search" logger=plugins
+t=2020-07-07T17:57:05+0200 lvl=info msg="Registering plugin" logger=plugins name="Direct Input"
+t=2020-07-07T17:57:05+0200 lvl=info msg="HTTP Server Listen" logger=http.server address=[::]:3000 protocol=http subUrl= socket=
+t=2020-07-07T17:58:03+0200 lvl=info msg="Starting Grafana" logger=server version=7.0.4 commit=c4d8d0c2ae branch=HEAD compiled=2020-06-25T08:45:15+0200
+t=2020-07-07T17:58:03+0200 lvl=info msg="Config loaded from" logger=settings file=.\\GrafanaServer/conf/defaults.ini
+t=2020-07-07T17:58:03+0200 lvl=info msg="Path Home" logger=settings path=.\\GrafanaServer
+t=2020-07-07T17:58:03+0200 lvl=info msg="Path Data" logger=settings path=GrafanaServer\\data
+t=2020-07-07T17:58:03+0200 lvl=info msg="Path Logs" logger=settings path=GrafanaServer\\data\\log
+t=2020-07-07T17:58:03+0200 lvl=info msg="Path Plugins" logger=settings path=GrafanaServer\\data\\plugins
+t=2020-07-07T17:58:03+0200 lvl=info msg="Path Provisioning" logger=settings path=GrafanaServer\\conf\\provisioning
+t=2020-07-07T17:58:03+0200 lvl=info msg="App mode production" logger=settings
+t=2020-07-07T17:58:03+0200 lvl=info msg="Connecting to DB" logger=sqlstore dbtype=sqlite3
+t=2020-07-07T17:58:03+0200 lvl=info msg="Starting DB migration" logger=migrator
+t=2020-07-07T17:58:03+0200 lvl=info msg="Starting plugin search" logger=plugins
+t=2020-07-07T17:58:03+0200 lvl=info msg="Registering plugin" logger=plugins name="Direct Input"
+t=2020-07-07T17:58:03+0200 lvl=info msg="HTTP Server Listen" logger=http.server address=[::]:3000 protocol=http subUrl= socket=
+t=2020-07-07T17:59:40+0200 lvl=info msg="Starting Grafana" logger=server version=7.0.4 commit=c4d8d0c2ae branch=HEAD compiled=2020-06-25T08:45:15+0200
+t=2020-07-07T17:59:40+0200 lvl=info msg="Config loaded from" logger=settings file=.\\GrafanaServer/conf/defaults.ini
+t=2020-07-07T17:59:40+0200 lvl=info msg="Path Home" logger=settings path=.\\GrafanaServer
+t=2020-07-07T17:59:40+0200 lvl=info msg="Path Data" logger=settings path=GrafanaServer\\data
+t=2020-07-07T17:59:40+0200 lvl=info msg="Path Logs" logger=settings path=GrafanaServer\\data\\log
+t=2020-07-07T17:59:40+0200 lvl=info msg="Path Plugins" logger=settings path=GrafanaServer\\data\\plugins
+t=2020-07-07T17:59:40+0200 lvl=info msg="Path Provisioning" logger=settings path=GrafanaServer\\conf\\provisioning
+t=2020-07-07T17:59:40+0200 lvl=info msg="App mode production" logger=settings
+t=2020-07-07T17:59:40+0200 lvl=info msg="Connecting to DB" logger=sqlstore dbtype=sqlite3
+t=2020-07-07T17:59:40+0200 lvl=info msg="Starting DB migration" logger=migrator
+t=2020-07-07T17:59:41+0200 lvl=info msg="Starting plugin search" logger=plugins
+t=2020-07-07T17:59:41+0200 lvl=info msg="Registering plugin" logger=plugins name="Direct Input"
+t=2020-07-07T17:59:41+0200 lvl=info msg="HTTP Server Listen" logger=http.server address=[::]:3000 protocol=http subUrl= socket=
+t=2020-07-07T18:00:04+0200 lvl=info msg="Starting Grafana" logger=server version=7.0.4 commit=c4d8d0c2ae branch=HEAD compiled=2020-06-25T08:45:15+0200
+t=2020-07-07T18:00:04+0200 lvl=info msg="Config loaded from" logger=settings file=.\\GrafanaServer/conf/defaults.ini
+t=2020-07-07T18:00:04+0200 lvl=info msg="Path Home" logger=settings path=.\\GrafanaServer
+t=2020-07-07T18:00:04+0200 lvl=info msg="Path Data" logger=settings path=GrafanaServer\\data
+t=2020-07-07T18:00:04+0200 lvl=info msg="Path Logs" logger=settings path=GrafanaServer\\data\\log
+t=2020-07-07T18:00:04+0200 lvl=info msg="Path Plugins" logger=settings path=GrafanaServer\\data\\plugins
+t=2020-07-07T18:00:04+0200 lvl=info msg="Path Provisioning" logger=settings path=GrafanaServer\\conf\\provisioning
+t=2020-07-07T18:00:04+0200 lvl=info msg="App mode production" logger=settings
+t=2020-07-07T18:00:04+0200 lvl=info msg="Connecting to DB" logger=sqlstore dbtype=sqlite3
+t=2020-07-07T18:00:04+0200 lvl=info msg="Starting DB migration" logger=migrator
+t=2020-07-07T18:00:04+0200 lvl=info msg="Starting plugin search" logger=plugins
+t=2020-07-07T18:00:04+0200 lvl=info msg="Registering plugin" logger=plugins name="Direct Input"
+t=2020-07-07T18:00:04+0200 lvl=info msg="HTTP Server Listen" logger=http.server address=[::]:3000 protocol=http subUrl= socket=
+t=2020-07-07T18:01:01+0200 lvl=info msg="Starting Grafana" logger=server version=7.0.4 commit=c4d8d0c2ae branch=HEAD compiled=2020-06-25T08:45:15+0200
+t=2020-07-07T18:01:01+0200 lvl=info msg="Config loaded from" logger=settings file=.\\GrafanaServer/conf/defaults.ini
+t=2020-07-07T18:01:01+0200 lvl=info msg="Path Home" logger=settings path=.\\GrafanaServer
+t=2020-07-07T18:01:01+0200 lvl=info msg="Path Data" logger=settings path=GrafanaServer\\data
+t=2020-07-07T18:01:01+0200 lvl=info msg="Path Logs" logger=settings path=GrafanaServer\\data\\log
+t=2020-07-07T18:01:01+0200 lvl=info msg="Path Plugins" logger=settings path=GrafanaServer\\data\\plugins
+t=2020-07-07T18:01:01+0200 lvl=info msg="Path Provisioning" logger=settings path=GrafanaServer\\conf\\provisioning
+t=2020-07-07T18:01:01+0200 lvl=info msg="App mode production" logger=settings
+t=2020-07-07T18:01:01+0200 lvl=info msg="Connecting to DB" logger=sqlstore dbtype=sqlite3
+t=2020-07-07T18:01:01+0200 lvl=info msg="Starting DB migration" logger=migrator
+t=2020-07-07T18:01:01+0200 lvl=info msg="Starting plugin search" logger=plugins
+t=2020-07-07T18:01:01+0200 lvl=info msg="Registering plugin" logger=plugins name="Direct Input"
+t=2020-07-07T18:01:01+0200 lvl=info msg="HTTP Server Listen" logger=http.server address=[::]:3000 protocol=http subUrl= socket=
+t=2020-07-07T18:03:48+0200 lvl=info msg="Starting Grafana" logger=server version=7.0.4 commit=c4d8d0c2ae branch=HEAD compiled=2020-06-25T08:45:15+0200
+t=2020-07-07T18:03:48+0200 lvl=info msg="Config loaded from" logger=settings file=.\\GrafanaServer/conf/defaults.ini
+t=2020-07-07T18:03:48+0200 lvl=info msg="Path Home" logger=settings path=.\\GrafanaServer
+t=2020-07-07T18:03:48+0200 lvl=info msg="Path Data" logger=settings path=GrafanaServer\\data
+t=2020-07-07T18:03:48+0200 lvl=info msg="Path Logs" logger=settings path=GrafanaServer\\data\\log
+t=2020-07-07T18:03:48+0200 lvl=info msg="Path Plugins" logger=settings path=GrafanaServer\\data\\plugins
+t=2020-07-07T18:03:48+0200 lvl=info msg="Path Provisioning" logger=settings path=GrafanaServer\\conf\\provisioning
+t=2020-07-07T18:03:48+0200 lvl=info msg="App mode production" logger=settings
+t=2020-07-07T18:03:48+0200 lvl=info msg="Connecting to DB" logger=sqlstore dbtype=sqlite3
+t=2020-07-07T18:03:48+0200 lvl=info msg="Starting DB migration" logger=migrator
+t=2020-07-07T18:03:48+0200 lvl=info msg="Starting plugin search" logger=plugins
+t=2020-07-07T18:03:48+0200 lvl=info msg="Registering plugin" logger=plugins name="Direct Input"
+t=2020-07-07T18:03:48+0200 lvl=info msg="HTTP Server Listen" logger=http.server address=[::]:3000 protocol=http subUrl= socket=
+t=2020-07-07T18:04:32+0200 lvl=info msg="Starting Grafana" logger=server version=7.0.4 commit=c4d8d0c2ae branch=HEAD compiled=2020-06-25T08:45:15+0200
+t=2020-07-07T18:04:32+0200 lvl=info msg="Config loaded from" logger=settings file=.\\GrafanaServer/conf/defaults.ini
+t=2020-07-07T18:04:32+0200 lvl=info msg="Path Home" logger=settings path=.\\GrafanaServer
+t=2020-07-07T18:04:32+0200 lvl=info msg="Path Data" logger=settings path=GrafanaServer\\data
+t=2020-07-07T18:04:32+0200 lvl=info msg="Path Logs" logger=settings path=GrafanaServer\\data\\log
+t=2020-07-07T18:04:32+0200 lvl=info msg="Path Plugins" logger=settings path=GrafanaServer\\data\\plugins
+t=2020-07-07T18:04:32+0200 lvl=info msg="Path Provisioning" logger=settings path=GrafanaServer\\conf\\provisioning
+t=2020-07-07T18:04:32+0200 lvl=info msg="App mode production" logger=settings
+t=2020-07-07T18:04:32+0200 lvl=info msg="Connecting to DB" logger=sqlstore dbtype=sqlite3
+t=2020-07-07T18:04:32+0200 lvl=info msg="Starting DB migration" logger=migrator
+t=2020-07-07T18:04:32+0200 lvl=info msg="Starting plugin search" logger=plugins
+t=2020-07-07T18:04:32+0200 lvl=info msg="Registering plugin" logger=plugins name="Direct Input"
+t=2020-07-07T18:04:32+0200 lvl=info msg="HTTP Server Listen" logger=http.server address=[::]:3000 protocol=http subUrl= socket=
+t=2020-07-07T18:04:35+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=[::1] referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:04:35+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=[::1] referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:04:35+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=[::1] time_ms=2337 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:04:35+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=[::1] referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:04:35+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=[::1] time_ms=2330 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:04:35+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=[::1] time_ms=2334 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:04:35+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=[::1] referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:04:35+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=[::1] referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:04:35+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=127.0.0.1 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:04:35+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=[::1] time_ms=2330 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:04:35+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=[::1] time_ms=2336 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:04:35+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=127.0.0.1 time_ms=2325 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:04:35+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=[::1] referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:04:35+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=[::1] time_ms=2335 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:04:36+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=127.0.0.1 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:04:36+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=127.0.0.1 time_ms=2303 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:04:36+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=127.0.0.1 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:04:36+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=127.0.0.1 time_ms=2302 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:04:36+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=127.0.0.1 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:04:36+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=127.0.0.1 time_ms=2303 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:04:36+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=127.0.0.1 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:04:36+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=127.0.0.1 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:04:36+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=127.0.0.1 time_ms=2302 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:04:36+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=127.0.0.1 time_ms=2302 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:04:37+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=[::1] referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:04:37+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=[::1] time_ms=2303 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:04:38+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=[::1] referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:04:38+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=[::1] time_ms=2309 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:04:38+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=[::1] referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:04:38+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=[::1] time_ms=2304 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:04:38+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=[::1] referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:04:38+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=[::1] time_ms=2305 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:04:38+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=127.0.0.1 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:04:38+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=127.0.0.1 time_ms=2301 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:04:38+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=[::1] referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:04:38+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=[::1] time_ms=2303 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:04:38+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=[::1] referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:04:38+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=[::1] time_ms=2305 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:04:39+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=127.0.0.1 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:04:39+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=127.0.0.1 time_ms=2304 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:04:39+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=127.0.0.1 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:04:39+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=127.0.0.1 time_ms=2306 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:04:39+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=127.0.0.1 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:04:39+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=127.0.0.1 time_ms=2303 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:04:39+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=127.0.0.1 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:04:39+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=127.0.0.1 time_ms=2306 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:04:39+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=127.0.0.1 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:04:39+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=127.0.0.1 time_ms=2303 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:04:40+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=[::1] referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:04:40+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=[::1] time_ms=2312 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:04:41+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=[::1] referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:04:41+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=[::1] time_ms=2309 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:04:41+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=[::1] referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:04:41+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=[::1] time_ms=2308 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:04:41+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=[::1] referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:04:41+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=[::1] referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:04:41+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=[::1] time_ms=2301 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:04:41+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=[::1] time_ms=2303 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:04:41+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=127.0.0.1 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:04:41+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=127.0.0.1 time_ms=2302 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:04:41+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=[::1] referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:04:41+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=[::1] time_ms=2302 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:04:42+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=127.0.0.1 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:04:42+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=127.0.0.1 time_ms=2302 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:04:42+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=127.0.0.1 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:04:42+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=127.0.0.1 time_ms=2304 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:04:42+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=127.0.0.1 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:04:42+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=127.0.0.1 time_ms=2304 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:04:42+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=127.0.0.1 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:04:42+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=127.0.0.1 time_ms=2303 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:04:42+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=127.0.0.1 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:04:42+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=127.0.0.1 time_ms=2302 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:04:43+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=[::1] referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:04:43+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=[::1] time_ms=2304 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:04:44+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=[::1] referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:04:44+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=[::1] referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:04:44+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=[::1] time_ms=2304 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:04:44+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=[::1] time_ms=2303 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:04:44+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=[::1] referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:04:44+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=[::1] time_ms=2302 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:04:44+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=[::1] referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:04:44+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=[::1] time_ms=2303 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:04:44+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=[::1] referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:04:44+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=127.0.0.1 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:04:44+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=[::1] time_ms=2303 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:04:44+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=127.0.0.1 time_ms=2304 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:04:45+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=127.0.0.1 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:04:45+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=127.0.0.1 time_ms=2305 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:04:45+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=127.0.0.1 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:04:45+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=127.0.0.1 time_ms=2305 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:04:45+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=127.0.0.1 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:04:45+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=127.0.0.1 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:04:45+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=127.0.0.1 time_ms=2304 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:04:45+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=127.0.0.1 time_ms=2301 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:04:45+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=127.0.0.1 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:04:45+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=127.0.0.1 time_ms=2301 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:05:05+0200 lvl=info msg="Starting Grafana" logger=server version=7.0.4 commit=c4d8d0c2ae branch=HEAD compiled=2020-06-25T08:45:15+0200
+t=2020-07-07T18:05:05+0200 lvl=info msg="Config loaded from" logger=settings file=.\\GrafanaServer/conf/defaults.ini
+t=2020-07-07T18:05:05+0200 lvl=info msg="Path Home" logger=settings path=.\\GrafanaServer
+t=2020-07-07T18:05:05+0200 lvl=info msg="Path Data" logger=settings path=GrafanaServer\\data
+t=2020-07-07T18:05:05+0200 lvl=info msg="Path Logs" logger=settings path=GrafanaServer\\data\\log
+t=2020-07-07T18:05:05+0200 lvl=info msg="Path Plugins" logger=settings path=GrafanaServer\\data\\plugins
+t=2020-07-07T18:05:05+0200 lvl=info msg="Path Provisioning" logger=settings path=GrafanaServer\\conf\\provisioning
+t=2020-07-07T18:05:05+0200 lvl=info msg="App mode production" logger=settings
+t=2020-07-07T18:05:05+0200 lvl=info msg="Connecting to DB" logger=sqlstore dbtype=sqlite3
+t=2020-07-07T18:05:05+0200 lvl=info msg="Starting DB migration" logger=migrator
+t=2020-07-07T18:05:05+0200 lvl=info msg="Starting plugin search" logger=plugins
+t=2020-07-07T18:05:05+0200 lvl=info msg="Registering plugin" logger=plugins name="Direct Input"
+t=2020-07-07T18:05:05+0200 lvl=info msg="HTTP Server Listen" logger=http.server address=[::]:3000 protocol=http subUrl= socket=
+t=2020-07-07T18:05:07+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=127.0.0.1 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:05:07+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=127.0.0.1 time_ms=2326 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:05:07+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=127.0.0.1 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:05:07+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=127.0.0.1 time_ms=2320 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:05:07+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=127.0.0.1 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:05:07+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=127.0.0.1 time_ms=2320 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:05:07+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=127.0.0.1 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:05:07+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=127.0.0.1 time_ms=2321 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:05:07+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=127.0.0.1 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:05:07+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=127.0.0.1 time_ms=2321 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:05:07+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=127.0.0.1 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:05:07+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=127.0.0.1 time_ms=2315 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:05:08+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=127.0.0.1 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:05:08+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=127.0.0.1 time_ms=2303 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:05:08+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=127.0.0.1 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:05:08+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=127.0.0.1 time_ms=2302 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:05:08+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=127.0.0.1 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:05:08+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=[::1] referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:05:08+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=127.0.0.1 time_ms=2302 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:05:08+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=[::1] time_ms=2305 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:05:08+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=[::1] referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:05:08+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=[::1] referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:05:08+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=[::1] time_ms=2304 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:05:08+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=[::1] time_ms=2303 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:05:09+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=[::1] referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:05:09+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=127.0.0.1 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:05:09+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=[::1] time_ms=2304 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:05:09+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=127.0.0.1 time_ms=2304 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:05:10+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=127.0.0.1 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:05:10+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=127.0.0.1 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:05:10+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=127.0.0.1 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:05:10+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=127.0.0.1 time_ms=2305 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:05:10+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=127.0.0.1 time_ms=2305 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:05:10+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=127.0.0.1 time_ms=2301 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:05:10+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=127.0.0.1 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:05:10+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=127.0.0.1 time_ms=2302 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:05:11+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=127.0.0.1 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:05:11+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=127.0.0.1 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:05:11+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=127.0.0.1 time_ms=2306 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:05:11+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=127.0.0.1 time_ms=2304 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:05:11+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=127.0.0.1 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:05:11+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=127.0.0.1 time_ms=2301 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:05:11+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=127.0.0.1 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:05:11+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=127.0.0.1 time_ms=2304 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:05:11+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=[::1] referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:05:11+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=[::1] time_ms=2300 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:05:11+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=127.0.0.1 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:05:11+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=127.0.0.1 time_ms=2302 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:05:12+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=[::1] referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:05:12+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=[::1] referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:05:12+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=[::1] time_ms=2302 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:05:12+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=[::1] time_ms=2303 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:05:12+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=[::1] referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:05:12+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=[::1] time_ms=2303 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:05:12+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=127.0.0.1 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:05:12+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=127.0.0.1 time_ms=2303 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:05:13+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=127.0.0.1 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:05:13+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=127.0.0.1 time_ms=2310 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:05:13+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=127.0.0.1 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:05:13+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=127.0.0.1 time_ms=2308 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:05:13+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=127.0.0.1 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:05:13+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=127.0.0.1 time_ms=2303 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:05:13+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=127.0.0.1 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:05:13+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=127.0.0.1 time_ms=2305 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:05:14+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=127.0.0.1 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:05:14+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=127.0.0.1 time_ms=2301 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:05:14+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=127.0.0.1 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:05:14+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=127.0.0.1 time_ms=2302 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:05:14+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=127.0.0.1 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:05:14+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=127.0.0.1 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:05:14+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=127.0.0.1 time_ms=2303 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:05:14+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=127.0.0.1 time_ms=2305 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:05:14+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=127.0.0.1 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:05:14+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=[::1] referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:05:14+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=127.0.0.1 time_ms=2301 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:05:14+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=[::1] time_ms=2302 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:05:15+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=[::1] referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:05:15+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=[::1] referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:05:15+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=[::1] time_ms=2302 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:05:15+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=[::1] time_ms=2303 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:05:15+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=[::1] referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:05:15+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=127.0.0.1 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:05:15+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=[::1] time_ms=2306 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:05:15+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=127.0.0.1 time_ms=2304 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:05:16+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=127.0.0.1 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:05:16+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=127.0.0.1 time_ms=2304 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:05:16+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=127.0.0.1 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:05:16+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=127.0.0.1 time_ms=2306 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:05:16+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=127.0.0.1 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:05:16+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=127.0.0.1 time_ms=2302 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:05:16+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=127.0.0.1 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:05:16+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=127.0.0.1 time_ms=2302 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:05:17+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=127.0.0.1 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:05:17+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=127.0.0.1 time_ms=2305 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:05:17+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=127.0.0.1 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:05:17+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=127.0.0.1 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:05:17+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=127.0.0.1 time_ms=2305 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:05:17+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=127.0.0.1 time_ms=2302 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:05:17+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=127.0.0.1 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:05:17+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=127.0.0.1 time_ms=2304 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:05:17+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=127.0.0.1 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:05:17+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=127.0.0.1 time_ms=2302 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:05:17+0200 lvl=eror msg="Data proxy error" logger=data-proxy-log userId=1 orgId=1 uname=admin path=/api/datasources/proxy/2/query remote_addr=[::1] referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s" error="http: proxy error: dial tcp [::1]:8086: connectex: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte."
+t=2020-07-07T18:05:17+0200 lvl=info msg="Request Completed" logger=context userId=1 orgId=1 uname=admin method=GET path=/api/datasources/proxy/2/query status=502 remote_addr=[::1] time_ms=2301 size=0 referer="http://localhost:3000/d/IZigJVMGk/test?orgId=1&refresh=1s"
+t=2020-07-07T18:05:33+0200 lvl=info msg="Starting Grafana" logger=server version=7.0.4 commit=c4d8d0c2ae branch=HEAD compiled=2020-06-25T08:45:15+0200
+t=2020-07-07T18:05:33+0200 lvl=info msg="Config loaded from" logger=settings file=.\\GrafanaServer/conf/defaults.ini
+t=2020-07-07T18:05:33+0200 lvl=info msg="Path Home" logger=settings path=.\\GrafanaServer
+t=2020-07-07T18:05:33+0200 lvl=info msg="Path Data" logger=settings path=GrafanaServer\\data
+t=2020-07-07T18:05:33+0200 lvl=info msg="Path Logs" logger=settings path=GrafanaServer\\data\\log
+t=2020-07-07T18:05:33+0200 lvl=info msg="Path Plugins" logger=settings path=GrafanaServer\\data\\plugins
+t=2020-07-07T18:05:33+0200 lvl=info msg="Path Provisioning" logger=settings path=GrafanaServer\\conf\\provisioning
+t=2020-07-07T18:05:33+0200 lvl=info msg="App mode production" logger=settings
+t=2020-07-07T18:05:33+0200 lvl=info msg="Connecting to DB" logger=sqlstore dbtype=sqlite3
+t=2020-07-07T18:05:33+0200 lvl=info msg="Starting DB migration" logger=migrator
+t=2020-07-07T18:05:33+0200 lvl=info msg="Starting plugin search" logger=plugins
+t=2020-07-07T18:05:33+0200 lvl=info msg="Registering plugin" logger=plugins name="Direct Input"
+t=2020-07-07T18:05:33+0200 lvl=info msg="HTTP Server Listen" logger=http.server address=[::]:3000 protocol=http subUrl= socket=
+t=2020-07-07T18:09:44+0200 lvl=info msg="Starting Grafana" logger=server version=7.0.4 commit=c4d8d0c2ae branch=HEAD compiled=2020-06-25T08:45:15+0200
+t=2020-07-07T18:09:44+0200 lvl=info msg="Config loaded from" logger=settings file=.\\GrafanaServer/conf/defaults.ini
+t=2020-07-07T18:09:44+0200 lvl=info msg="Path Home" logger=settings path=.\\GrafanaServer
+t=2020-07-07T18:09:44+0200 lvl=info msg="Path Data" logger=settings path=GrafanaServer\\data
+t=2020-07-07T18:09:44+0200 lvl=info msg="Path Logs" logger=settings path=GrafanaServer\\data\\log
+t=2020-07-07T18:09:44+0200 lvl=info msg="Path Plugins" logger=settings path=GrafanaServer\\data\\plugins
+t=2020-07-07T18:09:44+0200 lvl=info msg="Path Provisioning" logger=settings path=GrafanaServer\\conf\\provisioning
+t=2020-07-07T18:09:44+0200 lvl=info msg="App mode production" logger=settings
+t=2020-07-07T18:09:44+0200 lvl=info msg="Connecting to DB" logger=sqlstore dbtype=sqlite3
+t=2020-07-07T18:09:44+0200 lvl=info msg="Starting DB migration" logger=migrator
+t=2020-07-07T18:09:44+0200 lvl=info msg="Starting plugin search" logger=plugins
+t=2020-07-07T18:09:44+0200 lvl=info msg="Registering plugin" logger=plugins name="Direct Input"
+t=2020-07-07T18:09:44+0200 lvl=info msg="HTTP Server Listen" logger=http.server address=[::]:3000 protocol=http subUrl= socket=
+t=2020-07-07T18:11:58+0200 lvl=info msg="Starting Grafana" logger=server version=7.0.4 commit=c4d8d0c2ae branch=HEAD compiled=2020-06-25T08:45:15+0200
+t=2020-07-07T18:11:58+0200 lvl=info msg="Config loaded from" logger=settings file=.\\GrafanaServer/conf/defaults.ini
+t=2020-07-07T18:11:58+0200 lvl=info msg="Path Home" logger=settings path=.\\GrafanaServer
+t=2020-07-07T18:11:58+0200 lvl=info msg="Path Data" logger=settings path=GrafanaServer\\data
+t=2020-07-07T18:11:58+0200 lvl=info msg="Path Logs" logger=settings path=GrafanaServer\\data\\log
+t=2020-07-07T18:11:58+0200 lvl=info msg="Path Plugins" logger=settings path=GrafanaServer\\data\\plugins
+t=2020-07-07T18:11:58+0200 lvl=info msg="Path Provisioning" logger=settings path=GrafanaServer\\conf\\provisioning
+t=2020-07-07T18:11:58+0200 lvl=info msg="App mode production" logger=settings
+t=2020-07-07T18:11:58+0200 lvl=info msg="Connecting to DB" logger=sqlstore dbtype=sqlite3
+t=2020-07-07T18:11:58+0200 lvl=info msg="Starting DB migration" logger=migrator
+t=2020-07-07T18:11:58+0200 lvl=info msg="Starting plugin search" logger=plugins
+t=2020-07-07T18:11:58+0200 lvl=info msg="Registering plugin" logger=plugins name="Direct Input"
+t=2020-07-07T18:11:58+0200 lvl=info msg="HTTP Server Listen" logger=http.server address=[::]:3000 protocol=http subUrl= socket=
+t=2020-07-07T18:14:21+0200 lvl=info msg="Starting Grafana" logger=server version=7.0.4 commit=c4d8d0c2ae branch=HEAD compiled=2020-06-25T08:45:15+0200
+t=2020-07-07T18:14:21+0200 lvl=info msg="Config loaded from" logger=settings file=.\\GrafanaServer/conf/defaults.ini
+t=2020-07-07T18:14:21+0200 lvl=info msg="Path Home" logger=settings path=.\\GrafanaServer
+t=2020-07-07T18:14:21+0200 lvl=info msg="Path Data" logger=settings path=GrafanaServer\\data
+t=2020-07-07T18:14:21+0200 lvl=info msg="Path Logs" logger=settings path=GrafanaServer\\data\\log
+t=2020-07-07T18:14:21+0200 lvl=info msg="Path Plugins" logger=settings path=GrafanaServer\\data\\plugins
+t=2020-07-07T18:14:21+0200 lvl=info msg="Path Provisioning" logger=settings path=GrafanaServer\\conf\\provisioning
+t=2020-07-07T18:14:21+0200 lvl=info msg="App mode production" logger=settings
+t=2020-07-07T18:14:21+0200 lvl=info msg="Connecting to DB" logger=sqlstore dbtype=sqlite3
+t=2020-07-07T18:14:21+0200 lvl=info msg="Starting DB migration" logger=migrator
+t=2020-07-07T18:14:21+0200 lvl=info msg="Starting plugin search" logger=plugins
+t=2020-07-07T18:14:21+0200 lvl=info msg="Registering plugin" logger=plugins name="Direct Input"
+t=2020-07-07T18:14:21+0200 lvl=info msg="HTTP Server Listen" logger=http.server address=[::]:3000 protocol=http subUrl= socket=
+t=2020-07-07T18:26:43+0200 lvl=info msg="Starting Grafana" logger=server version=7.0.4 commit=c4d8d0c2ae branch=HEAD compiled=2020-06-25T08:45:15+0200
+t=2020-07-07T18:26:43+0200 lvl=info msg="Config loaded from" logger=settings file=.\\GrafanaServer/conf/defaults.ini
+t=2020-07-07T18:26:43+0200 lvl=info msg="Path Home" logger=settings path=.\\GrafanaServer
+t=2020-07-07T18:26:43+0200 lvl=info msg="Path Data" logger=settings path=GrafanaServer\\data
+t=2020-07-07T18:26:43+0200 lvl=info msg="Path Logs" logger=settings path=GrafanaServer\\data\\log
+t=2020-07-07T18:26:43+0200 lvl=info msg="Path Plugins" logger=settings path=GrafanaServer\\data\\plugins
+t=2020-07-07T18:26:43+0200 lvl=info msg="Path Provisioning" logger=settings path=GrafanaServer\\conf\\provisioning
+t=2020-07-07T18:26:43+0200 lvl=info msg="App mode production" logger=settings
+t=2020-07-07T18:26:43+0200 lvl=info msg="Connecting to DB" logger=sqlstore dbtype=sqlite3
+t=2020-07-07T18:26:43+0200 lvl=info msg="Starting DB migration" logger=migrator
+t=2020-07-07T18:26:43+0200 lvl=info msg="Starting plugin search" logger=plugins
+t=2020-07-07T18:26:43+0200 lvl=info msg="Registering plugin" logger=plugins name="Direct Input"
+t=2020-07-07T18:26:43+0200 lvl=info msg="HTTP Server Listen" logger=http.server address=[::]:3000 protocol=http subUrl= socket=
+t=2020-07-07T18:47:46+0200 lvl=info msg="Starting Grafana" logger=server version=7.0.4 commit=c4d8d0c2ae branch=HEAD compiled=2020-06-25T08:45:15+0200
+t=2020-07-07T18:47:46+0200 lvl=info msg="Config loaded from" logger=settings file=.\\GrafanaServer/conf/defaults.ini
+t=2020-07-07T18:47:46+0200 lvl=info msg="Path Home" logger=settings path=.\\GrafanaServer
+t=2020-07-07T18:47:46+0200 lvl=info msg="Path Data" logger=settings path=GrafanaServer\\data
+t=2020-07-07T18:47:46+0200 lvl=info msg="Path Logs" logger=settings path=GrafanaServer\\data\\log
+t=2020-07-07T18:47:46+0200 lvl=info msg="Path Plugins" logger=settings path=GrafanaServer\\data\\plugins
+t=2020-07-07T18:47:46+0200 lvl=info msg="Path Provisioning" logger=settings path=GrafanaServer\\conf\\provisioning
+t=2020-07-07T18:47:46+0200 lvl=info msg="App mode production" logger=settings
+t=2020-07-07T18:47:46+0200 lvl=info msg="Connecting to DB" logger=sqlstore dbtype=sqlite3
+t=2020-07-07T18:47:46+0200 lvl=info msg="Starting DB migration" logger=migrator
+t=2020-07-07T18:47:46+0200 lvl=info msg="Starting plugin search" logger=plugins
+t=2020-07-07T18:47:46+0200 lvl=info msg="Registering plugin" logger=plugins name="Direct Input"
+t=2020-07-07T18:47:46+0200 lvl=info msg="HTTP Server Listen" logger=http.server address=[::]:3000 protocol=http subUrl= socket=
+t=2020-07-07T19:15:26+0200 lvl=info msg="Starting Grafana" logger=server version=7.0.4 commit=c4d8d0c2ae branch=HEAD compiled=2020-06-25T08:45:15+0200
+t=2020-07-07T19:15:26+0200 lvl=info msg="Config loaded from" logger=settings file=.\\GrafanaServer/conf/defaults.ini
+t=2020-07-07T19:15:26+0200 lvl=info msg="Path Home" logger=settings path=.\\GrafanaServer
+t=2020-07-07T19:15:26+0200 lvl=info msg="Path Data" logger=settings path=GrafanaServer\\data
+t=2020-07-07T19:15:26+0200 lvl=info msg="Path Logs" logger=settings path=GrafanaServer\\data\\log
+t=2020-07-07T19:15:26+0200 lvl=info msg="Path Plugins" logger=settings path=GrafanaServer\\data\\plugins
+t=2020-07-07T19:15:26+0200 lvl=info msg="Path Provisioning" logger=settings path=GrafanaServer\\conf\\provisioning
+t=2020-07-07T19:15:26+0200 lvl=info msg="App mode production" logger=settings
+t=2020-07-07T19:15:26+0200 lvl=info msg="Connecting to DB" logger=sqlstore dbtype=sqlite3
+t=2020-07-07T19:15:26+0200 lvl=info msg="Starting DB migration" logger=migrator
+t=2020-07-07T19:15:26+0200 lvl=info msg="Starting plugin search" logger=plugins
+t=2020-07-07T19:15:26+0200 lvl=info msg="Registering plugin" logger=plugins name="Direct Input"
+t=2020-07-07T19:15:26+0200 lvl=info msg="HTTP Server Listen" logger=http.server address=[::]:3000 protocol=http subUrl= socket=
+t=2020-07-07T19:17:25+0200 lvl=info msg="Starting Grafana" logger=server version=7.0.4 commit=c4d8d0c2ae branch=HEAD compiled=2020-06-25T08:45:15+0200
+t=2020-07-07T19:17:25+0200 lvl=info msg="Config loaded from" logger=settings file=.\\GrafanaServer/conf/defaults.ini
+t=2020-07-07T19:17:25+0200 lvl=info msg="Path Home" logger=settings path=.\\GrafanaServer
+t=2020-07-07T19:17:25+0200 lvl=info msg="Path Data" logger=settings path=GrafanaServer\\data
+t=2020-07-07T19:17:25+0200 lvl=info msg="Path Logs" logger=settings path=GrafanaServer\\data\\log
+t=2020-07-07T19:17:25+0200 lvl=info msg="Path Plugins" logger=settings path=GrafanaServer\\data\\plugins
+t=2020-07-07T19:17:25+0200 lvl=info msg="Path Provisioning" logger=settings path=GrafanaServer\\conf\\provisioning
+t=2020-07-07T19:17:25+0200 lvl=info msg="App mode production" logger=settings
+t=2020-07-07T19:17:25+0200 lvl=info msg="Connecting to DB" logger=sqlstore dbtype=sqlite3
+t=2020-07-07T19:17:25+0200 lvl=info msg="Starting DB migration" logger=migrator
+t=2020-07-07T19:17:25+0200 lvl=info msg="Starting plugin search" logger=plugins
+t=2020-07-07T19:17:25+0200 lvl=info msg="Registering plugin" logger=plugins name="Direct Input"
+t=2020-07-07T19:17:25+0200 lvl=info msg="HTTP Server Listen" logger=http.server address=[::]:3000 protocol=http subUrl= socket=
+t=2020-07-07T19:21:10+0200 lvl=info msg="Starting Grafana" logger=server version=7.0.4 commit=c4d8d0c2ae branch=HEAD compiled=2020-06-25T08:45:15+0200
+t=2020-07-07T19:21:10+0200 lvl=info msg="Config loaded from" logger=settings file=.\\GrafanaServer/conf/defaults.ini
+t=2020-07-07T19:21:10+0200 lvl=info msg="Path Home" logger=settings path=.\\GrafanaServer
+t=2020-07-07T19:21:10+0200 lvl=info msg="Path Data" logger=settings path=GrafanaServer\\data
+t=2020-07-07T19:21:10+0200 lvl=info msg="Path Logs" logger=settings path=GrafanaServer\\data\\log
+t=2020-07-07T19:21:10+0200 lvl=info msg="Path Plugins" logger=settings path=GrafanaServer\\data\\plugins
+t=2020-07-07T19:21:10+0200 lvl=info msg="Path Provisioning" logger=settings path=GrafanaServer\\conf\\provisioning
+t=2020-07-07T19:21:10+0200 lvl=info msg="App mode production" logger=settings
+t=2020-07-07T19:21:10+0200 lvl=info msg="Connecting to DB" logger=sqlstore dbtype=sqlite3
+t=2020-07-07T19:21:10+0200 lvl=info msg="Starting DB migration" logger=migrator
+t=2020-07-07T19:21:10+0200 lvl=info msg="Starting plugin search" logger=plugins
+t=2020-07-07T19:21:10+0200 lvl=info msg="Registering plugin" logger=plugins name="Direct Input"
+t=2020-07-07T19:21:11+0200 lvl=info msg="HTTP Server Listen" logger=http.server address=[::]:3000 protocol=http subUrl= socket=
+t=2020-07-07T19:27:44+0200 lvl=info msg="Starting Grafana" logger=server version=7.0.4 commit=c4d8d0c2ae branch=HEAD compiled=2020-06-25T08:45:15+0200
+t=2020-07-07T19:27:44+0200 lvl=info msg="Config loaded from" logger=settings file=.\\GrafanaServer/conf/defaults.ini
+t=2020-07-07T19:27:44+0200 lvl=info msg="Path Home" logger=settings path=.\\GrafanaServer
+t=2020-07-07T19:27:44+0200 lvl=info msg="Path Data" logger=settings path=GrafanaServer\\data
+t=2020-07-07T19:27:44+0200 lvl=info msg="Path Logs" logger=settings path=GrafanaServer\\data\\log
+t=2020-07-07T19:27:44+0200 lvl=info msg="Path Plugins" logger=settings path=GrafanaServer\\data\\plugins
+t=2020-07-07T19:27:44+0200 lvl=info msg="Path Provisioning" logger=settings path=GrafanaServer\\conf\\provisioning
+t=2020-07-07T19:27:44+0200 lvl=info msg="App mode production" logger=settings
+t=2020-07-07T19:27:44+0200 lvl=info msg="Connecting to DB" logger=sqlstore dbtype=sqlite3
+t=2020-07-07T19:27:44+0200 lvl=info msg="Starting DB migration" logger=migrator
+t=2020-07-07T19:27:44+0200 lvl=info msg="Starting plugin search" logger=plugins
+t=2020-07-07T19:27:44+0200 lvl=info msg="Registering plugin" logger=plugins name="Direct Input"
+t=2020-07-07T19:27:44+0200 lvl=info msg="HTTP Server Listen" logger=http.server address=[::]:3000 protocol=http subUrl= socket=
+t=2020-07-07T19:30:46+0200 lvl=info msg="Starting Grafana" logger=server version=7.0.4 commit=c4d8d0c2ae branch=HEAD compiled=2020-06-25T08:45:15+0200
+t=2020-07-07T19:30:46+0200 lvl=info msg="Config loaded from" logger=settings file=.\\GrafanaServer/conf/defaults.ini
+t=2020-07-07T19:30:46+0200 lvl=info msg="Path Home" logger=settings path=.\\GrafanaServer
+t=2020-07-07T19:30:46+0200 lvl=info msg="Path Data" logger=settings path=GrafanaServer\\data
+t=2020-07-07T19:30:46+0200 lvl=info msg="Path Logs" logger=settings path=GrafanaServer\\data\\log
+t=2020-07-07T19:30:46+0200 lvl=info msg="Path Plugins" logger=settings path=GrafanaServer\\data\\plugins
+t=2020-07-07T19:30:46+0200 lvl=info msg="Path Provisioning" logger=settings path=GrafanaServer\\conf\\provisioning
+t=2020-07-07T19:30:46+0200 lvl=info msg="App mode production" logger=settings
+t=2020-07-07T19:30:46+0200 lvl=info msg="Connecting to DB" logger=sqlstore dbtype=sqlite3
+t=2020-07-07T19:30:46+0200 lvl=info msg="Starting DB migration" logger=migrator
+t=2020-07-07T19:30:46+0200 lvl=info msg="Starting plugin search" logger=plugins
+t=2020-07-07T19:30:46+0200 lvl=info msg="Registering plugin" logger=plugins name="Direct Input"
+t=2020-07-07T19:30:46+0200 lvl=info msg="HTTP Server Listen" logger=http.server address=[::]:3000 protocol=http subUrl= socket=
+t=2020-07-07T19:31:09+0200 lvl=info msg="Starting Grafana" logger=server version=7.0.4 commit=c4d8d0c2ae branch=HEAD compiled=2020-06-25T08:45:15+0200
+t=2020-07-07T19:31:09+0200 lvl=info msg="Config loaded from" logger=settings file=.\\GrafanaServer/conf/defaults.ini
+t=2020-07-07T19:31:09+0200 lvl=info msg="Path Home" logger=settings path=.\\GrafanaServer
+t=2020-07-07T19:31:09+0200 lvl=info msg="Path Data" logger=settings path=GrafanaServer\\data
+t=2020-07-07T19:31:09+0200 lvl=info msg="Path Logs" logger=settings path=GrafanaServer\\data\\log
+t=2020-07-07T19:31:09+0200 lvl=info msg="Path Plugins" logger=settings path=GrafanaServer\\data\\plugins
+t=2020-07-07T19:31:09+0200 lvl=info msg="Path Provisioning" logger=settings path=GrafanaServer\\conf\\provisioning
+t=2020-07-07T19:31:09+0200 lvl=info msg="App mode production" logger=settings
+t=2020-07-07T19:31:09+0200 lvl=info msg="Connecting to DB" logger=sqlstore dbtype=sqlite3
+t=2020-07-07T19:31:09+0200 lvl=info msg="Starting DB migration" logger=migrator
+t=2020-07-07T19:31:09+0200 lvl=info msg="Starting plugin search" logger=plugins
+t=2020-07-07T19:31:09+0200 lvl=info msg="Registering plugin" logger=plugins name="Direct Input"
+t=2020-07-07T19:31:09+0200 lvl=info msg="HTTP Server Listen" logger=http.server address=[::]:3000 protocol=http subUrl= socket=
+t=2020-07-07T19:31:48+0200 lvl=info msg="Starting Grafana" logger=server version=7.0.4 commit=c4d8d0c2ae branch=HEAD compiled=2020-06-25T08:45:15+0200
+t=2020-07-07T19:31:48+0200 lvl=info msg="Config loaded from" logger=settings file=.\\GrafanaServer/conf/defaults.ini
+t=2020-07-07T19:31:48+0200 lvl=info msg="Path Home" logger=settings path=.\\GrafanaServer
+t=2020-07-07T19:31:48+0200 lvl=info msg="Path Data" logger=settings path=GrafanaServer\\data
+t=2020-07-07T19:31:48+0200 lvl=info msg="Path Logs" logger=settings path=GrafanaServer\\data\\log
+t=2020-07-07T19:31:48+0200 lvl=info msg="Path Plugins" logger=settings path=GrafanaServer\\data\\plugins
+t=2020-07-07T19:31:48+0200 lvl=info msg="Path Provisioning" logger=settings path=GrafanaServer\\conf\\provisioning
+t=2020-07-07T19:31:48+0200 lvl=info msg="App mode production" logger=settings
+t=2020-07-07T19:31:48+0200 lvl=info msg="Connecting to DB" logger=sqlstore dbtype=sqlite3
+t=2020-07-07T19:31:48+0200 lvl=info msg="Starting DB migration" logger=migrator
+t=2020-07-07T19:31:48+0200 lvl=info msg="Starting plugin search" logger=plugins
+t=2020-07-07T19:31:48+0200 lvl=info msg="Registering plugin" logger=plugins name="Direct Input"
+t=2020-07-07T19:31:48+0200 lvl=info msg="HTTP Server Listen" logger=http.server address=[::]:3000 protocol=http subUrl= socket=
 t=2020-07-07T18:48:24+0200 lvl=info msg="Starting Grafana" logger=server version=7.0.4 commit=c4d8d0c2ae branch=HEAD compiled=2020-06-25T08:45:15+0200
 t=2020-07-07T18:48:24+0200 lvl=info msg="Config loaded from" logger=settings file=.\\GrafanaServer/conf/defaults.ini
 t=2020-07-07T18:48:24+0200 lvl=info msg="Path Home" logger=settings path=.\\GrafanaServer
@@ -1554,6 +2095,32 @@ t=2020-07-07T19:01:34+0200 lvl=warn msg="Plugin file's signature has been modifi
 t=2020-07-07T19:01:34+0200 lvl=info msg="HTTP Server Listen" logger=http.server address=[::]:3000 protocol=http subUrl= socket=
 t=2020-07-07T19:02:18+0200 lvl=info msg="Shutdown started" logger=server reason="System signal: interrupt"
 t=2020-07-07T19:02:18+0200 lvl=info msg="Stopped Stream Manager"
+t=2020-07-07T19:35:58+0200 lvl=info msg="Starting Grafana" logger=server version=7.0.4 commit=c4d8d0c2ae branch=HEAD compiled=2020-06-25T08:45:15+0200
+t=2020-07-07T19:35:58+0200 lvl=info msg="Config loaded from" logger=settings file=.\\GrafanaServer/conf/defaults.ini
+t=2020-07-07T19:35:58+0200 lvl=info msg="Path Home" logger=settings path=.\\GrafanaServer
+t=2020-07-07T19:35:58+0200 lvl=info msg="Path Data" logger=settings path=GrafanaServer\\data
+t=2020-07-07T19:35:58+0200 lvl=info msg="Path Logs" logger=settings path=GrafanaServer\\data\\log
+t=2020-07-07T19:35:58+0200 lvl=info msg="Path Plugins" logger=settings path=GrafanaServer\\data\\plugins
+t=2020-07-07T19:35:58+0200 lvl=info msg="Path Provisioning" logger=settings path=GrafanaServer\\conf\\provisioning
+t=2020-07-07T19:35:58+0200 lvl=info msg="App mode production" logger=settings
+t=2020-07-07T19:35:58+0200 lvl=info msg="Connecting to DB" logger=sqlstore dbtype=sqlite3
+t=2020-07-07T19:35:58+0200 lvl=info msg="Starting DB migration" logger=migrator
+t=2020-07-07T19:35:58+0200 lvl=info msg="Starting plugin search" logger=plugins
+t=2020-07-07T19:35:58+0200 lvl=info msg="Registering plugin" logger=plugins name="Direct Input"
+t=2020-07-07T19:35:58+0200 lvl=info msg="HTTP Server Listen" logger=http.server address=[::]:3000 protocol=http subUrl= socket=
+t=2020-07-07T19:36:26+0200 lvl=info msg="Starting Grafana" logger=server version=7.0.4 commit=c4d8d0c2ae branch=HEAD compiled=2020-06-25T08:45:15+0200
+t=2020-07-07T19:36:26+0200 lvl=info msg="Config loaded from" logger=settings file=.\\GrafanaServer/conf/defaults.ini
+t=2020-07-07T19:36:26+0200 lvl=info msg="Path Home" logger=settings path=.\\GrafanaServer
+t=2020-07-07T19:36:26+0200 lvl=info msg="Path Data" logger=settings path=GrafanaServer\\data
+t=2020-07-07T19:36:26+0200 lvl=info msg="Path Logs" logger=settings path=GrafanaServer\\data\\log
+t=2020-07-07T19:36:26+0200 lvl=info msg="Path Plugins" logger=settings path=GrafanaServer\\data\\plugins
+t=2020-07-07T19:36:26+0200 lvl=info msg="Path Provisioning" logger=settings path=GrafanaServer\\conf\\provisioning
+t=2020-07-07T19:36:26+0200 lvl=info msg="App mode production" logger=settings
+t=2020-07-07T19:36:26+0200 lvl=info msg="Connecting to DB" logger=sqlstore dbtype=sqlite3
+t=2020-07-07T19:36:26+0200 lvl=info msg="Starting DB migration" logger=migrator
+t=2020-07-07T19:36:26+0200 lvl=info msg="Starting plugin search" logger=plugins
+t=2020-07-07T19:36:26+0200 lvl=info msg="Registering plugin" logger=plugins name="Direct Input"
+t=2020-07-07T19:36:26+0200 lvl=info msg="HTTP Server Listen" logger=http.server address=[::]:3000 protocol=http subUrl= socket=
 t=2020-07-07T19:21:34+0200 lvl=info msg="Starting Grafana" logger=server version=7.0.4 commit=c4d8d0c2ae branch=HEAD compiled=2020-06-25T08:45:15+0200
 t=2020-07-07T19:21:34+0200 lvl=info msg="Config loaded from" logger=settings file=.\\GrafanaServer/conf/defaults.ini
 t=2020-07-07T19:21:34+0200 lvl=info msg="Path Home" logger=settings path=.\\GrafanaServer
@@ -1572,3 +2139,94 @@ t=2020-07-07T19:23:17+0200 lvl=info msg="Request Completed" logger=context userI
 t=2020-07-07T19:23:28+0200 lvl=info msg="Successful Login" logger=http.server User=admin@localhost
 t=2020-07-07T19:31:41+0200 lvl=info msg="Shutdown started" logger=server reason="System signal: interrupt"
 t=2020-07-07T19:31:41+0200 lvl=info msg="Stopped Stream Manager"
+t=2020-07-07T19:37:03+0200 lvl=info msg="Starting Grafana" logger=server version=7.0.4 commit=c4d8d0c2ae branch=HEAD compiled=2020-06-25T08:45:15+0200
+t=2020-07-07T19:37:03+0200 lvl=info msg="Config loaded from" logger=settings file=.\\GrafanaServer/conf/defaults.ini
+t=2020-07-07T19:37:03+0200 lvl=info msg="Path Home" logger=settings path=.\\GrafanaServer
+t=2020-07-07T19:37:03+0200 lvl=info msg="Path Data" logger=settings path=GrafanaServer\\data
+t=2020-07-07T19:37:03+0200 lvl=info msg="Path Logs" logger=settings path=GrafanaServer\\data\\log
+t=2020-07-07T19:37:03+0200 lvl=info msg="Path Plugins" logger=settings path=GrafanaServer\\data\\plugins
+t=2020-07-07T19:37:03+0200 lvl=info msg="Path Provisioning" logger=settings path=GrafanaServer\\conf\\provisioning
+t=2020-07-07T19:37:03+0200 lvl=info msg="App mode production" logger=settings
+t=2020-07-07T19:37:03+0200 lvl=info msg="Connecting to DB" logger=sqlstore dbtype=sqlite3
+t=2020-07-07T19:37:03+0200 lvl=info msg="Starting DB migration" logger=migrator
+t=2020-07-07T19:37:03+0200 lvl=info msg="Starting plugin search" logger=plugins
+t=2020-07-07T19:37:03+0200 lvl=info msg="Registering plugin" logger=plugins name="Direct Input"
+t=2020-07-07T19:37:03+0200 lvl=info msg="HTTP Server Listen" logger=http.server address=[::]:3000 protocol=http subUrl= socket=
+t=2020-07-07T19:37:22+0200 lvl=info msg="Starting Grafana" logger=server version=7.0.4 commit=c4d8d0c2ae branch=HEAD compiled=2020-06-25T08:45:15+0200
+t=2020-07-07T19:37:22+0200 lvl=info msg="Config loaded from" logger=settings file=.\\GrafanaServer/conf/defaults.ini
+t=2020-07-07T19:37:22+0200 lvl=info msg="Path Home" logger=settings path=.\\GrafanaServer
+t=2020-07-07T19:37:22+0200 lvl=info msg="Path Data" logger=settings path=GrafanaServer\\data
+t=2020-07-07T19:37:22+0200 lvl=info msg="Path Logs" logger=settings path=GrafanaServer\\data\\log
+t=2020-07-07T19:37:22+0200 lvl=info msg="Path Plugins" logger=settings path=GrafanaServer\\data\\plugins
+t=2020-07-07T19:37:22+0200 lvl=info msg="Path Provisioning" logger=settings path=GrafanaServer\\conf\\provisioning
+t=2020-07-07T19:37:22+0200 lvl=info msg="App mode production" logger=settings
+t=2020-07-07T19:37:22+0200 lvl=info msg="Connecting to DB" logger=sqlstore dbtype=sqlite3
+t=2020-07-07T19:37:22+0200 lvl=info msg="Starting DB migration" logger=migrator
+t=2020-07-07T19:37:22+0200 lvl=info msg="Starting plugin search" logger=plugins
+t=2020-07-07T19:37:22+0200 lvl=info msg="Registering plugin" logger=plugins name="Direct Input"
+t=2020-07-07T19:37:22+0200 lvl=info msg="HTTP Server Listen" logger=http.server address=[::]:3000 protocol=http subUrl= socket=
+t=2020-07-07T20:00:59+0200 lvl=info msg="Starting Grafana" logger=server version=7.0.4 commit=c4d8d0c2ae branch=HEAD compiled=2020-06-25T08:45:15+0200
+t=2020-07-07T20:00:59+0200 lvl=info msg="Config loaded from" logger=settings file=.\\GrafanaServer/conf/defaults.ini
+t=2020-07-07T20:00:59+0200 lvl=info msg="Path Home" logger=settings path=.\\GrafanaServer
+t=2020-07-07T20:00:59+0200 lvl=info msg="Path Data" logger=settings path=GrafanaServer\\data
+t=2020-07-07T20:00:59+0200 lvl=info msg="Path Logs" logger=settings path=GrafanaServer\\data\\log
+t=2020-07-07T20:00:59+0200 lvl=info msg="Path Plugins" logger=settings path=GrafanaServer\\data\\plugins
+t=2020-07-07T20:00:59+0200 lvl=info msg="Path Provisioning" logger=settings path=GrafanaServer\\conf\\provisioning
+t=2020-07-07T20:00:59+0200 lvl=info msg="App mode production" logger=settings
+t=2020-07-07T20:00:59+0200 lvl=info msg="Connecting to DB" logger=sqlstore dbtype=sqlite3
+t=2020-07-07T20:00:59+0200 lvl=info msg="Starting DB migration" logger=migrator
+t=2020-07-07T20:00:59+0200 lvl=info msg="Starting plugin search" logger=plugins
+t=2020-07-07T20:00:59+0200 lvl=info msg="Registering plugin" logger=plugins name="Direct Input"
+t=2020-07-07T20:00:59+0200 lvl=info msg="HTTP Server Listen" logger=http.server address=[::]:3000 protocol=http subUrl= socket=
+t=2020-07-07T20:47:05+0200 lvl=info msg="Starting Grafana" logger=server version=7.0.4 commit=c4d8d0c2ae branch=HEAD compiled=2020-06-25T08:45:15+0200
+t=2020-07-07T20:47:05+0200 lvl=info msg="Config loaded from" logger=settings file=.\\GrafanaServer/conf/defaults.ini
+t=2020-07-07T20:47:05+0200 lvl=info msg="Path Home" logger=settings path=.\\GrafanaServer
+t=2020-07-07T20:47:05+0200 lvl=info msg="Path Data" logger=settings path=GrafanaServer\\data
+t=2020-07-07T20:47:05+0200 lvl=info msg="Path Logs" logger=settings path=GrafanaServer\\data\\log
+t=2020-07-07T20:47:05+0200 lvl=info msg="Path Plugins" logger=settings path=GrafanaServer\\data\\plugins
+t=2020-07-07T20:47:05+0200 lvl=info msg="Path Provisioning" logger=settings path=GrafanaServer\\conf\\provisioning
+t=2020-07-07T20:47:05+0200 lvl=info msg="App mode production" logger=settings
+t=2020-07-07T20:47:05+0200 lvl=info msg="Connecting to DB" logger=sqlstore dbtype=sqlite3
+t=2020-07-07T20:47:05+0200 lvl=info msg="Starting DB migration" logger=migrator
+t=2020-07-07T20:47:05+0200 lvl=info msg="Starting plugin search" logger=plugins
+t=2020-07-07T20:47:05+0200 lvl=info msg="Registering plugin" logger=plugins name="Direct Input"
+t=2020-07-07T20:47:05+0200 lvl=info msg="HTTP Server Listen" logger=http.server address=[::]:3000 protocol=http subUrl= socket=
+t=2020-07-07T20:49:26+0200 lvl=info msg="Starting Grafana" logger=server version=7.0.4 commit=c4d8d0c2ae branch=HEAD compiled=2020-06-25T08:45:15+0200
+t=2020-07-07T20:49:26+0200 lvl=info msg="Config loaded from" logger=settings file=.\\GrafanaServer/conf/defaults.ini
+t=2020-07-07T20:49:26+0200 lvl=info msg="Path Home" logger=settings path=.\\GrafanaServer
+t=2020-07-07T20:49:26+0200 lvl=info msg="Path Data" logger=settings path=GrafanaServer\\data
+t=2020-07-07T20:49:26+0200 lvl=info msg="Path Logs" logger=settings path=GrafanaServer\\data\\log
+t=2020-07-07T20:49:26+0200 lvl=info msg="Path Plugins" logger=settings path=GrafanaServer\\data\\plugins
+t=2020-07-07T20:49:26+0200 lvl=info msg="Path Provisioning" logger=settings path=GrafanaServer\\conf\\provisioning
+t=2020-07-07T20:49:26+0200 lvl=info msg="App mode production" logger=settings
+t=2020-07-07T20:49:26+0200 lvl=info msg="Connecting to DB" logger=sqlstore dbtype=sqlite3
+t=2020-07-07T20:49:26+0200 lvl=info msg="Starting DB migration" logger=migrator
+t=2020-07-07T20:49:26+0200 lvl=info msg="Starting plugin search" logger=plugins
+t=2020-07-07T20:49:26+0200 lvl=info msg="Registering plugin" logger=plugins name="Direct Input"
+t=2020-07-07T20:49:26+0200 lvl=info msg="HTTP Server Listen" logger=http.server address=[::]:3000 protocol=http subUrl= socket=
+t=2020-07-07T20:53:20+0200 lvl=info msg="Starting Grafana" logger=server version=7.0.4 commit=c4d8d0c2ae branch=HEAD compiled=2020-06-25T08:45:15+0200
+t=2020-07-07T20:53:20+0200 lvl=info msg="Config loaded from" logger=settings file=.\\GrafanaServer/conf/defaults.ini
+t=2020-07-07T20:53:20+0200 lvl=info msg="Path Home" logger=settings path=.\\GrafanaServer
+t=2020-07-07T20:53:20+0200 lvl=info msg="Path Data" logger=settings path=GrafanaServer\\data
+t=2020-07-07T20:53:20+0200 lvl=info msg="Path Logs" logger=settings path=GrafanaServer\\data\\log
+t=2020-07-07T20:53:20+0200 lvl=info msg="Path Plugins" logger=settings path=GrafanaServer\\data\\plugins
+t=2020-07-07T20:53:20+0200 lvl=info msg="Path Provisioning" logger=settings path=GrafanaServer\\conf\\provisioning
+t=2020-07-07T20:53:20+0200 lvl=info msg="App mode production" logger=settings
+t=2020-07-07T20:53:20+0200 lvl=info msg="Connecting to DB" logger=sqlstore dbtype=sqlite3
+t=2020-07-07T20:53:20+0200 lvl=info msg="Starting DB migration" logger=migrator
+t=2020-07-07T20:53:20+0200 lvl=info msg="Starting plugin search" logger=plugins
+t=2020-07-07T20:53:20+0200 lvl=info msg="Registering plugin" logger=plugins name="Direct Input"
+t=2020-07-07T20:53:20+0200 lvl=info msg="HTTP Server Listen" logger=http.server address=[::]:3000 protocol=http subUrl= socket=
+t=2020-07-07T21:00:37+0200 lvl=info msg="Starting Grafana" logger=server version=7.0.4 commit=c4d8d0c2ae branch=HEAD compiled=2020-06-25T08:45:15+0200
+t=2020-07-07T21:00:37+0200 lvl=info msg="Config loaded from" logger=settings file=.\\GrafanaServer/conf/defaults.ini
+t=2020-07-07T21:00:37+0200 lvl=info msg="Path Home" logger=settings path=.\\GrafanaServer
+t=2020-07-07T21:00:37+0200 lvl=info msg="Path Data" logger=settings path=GrafanaServer\\data
+t=2020-07-07T21:00:37+0200 lvl=info msg="Path Logs" logger=settings path=GrafanaServer\\data\\log
+t=2020-07-07T21:00:37+0200 lvl=info msg="Path Plugins" logger=settings path=GrafanaServer\\data\\plugins
+t=2020-07-07T21:00:37+0200 lvl=info msg="Path Provisioning" logger=settings path=GrafanaServer\\conf\\provisioning
+t=2020-07-07T21:00:37+0200 lvl=info msg="App mode production" logger=settings
+t=2020-07-07T21:00:37+0200 lvl=info msg="Connecting to DB" logger=sqlstore dbtype=sqlite3
+t=2020-07-07T21:00:37+0200 lvl=info msg="Starting DB migration" logger=migrator
+t=2020-07-07T21:00:37+0200 lvl=info msg="Starting plugin search" logger=plugins
+t=2020-07-07T21:00:37+0200 lvl=info msg="Registering plugin" logger=plugins name="Direct Input"
+t=2020-07-07T21:00:37+0200 lvl=info msg="HTTP Server Listen" logger=http.server address=[::]:3000 protocol=http subUrl= socket=

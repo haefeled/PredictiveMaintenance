@@ -9,6 +9,7 @@ import matplotlib.pyplot as plt
 import DataPreparation
 from Train import Train
 
+
 class Predict:
     def __init__(self):
         self.model_path0 = r".\Model\lstm_model0.h5"
@@ -27,7 +28,7 @@ class Predict:
         self.model1.compile(loss='mean_squared_error', optimizer='adam')
         self.model2.compile(loss='mean_squared_error', optimizer='adam')
         self.model3.compile(loss='mean_squared_error', optimizer='adam')
-        
+
         self.df = pd.DataFrame()
         self.current_rul = []
 
@@ -41,6 +42,7 @@ class Predict:
         # number of last timesteps
         TIMESTEPS = 5
 
+        self.df = pd.concat([self.df, current_df])
         self.df.append(current_df)
 
         # Removing target and unused columns
@@ -80,4 +82,5 @@ class Predict:
                 current_rul = 0
             print("\nRUL: {} min\n".format(current_rul))
 
-        prep_writer.insert_data({'rul0' : current_rul_list[0], 'rul1' : current_rul_list[1], 'rul2' : current_rul_list[2], 'rul3' : current_rul_list[3]})
+        prep_writer.insert_data({'rul0': current_rul_list[0], 'rul1': current_rul_list[1], 'rul2': current_rul_list[2],
+                                 'rul3': current_rul_list[3]})
