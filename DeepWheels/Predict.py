@@ -79,7 +79,7 @@ class Predict:
 
         for i in range(len(current_rul_list)):
             if current_rul_list[i] < 0:
-                current_rul_list[i] = 0
+                current_rul_list[i] = 0.0
             print("\nRUL: {} min\n".format(current_rul_list[i]))
 
         prep_writer.insert_data({'rul0': current_rul_list[0], 'rul1': current_rul_list[1], 'rul2': current_rul_list[2],

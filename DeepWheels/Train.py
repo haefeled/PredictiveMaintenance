@@ -1,3 +1,6 @@
+import random
+from threading import Thread
+
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import r2_score
 from sklearn.preprocessing import StandardScaler
@@ -9,7 +12,6 @@ import keras
 import numpy as np
 from os import listdir
 from os.path import isfile, join
-
 from DataReader import DataReader
 from DataPreparation import DataPreparation
 
@@ -132,10 +134,10 @@ class Train:
 
             if use_existing_model == False:
                 model = Sequential()
-                model.add(LSTM(input_shape=(TIMESTEPS, len(features)), units=50, return_sequences=True))
-                model.add(Dropout(0.5))
-                model.add(LSTM(input_shape=(TIMESTEPS, len(features)), units=50, return_sequences=False))
-                model.add(Dropout(0.5))
+                model.add(LSTM(input_shape=(TIMESTEPS, len(features)), units=80, return_sequences=True))
+                model.add(Dropout(round(random.uniform(0.1, 0.5), 1)))
+                model.add(LSTM(input_shape=(TIMESTEPS, len(features)), units=80, return_sequences=False))
+                model.add(Dropout(round(random.uniform(0.1, 0.5), 1)))
                 model.add(Dense(units=1, activation='relu'))
             else:
                 model_path = r".\Model\lstm_model" + str(i) + ".h5"
@@ -147,27 +149,28 @@ class Train:
             model_path = r".\Model\lstm_model" + str(i) + ".h5"
 
             history = model.fit(Train.to_3D(x_train_lstm, features, TIMESTEPS), y_train,
-                                epochs=20, batch_size=8, validation_split=0.2, verbose=1,
+                                epochs=3000, batch_size=64, validation_split=0.33, verbose=0,
                                 callbacks=[
                                     keras.callbacks.EarlyStopping(monitor='val_loss',
                                                                 min_delta=0,
-                                                                patience=200,
-                                                                verbose=1,
+                                                                patience=6,
+                                                                verbose=0,
                                                                 mode='min'),
 
                                     keras.callbacks.ModelCheckpoint(model_path,
                                                                     monitor='val_loss',
                                                                     save_best_only=True,
                                                                     mode='min',
-                                                                    verbose=1)])
-            '''
+                                                                    verbose=0)])
+
             plt.figure(figsize=(10, 8), dpi=90)
             plt.plot(history.history['val_loss'], label='val_loss')
             plt.plot(history.history['loss'], label='loss')
             plt.xlabel('Epochs')
             plt.ylabel('Mean Squared Error (MSE)')
             plt.legend()
-            '''
+            plt.show()
+
 
             model.load_weights(model_path)
             model.compile(loss='mean_squared_error', optimizer='adam')
@@ -177,7 +180,7 @@ class Train:
             print(f"R2 Score: {round(r2_score(y_test, rul_pred), 4)}")
             print(rul_pred)
 
-            '''
+
             plt.figure(figsize=(10, 8), dpi=90)
             plt.plot(y_test.iloc[:].values, label='Actual RUL')
             plt.plot(rul_pred[:], label='Pred RUL')
@@ -185,7 +188,7 @@ class Train:
             plt.ylabel('RUL in minutes')
             plt.legend()
             plt.show()
-            '''
+
 
     @staticmethod
     def train_on_all_datasets(path_to_datasets, failure_threshold):
@@ -224,7 +227,15 @@ class Train:
             else:
                 Train.train(db_file_names[i], False, failure_threshold)
 
+    def optimize_hyperparameters(wheel_num):
+        layer_num = [1, 2, 3]
+        units = [20, 50, 80, 100, 150, 200, 300]
+        optimizer = ['adam', 'nadam', 'sgd']
+
+
+
+
 
 if __name__ == "__main__":
     train = Train()
-    train.train_on_all_datasets(r".\Data\AllData", 45)
+    train.train_on_all_datasets(r".\Data\AllData", 50)
