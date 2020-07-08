@@ -77,10 +77,10 @@ class Predict:
         # RUL [RL, RR, FL, FR]
         current_rul_list = [current_rul0, current_rul1, current_rul2, current_rul3]
 
-        for current_rul in current_rul_list:
-            if current_rul < 0:
-                current_rul = 0
-            print("\nRUL: {} min\n".format(current_rul))
+        for i in range(len(current_rul_list)):
+            if current_rul_list[i] < 0:
+                current_rul_list[i] = 0
+            print("\nRUL: {} min\n".format(current_rul_list[i]))
 
         prep_writer.insert_data({'rul0': current_rul_list[0], 'rul1': current_rul_list[1], 'rul2': current_rul_list[2],
                                  'rul3': current_rul_list[3]})
