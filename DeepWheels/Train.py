@@ -63,7 +63,7 @@ class Train:
         :param failure_threshold: int A percentage of tyreWear representing a failure.
         """
         # number of last timesteps to use for training
-        TIMESTEPS = 5
+        TIMESTEPS = 30
 
         # fix random seed for reproducibility
         np.random.seed(7)
@@ -73,9 +73,6 @@ class Train:
         data = data_reader.load_data_from_sqlite3(r".\Data\AllData\\" + filename)
         data = data_prep.sort_dict_into_list(data, False)
         df = data_prep.list_to_dataframe(data)
-
-        # convert sessionTime to minutes
-        df['sessionTime'] = df['sessionTime'] / 60
 
         # train for every tyre
         for i in range(4):

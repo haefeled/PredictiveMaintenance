@@ -40,7 +40,7 @@ class Predict:
         :return: list<float> A list of predicted RUL values.
         """
         # number of last timesteps
-        TIMESTEPS = 5
+        TIMESTEPS = 30
 
         self.df = pd.concat([self.df, current_df])
         self.df.append(current_df)
@@ -69,10 +69,10 @@ class Predict:
         rul_pred3 = self.model3.predict(df_3D)
 
         session_time_min = self.df.iloc[len(self.df.index) - 1]['sessionTime'] / 60
-        current_rul0 = rul_pred0[0][0] - session_time_min
-        current_rul1 = rul_pred1[0][0] - session_time_min
-        current_rul2 = rul_pred2[0][0] - session_time_min
-        current_rul3 = rul_pred3[0][0] - session_time_min
+        current_rul0 = (rul_pred0[0][0]/60) - session_time_min
+        current_rul1 = (rul_pred1[0][0]/60) - session_time_min
+        current_rul2 = (rul_pred2[0][0]/60) - session_time_min
+        current_rul3 = (rul_pred3[0][0]/60) - session_time_min
 
         # RUL [RL, RR, FL, FR]
         current_rul_list = [current_rul0, current_rul1, current_rul2, current_rul3]

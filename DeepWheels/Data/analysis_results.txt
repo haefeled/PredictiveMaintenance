@@ -1,8 +1,0 @@
-a0466252c5ce018b.sqlite3 maxTyreWear: 74%65%76%50%
-aaaa.sqlite3 maxTyreWear: 99%88%84%62%
-ac8a5acb2be985d0.sqlite3 maxTyreWear: 63%57%65%51%
-Dani_volle_Fahrhilfe_frontfluegelRechts_kaputt_SpritLeer.sqlite3 maxTyreWear: 57%50%65%44%
-e38fe3bdf297c605.sqlite3 maxTyreWear: 76%67%67%51%
-Ernoe_keine_Fahrhilfe_ABS_ON_Crash_Reifen_56%.sqlite3 maxTyreWear: 58%51%37%28%
-Ernoe_keine_Fahrhilfe_ABS_ON_Crash_Reifen_83%.sqlite3 maxTyreWear: 87%80%64%46%
-Ernoe_keine_Fahrhilfe_ABS_ON_Reifen_80%.sqlite3 maxTyreWear: 82%73%68%49%
