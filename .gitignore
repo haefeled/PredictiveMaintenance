@@ -4,6 +4,7 @@
 *.sqlite3
 DeepWheels/__pycache__/
 DeepWheels/.idea/
+DeepWheels/GrafanaServer
 .idea/
 
 DeepWheels/Data/AllData/.DS_Store
