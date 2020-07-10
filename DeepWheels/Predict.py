@@ -40,7 +40,7 @@ class Predict:
         :return: list<float> A list of predicted RUL values.
         """
         # number of last timesteps
-        TIMESTEPS = 30
+        TIMESTEPS = 10
 
         self.df = pd.concat([self.df, current_df])
         self.df.append(current_df)

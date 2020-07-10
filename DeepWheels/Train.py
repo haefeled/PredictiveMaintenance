@@ -1,19 +1,17 @@
 import random
-from threading import Thread
 
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import r2_score
-from sklearn.preprocessing import StandardScaler
-import pandas as pd
-import matplotlib.pyplot as plt
-from keras.models import Sequential, load_model
-from keras.layers import Dense, Dropout, LSTM
 import keras
+import matplotlib.pyplot as plt
 import numpy as np
-from os import listdir
-from os.path import isfile, join
-from DataReader import DataReader
+import pandas as pd
 from DataPreparation import DataPreparation
+from DataReader import DataReader
+from keras.layers import Dense, Dropout, LSTM
+from keras.models import Sequential, load_model
+from sklearn.metrics import r2_score
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+
 
 class Train:
     @staticmethod
@@ -63,7 +61,7 @@ class Train:
         :param failure_threshold: int A percentage of tyreWear representing a failure.
         """
         # number of last timesteps to use for training
-        TIMESTEPS = 30
+        TIMESTEPS = 10
 
         # fix random seed for reproducibility
         np.random.seed(7)
@@ -103,7 +101,7 @@ class Train:
 
             print(df)
             # remove rows after failure
-            #df[df['is_faulty'] == 0]
+            # df[df['is_faulty'] == 0]
 
             # remove unused columns
             del df['is_faulty']
@@ -131,10 +129,12 @@ class Train:
 
             if use_existing_model == False:
                 model = Sequential()
-                model.add(LSTM(input_shape=(TIMESTEPS, len(features)), units=80, return_sequences=True))
+                model.add(LSTM(input_shape=(TIMESTEPS, len(features)), units=50, return_sequences=True))
                 model.add(Dropout(round(random.uniform(0.1, 0.5), 1)))
-                model.add(LSTM(input_shape=(TIMESTEPS, len(features)), units=80, return_sequences=False))
+                model.add(LSTM(input_shape=(TIMESTEPS, len(features)), units=50, return_sequences=False))
                 model.add(Dropout(round(random.uniform(0.1, 0.5), 1)))
+                #model.add(LSTM(input_shape=(TIMESTEPS, len(features)), units=80, return_sequences=False))
+                #model.add(Dropout(round(random.uniform(0.1, 0.5), 1)))
                 model.add(Dense(units=1, activation='relu'))
             else:
                 model_path = r".\Model\lstm_model" + str(i) + ".h5"
@@ -146,19 +146,19 @@ class Train:
             model_path = r".\Model\lstm_model" + str(i) + ".h5"
 
             history = model.fit(Train.to_3D(x_train_lstm, features, TIMESTEPS), y_train,
-                                epochs=3000, batch_size=64, validation_split=0.33, verbose=0,
+                                epochs=3000, batch_size=32, validation_split=0.3, verbose=2,
                                 callbacks=[
                                     keras.callbacks.EarlyStopping(monitor='val_loss',
-                                                                min_delta=0,
-                                                                patience=6,
-                                                                verbose=0,
-                                                                mode='min'),
+                                                                  min_delta=0,
+                                                                  patience=3,
+                                                                  verbose=2,
+                                                                  mode='min'),
 
                                     keras.callbacks.ModelCheckpoint(model_path,
                                                                     monitor='val_loss',
                                                                     save_best_only=True,
                                                                     mode='min',
-                                                                    verbose=0)])
+                                                                    verbose=2)])
 
             plt.figure(figsize=(10, 8), dpi=90)
             plt.plot(history.history['val_loss'], label='val_loss')
@@ -168,7 +168,6 @@ class Train:
             plt.legend()
             plt.show()
 
-
             model.load_weights(model_path)
             model.compile(loss='mean_squared_error', optimizer='adam')
 
@@ -177,7 +176,6 @@ class Train:
             print(f"R2 Score: {round(r2_score(y_test, rul_pred), 4)}")
             print(rul_pred)
 
-
             plt.figure(figsize=(10, 8), dpi=90)
             plt.plot(y_test.iloc[:].values, label='Actual RUL')
             plt.plot(rul_pred[:], label='Pred RUL')
@@ -185,7 +183,6 @@ class Train:
             plt.ylabel('RUL in minutes')
             plt.legend()
             plt.show()
-
 
     @staticmethod
     def train_on_all_datasets(path_to_datasets, failure_threshold):
@@ -196,7 +193,7 @@ class Train:
         :param failure_threshold: int A percentage of tyreWear representing a failure.
         """
 
-        #db_file_names = [f for f in listdir(path_to_datasets) if isfile(join(path_to_datasets, f))]
+        # db_file_names = [f for f in listdir(path_to_datasets) if isfile(join(path_to_datasets, f))]
 
         db_file_names = []
         with open(r".\Data\analysis_results.txt") as f:
@@ -224,15 +221,18 @@ class Train:
             else:
                 Train.train(db_file_names[i], False, failure_threshold)
 
-    def optimize_hyperparameters(wheel_num):
+    def optimize_hyperparameters(self, wheel_num):
         layer_num = [1, 2, 3]
-        units = [20, 50, 80, 100, 150, 200, 300]
-        optimizer = ['adam', 'nadam', 'sgd']
-
-
-
+        units = [20, 50, 100, 150, 200]
+        size = 0
+        for lm in layer_num:
+            for un in units:
+                print(str(lm) + " " + str(un) + " " + str(cp))
+                size = size + 1
+        print("repnum: " + str(size))
 
 
 if __name__ == "__main__":
     train = Train()
     train.train_on_all_datasets(r".\Data\AllData", 50)
+    #train.optimize_hyperparameters(4)
