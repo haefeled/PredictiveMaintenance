@@ -12,8 +12,15 @@ from sklearn.metrics import r2_score
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 
+from bayes_opt import BayesianOptimization
+from tensorboard.plugins.hparams import api as hp
+from datetime import datetime
+
 
 class Train:
+    hparam = []
+    failure_threshold = 50
+
     @staticmethod
     def to_3D(X, features, timesteps):
         '''
@@ -51,8 +58,10 @@ class Train:
         tyreIDstr = 'tyresWear' + str(tyreID)
         return np.where((df[tyreIDstr] < failure_threshold), 0, 1)
 
-    @staticmethod
-    def train(filename, use_existing_model, failure_threshold):
+    def train(self, optimizer,
+              dropout,
+              num_layer,
+              num_units):
         """
         Trains a model for a given database.
 
@@ -75,7 +84,7 @@ class Train:
         # train for every tyre
         for i in range(4):
             # add failure flag to samples
-            df['is_faulty'] = Train.is_faulty(df, i, failure_threshold)
+            df['is_faulty'] = Train.is_faulty(df, i, self.failure_threshold)
 
             # checking if dataset contains failure
             if 1 not in pd.Series(list(df['is_faulty'])).unique():
@@ -108,15 +117,16 @@ class Train:
 
             # List of shifted dataframes according to the number of TIMESTEPS
             df_list = [df[features].shift(shift_val) if (shift_val == 0)
-                    else df[features].shift(-shift_val).add_suffix(f'_{shift_val}')
-                    for shift_val in range(0, TIMESTEPS)]
+                       else df[features].shift(-shift_val).add_suffix(f'_{shift_val}')
+                       for shift_val in range(0, TIMESTEPS)]
 
             # Concatenating list
             df_concat = pd.concat(df_list, axis=1, sort=False)
             df_concat = df_concat.iloc[:-TIMESTEPS, :]
 
             # Default train_test_split - test_size=0.25
-            x_train, x_test, y_train, y_test = train_test_split(df_concat, df[target].iloc[:-TIMESTEPS], random_state=10,
+            x_train, x_test, y_train, y_test = train_test_split(df_concat, df[target].iloc[:-TIMESTEPS],
+                                                                random_state=10,
                                                                 shuffle=True)
 
             scaler = StandardScaler()
@@ -126,25 +136,23 @@ class Train:
             x_train_lstm = pd.DataFrame(data=scaler.fit_transform(x_train), columns=x_train.columns)
             # Test
             x_test_lstm = pd.DataFrame(data=scaler.transform(x_test), columns=x_test.columns)
+            time_stamp = datetime.timestamp()
 
-            if use_existing_model == False:
-                model = Sequential()
+            model = Sequential()
+            for _ in range(num_layer):
                 model.add(LSTM(input_shape=(TIMESTEPS, len(features)), units=50, return_sequences=True))
-                model.add(Dropout(round(random.uniform(0.1, 0.5), 1)))
-                model.add(LSTM(input_shape=(TIMESTEPS, len(features)), units=50, return_sequences=False))
-                model.add(Dropout(round(random.uniform(0.1, 0.5), 1)))
-                #model.add(LSTM(input_shape=(TIMESTEPS, len(features)), units=80, return_sequences=False))
-                #model.add(Dropout(round(random.uniform(0.1, 0.5), 1)))
-                model.add(Dense(units=1, activation='relu'))
-            else:
-                model_path = r".\Model\lstm_model" + str(i) + ".h5"
-                model = load_model(model_path)
-                model.load_weights(model_path)
+                model.add(Dropout(dropout))
+            model.add(LSTM(input_shape=(TIMESTEPS, len(features)), units=50, return_sequences=False))
+            model.add(Dropout(round(random.uniform(0.1, 0.5), 1)))
+            # model.add(LSTM(input_shape=(TIMESTEPS, len(features)), units=80, return_sequences=False))
+            # model.add(Dropout(round(random.uniform(0.1, 0.5), 1)))
+            model.add(Dense(units=1, activation='relu'))
+
             model.compile(loss='mean_squared_error', optimizer='adam')
             print(model.summary())
 
             model_path = r".\Model\lstm_model" + str(i) + ".h5"
-
+            run_dir = f'logs/run{time_stamp}'
             history = model.fit(Train.to_3D(x_train_lstm, features, TIMESTEPS), y_train,
                                 epochs=3000, batch_size=32, validation_split=0.3, verbose=2,
                                 callbacks=[
@@ -158,7 +166,13 @@ class Train:
                                                                     monitor='val_loss',
                                                                     save_best_only=True,
                                                                     mode='min',
-                                                                    verbose=2)])
+                                                                    verbose=2),
+                                    keras.callbacks.TensorBoard(log_dir=run_dir),
+                                    hp.KerasCallback(run_dir + '/hparam', {
+                                        self.hparam[0]: float(int(round())),
+
+                                    }),
+                                ])
 
             plt.figure(figsize=(10, 8), dpi=90)
             plt.plot(history.history['val_loss'], label='val_loss')
@@ -168,8 +182,6 @@ class Train:
             plt.legend()
             plt.show()
 
-            model.load_weights(model_path)
-            model.compile(loss='mean_squared_error', optimizer='adam')
 
             print(x_test_lstm)
             rul_pred = model.predict(Train.to_3D(x_test_lstm, features, TIMESTEPS))
@@ -222,17 +234,28 @@ class Train:
                 Train.train(db_file_names[i], False, failure_threshold)
 
     def optimize_hyperparameters(self, wheel_num):
-        layer_num = [1, 2, 3]
-        units = [20, 50, 100, 150, 200]
-        size = 0
-        for lm in layer_num:
-            for un in units:
-                print(str(lm) + " " + str(un) + " " + str(cp))
-                size = size + 1
-        print("repnum: " + str(size))
+        optimizer = ['adam', 'sgd', 'rmsprop']
+        pbounds = {
+            'optimizer': (0, len(optimizer)),
+            'dropout': (.1, .5),
+            'num_layer': (1, 3),
+            'num_units': (20, 300)
+        }
+
+        hparam = []
+        for key, val in pbounds.items():
+            hparam.append(hp.HParam(key, hp.Discrete(list(val))))
+
+        pass
 
 
 if __name__ == "__main__":
     train = Train()
     train.train_on_all_datasets(r".\Data\AllData", 50)
-    #train.optimize_hyperparameters(4)
+
+    pbounds = {
+        '': (),
+        '': (),
+    }
+
+    # train.optimize_hyperparameters(4)

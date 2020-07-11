@@ -1,13 +1,7 @@
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import StandardScaler
-from keras.models import load_model
-import datetime
-import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
-
-import DataPreparation
 from Train import Train
+from keras.models import load_model
+from sklearn.preprocessing import StandardScaler
 
 
 class Predict:
