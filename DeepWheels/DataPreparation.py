@@ -3,6 +3,7 @@ import socket
 import time
 import progressbar
 import pandas
+import numpy as np
 
 from DataReader import DataReader
 from f1_2019_telemetry.packets import PackedLittleEndianStructure, PacketHeader
@@ -120,30 +121,101 @@ class DataPreparation:
         return data
 
     def list_to_dataframe(self, list_data):
-        '''
+        """
         Converts a list of maps to a pandas DataFrame.
 
         :param list_data: list<dict<number>> A list of maps which contain non-collection data.
         :return: pandas.DataFrame A pandas DataFrame.
-        '''
+        """
         outer_list = []
         for row in list_data:
             outer_list.append(list(row[key] for key in row.keys()))
         return pandas.DataFrame(outer_list, columns=list(list_data[0].keys()))
 
+    def load_data(self, filename):
+        """
+        load the data with proper order for training
+
+        :param filename: String path to the file
+        :return: pandas.DataFrame
+        """
+        data_reader = DataReader()
+        data_prep = DataPreparation()
+        data = data_reader.load_data_from_sqlite3(r".\Data\AllData\\" + filename)
+        data = data_prep.sort_dict_into_list(data, True)
+        return data_prep.list_to_dataframe(data)
+
+    def prepare_data(self, df):
+        """
+        Prepare the Data to a proper format for the LSTM
+
+        :param df: pandas.DataFrame Input Data as DataFrame
+        :return: X Array with an Array of 30 Pakets inside, y the RUL of the 30 Pakets
+        """
+        # define MAX_RUL for each tyre
+        maxrul_list = [df.loc[df.query('tyresWear0 < 50').tyresWear0.count(), 'sessionTime'],
+                       df.loc[df.query('tyresWear1 < 50').tyresWear1.count(), 'sessionTime'],
+                       df.loc[df.query('tyresWear2 < 50').tyresWear2.count(), 'sessionTime'],
+                       df.loc[df.query('tyresWear3 < 50').tyresWear3.count(), 'sessionTime']]
+
+        # define input array for each tyre
+        input_seq0 = np.array(df)
+        input_seq1 = np.array(df)
+        input_seq2 = np.array(df)
+        input_seq3 = np.array(df)
+
+        # define output
+        output_seq = []
+        for i in range(len(maxrul_list)):
+            tmp_list = []
+            for j in range(len(input_seq0)):
+                tmp_list.append(maxrul_list[i] - df.loc[j, 'sessionTime'])
+            output_seq.append(deepcopy(tmp_list))
+        output_seq = np.array(output_seq)
+
+        # transpose output
+        tmp_array = [[0 for i in range(len(output_seq))] for j in range(len(output_seq[0]))]
+        for i in range(len((output_seq))):
+            for j in range(len(output_seq[0])):
+                tmp_array[j][i] = output_seq[i][j]
+        output_seq = np.array(deepcopy(tmp_array))
+
+        # horizontally stack columns
+        dataset = np.hstack((input_seq0, input_seq1, input_seq2, input_seq3, output_seq))
+
+        # convert into input/output
+        X, y = self.split_sequences(dataset, 30)
+        return X, y
+
+    def split_sequences(self, sequences, n_steps):
+        """
+
+        :param sequences: Dataset for the training including RUL for each Tyre for each paket
+        :param n_steps: number of Timesteps
+        :return: X Array with an Array of 30 Pakets inside, y the RUL of the 30 Pakets
+        """
+        X, y = list(), list()
+        for i in range(len(sequences)):
+            # find the end of this pattern
+            end_ix = i + n_steps
+            # check if we are beyond the dataset
+            if end_ix > len(sequences) - 1:
+                break
+            # gather input and output parts of the pattern
+            seq_x, seq_y = sequences[i:end_ix, :520], sequences[end_ix, 520:]
+            X.append(seq_x)
+            y.append(seq_y)
+        return np.array(X), np.array(y)
+
 
 if __name__ == "__main__":
-    # train
+    # example for gathering data for training
     data_prep = DataPreparation()
-    data = DataReader().load_data_from_sqlite3(r".\Data\AllData\example.sqlite3")
-    # sleep just for ide terminal output, else progressbar not properly displayed
-    time.sleep(0.2)
-    print('got %i packets' % len(data))
-    result = data_prep.sort_dict_into_list(data, True)
-    # sleep just for ide terminal output, else progressbar not properly displayed
-    time.sleep(0.2)
-    print('data filtered!')
-    print('got %i cycles with relevant data' % len(result))
+    data = data_prep.load_data("57aef32a4f3968a7.sqlite3")
+    x_train, y_train = data_prep.prepare_data(data)
+    print(x_train[0], y_train[0])
+
+
 
     # # live
     # print('starting test')
