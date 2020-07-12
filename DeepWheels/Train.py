@@ -11,7 +11,7 @@ from tensorboard.plugins.hparams import api as hp
 from DataPreparation import DataPreparation
 
 OPTIMIZER = ['adam', 'rmsprop', 'sgd', 'nadam']
-ACTIVATION = ['relu', 'tanh', 'linear', 'elu', 'prelu'] # prelu was unkown
+ACTIVATION = ['tanh', 'linear', 'elu', 'relu', 'sigmoid'] # prelu was unkown
 TIMESTEPS = 30
 N_FEATURES = 520
 
@@ -99,7 +99,7 @@ def fit_model_with(optimizer, activation, dropout, num_layer, num_units):
 
         # Train the model with the train dataset.
         history = model.fit(x_train, y_train,
-                            epochs=3000, batch_size=16, validation_split=0.3, verbose=2,
+                            epochs=3000, batch_size=32, validation_split=0.3, verbose=2,
                             callbacks=[
                                 keras.callbacks.EarlyStopping(monitor='val_loss',
                                                               min_delta=0,
@@ -142,6 +142,21 @@ def fit_model_with(optimizer, activation, dropout, num_layer, num_units):
 
     out_score = sum(score) / len(score)
     print(out_score)
+
+    # denormalize for readable output
+    print(output[0])
+    factor_dict = dict()
+    with open(r".\Data\analysis_results.txt") as f:
+        content = f.readlines()
+        for line in content:
+            entry = line.strip().split(':')
+            factor_dict[deepcopy(entry[0])] = deepcopy(float(entry[1]))
+    for i in range(len(output[0])):
+        maxrul_STR = 'maxRUL' + str(i)
+        output[0][i] = output[0][i] * factor_dict[maxrul_STR]
+    print(output[0])
+
+
 
     # Return the accuracy.
     return out_score

@@ -161,10 +161,11 @@ class DataReader:
                 start_buffer_time = datetime.datetime.now()
                 #data_list = []
 
+
 if __name__ == "__main__":
     # just for testing
     data_reader = DataReader()
-    path_to_db = r".\Data\AllData\example.sqlite3"
+    path_to_db = r".\Data\AllData\0ff7c436c1c21664.sqlite3"
     data = data_reader.load_data_from_sqlite3(path_to_db)
 
 

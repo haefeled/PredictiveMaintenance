@@ -1,3 +1,5 @@
+from copy import deepcopy
+
 import pandas as pd
 import numpy as np
 from os import listdir
@@ -12,17 +14,50 @@ data_prep = DataPreparation()
 def analyze(filename, isFirst):
     print("read {}".format(filename))
     data = data_reader.load_data_from_sqlite3(r".\Data\AllData\\" + filename)
-    data = data_prep.sort_dict_into_list(data, False)
+    data = data_prep.sort_dict_into_list(data, True)
     df = data_prep.list_to_dataframe(data)
 
-    max_vals = [df['tyresWear0'].max(), df['tyresWear1'].max(), df['tyresWear2'].max(), df['tyresWear3'].max()]
+    maxrul_list = [df.loc[df.query('tyresWear0 < 50').tyresWear0.count(), 'sessionTime'],
+                   df.loc[df.query('tyresWear1 < 50').tyresWear1.count(), 'sessionTime'],
+                   df.loc[df.query('tyresWear2 < 50').tyresWear2.count(), 'sessionTime'],
+                   df.loc[df.query('tyresWear3 < 50').tyresWear3.count(), 'sessionTime']]
 
-    write_mode = "a"
-    if isFirst:
-        write_mode = "w"
+    for i in range(len(maxrul_list)):
+        maxrul_STR = 'maxRUL' + str(i)
+        df[maxrul_STR] = maxrul_list[i]
 
-    with open(r".\Data\analysis_results.txt", write_mode) as out_file:
-            out_file.write("{} maxTyreWear: {}%{}%{}%{}%\n".format(filename, max_vals[0], max_vals[1], max_vals[2], max_vals[3]))
+    colums = df.columns.tolist()
+    compare_dict = dict()
+    if not isFirst:
+        with open(r".\Data\analysis_results.txt") as f:
+            content = f.readlines()
+            for line in content:
+                entry = line.strip().split(':')
+                compare_dict[deepcopy(entry[0])] = deepcopy(float(entry[1]))
+
+
+    with open(r".\Data\analysis_results.txt", "w") as out_file:
+        for colum in colums:
+            if abs(df[colum].max()) >= abs(df[colum].min()):
+                factor = abs(df[colum].max())
+            else:
+                factor = abs(df[colum].min())
+
+            if not isFirst:
+                if factor < compare_dict[colum]:
+                    out_file.write(
+                        "{}:{}\n".format(colum, compare_dict[colum])
+                    )
+                else:
+                    out_file.write(
+                        "{}:{}\n".format(colum, factor)
+                    )
+            else:
+                out_file.write(
+                    "{}:{}\n".format(colum, factor)
+                )
+
+
 
 def analyze_all_datasets(path_to_datasets):
     """

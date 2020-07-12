@@ -4,6 +4,8 @@ import time
 import progressbar
 import pandas
 import numpy as np
+from sklearn import preprocessing
+from sklearn.preprocessing import StandardScaler
 
 from DataReader import DataReader
 from f1_2019_telemetry.packets import PackedLittleEndianStructure, PacketHeader
@@ -158,20 +160,39 @@ class DataPreparation:
                        df.loc[df.query('tyresWear2 < 50').tyresWear2.count(), 'sessionTime'],
                        df.loc[df.query('tyresWear3 < 50').tyresWear3.count(), 'sessionTime']]
 
+        # MinMax normalization (from -1 to 1) and convert all to float
+        factor_dict = dict()
+        with open(r".\Data\analysis_results.txt") as f:
+            content = f.readlines()
+            for line in content:
+                entry = line.strip().split(':')
+                factor_dict[deepcopy(entry[0])] = deepcopy(float(entry[1]))
+        colums = df.columns.tolist()
+        norm_df = deepcopy(df)
+        for colum in colums:
+            if factor_dict[colum] == 0:
+                norm_df[colum] = 0
+            else:
+                norm_df[colum] = df[colum] / factor_dict[colum]
+
+
         # define input array for each tyre
-        input_seq0 = np.array(df)
-        input_seq1 = np.array(df)
-        input_seq2 = np.array(df)
-        input_seq3 = np.array(df)
+        input_seq0 = np.array(norm_df)
+        input_seq1 = np.array(norm_df)
+        input_seq2 = np.array(norm_df)
+        input_seq3 = np.array(norm_df)
 
         # define output
         output_seq = []
         for i in range(len(maxrul_list)):
             tmp_list = []
+            maxrul_STR = 'maxRUL' + str(i)
             for j in range(len(input_seq0)):
-                tmp_list.append(maxrul_list[i] - df.loc[j, 'sessionTime'])
+                tmp_list.append((maxrul_list[i] - df.loc[j, 'sessionTime']) / factor_dict[maxrul_STR])
             output_seq.append(deepcopy(tmp_list))
         output_seq = np.array(output_seq)
+
+
 
         # transpose output
         tmp_array = [[0 for i in range(len(output_seq))] for j in range(len(output_seq[0]))]
@@ -208,10 +229,12 @@ class DataPreparation:
         return np.array(X), np.array(y)
 
 
+    #def normalize_Dataset(self):
+
 if __name__ == "__main__":
     # example for gathering data for training
     data_prep = DataPreparation()
-    data = data_prep.load_data("57aef32a4f3968a7.sqlite3")
+    data = data_prep.load_data(r".\Data\AllData\0ff7c436c1c21664.sqlite3")
     x_train, y_train = data_prep.prepare_data(data)
     print(x_train[0], y_train[0])
 
