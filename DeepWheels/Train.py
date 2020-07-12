@@ -27,7 +27,8 @@ def optimize_hyperparameters():
         'activation': (0, len(ACTIVATION) - 1),
         'dropout': (.1, .5),
         'num_layer': (0, 2),
-        'num_units': (20, 300)
+        'num_units': (20, 300),
+        'batch_size': (5, 9)
     }
     # hparam = []
     # for key, val in pbounds.items():
@@ -41,8 +42,8 @@ def optimize_hyperparameters():
     )
 
     optimizer.maximize(
-        init_points=6,
-        n_iter=3,
+        init_points=15,
+        n_iter=5,
     )
 
     print(optimizer.max)
@@ -68,9 +69,10 @@ def get_model(activation, dropout, num_layer, num_units):
     return model
 
 
-def fit_model_with(optimizer, activation, dropout, num_layer, num_units):
+def fit_model_with(optimizer, activation, dropout, num_layer, num_units, batch_size):
     """
     Trains a model with all given databases in AllData folder.
+    :param batch_size: pow factor batch-size
     :param optimizer:  optimizer-function
     :param activation: activation-function
     :param dropout: dropout-value
@@ -99,11 +101,11 @@ def fit_model_with(optimizer, activation, dropout, num_layer, num_units):
 
         # Train the model with the train dataset.
         history = model.fit(x_train, y_train,
-                            epochs=3000, batch_size=32, validation_split=0.3, verbose=2,
+                            epochs=3000, batch_size=pow(2, int(round(batch_size))), validation_split=0.3, verbose=2,
                             callbacks=[
                                 keras.callbacks.EarlyStopping(monitor='val_loss',
                                                               min_delta=0,
-                                                              patience=10,
+                                                              patience=3,
                                                               verbose=2,
                                                               mode='min'),
 
