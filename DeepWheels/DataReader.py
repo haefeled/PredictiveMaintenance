@@ -31,9 +31,6 @@ class DataReader:
         max_rows = max_rows[0]
         cursor.execute(query)
 
-        # logging info
-        print("Reading started.")
-
         # progressbar
         widgets = [
             '\x1b[33mCollecting Data... \x1b[39m',
@@ -50,7 +47,7 @@ class DataReader:
                 packet = unpack_udp_packet(packet)
                 data_list.append(packet)
         #    bar.update(i + 1)
-        #bar.finish()
+        # bar.finish()
 
         cursor.close()
         conn.close()

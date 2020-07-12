@@ -11,7 +11,7 @@ from tensorboard.plugins.hparams import api as hp
 from DataPreparation import DataPreparation
 
 OPTIMIZER = ['adam', 'rmsprop', 'sgd', 'nadam']
-ACTIVATION = ['tanh', 'linear', 'elu', 'relu', 'sigmoid'] # prelu was unkown
+ACTIVATION = ['tanh', 'linear', 'elu', 'relu', 'sigmoid']  # prelu was unkown
 TIMESTEPS = 30
 N_FEATURES = 520
 
@@ -42,8 +42,8 @@ def optimize_hyperparameters():
     )
 
     optimizer.maximize(
-        init_points=15,
-        n_iter=5,
+        init_points=60,
+        n_iter=15,
     )
 
     print(optimizer.max)
@@ -83,8 +83,7 @@ def fit_model_with(optimizer, activation, dropout, num_layer, num_units, batch_s
     model = get_model(activation, dropout, num_layer, num_units)
     model_path = r".\Model\lstm_model_" + str(OPTIMIZER[int(round(optimizer))]) + "_" + str(
         ACTIVATION[int(round(activation))]) + "_" + str(round(dropout, 1)) + "_" + str(
-        int(round(num_layer))) + "_" + str(int(round(num_units))
-                                           ) + ".h5"
+        int(round(num_layer))) + "_" + str(int(round(num_units))) + "_" + str(pow(2, round(batch_size))) + ".h5"
     data_prep = DataPreparation()
 
     # define database list incl. paths
@@ -101,19 +100,19 @@ def fit_model_with(optimizer, activation, dropout, num_layer, num_units, batch_s
 
         # Train the model with the train dataset.
         history = model.fit(x_train, y_train,
-                            epochs=3000, batch_size=pow(2, int(round(batch_size))), validation_split=0.3, verbose=2,
+                            epochs=3000, batch_size=pow(2, int(round(batch_size))), validation_split=0.3, verbose=0,
                             callbacks=[
                                 keras.callbacks.EarlyStopping(monitor='val_loss',
                                                               min_delta=0,
-                                                              patience=3,
-                                                              verbose=2,
+                                                              patience=5,
+                                                              verbose=0,
                                                               mode='min'),
 
                                 keras.callbacks.ModelCheckpoint(model_path,
                                                                 monitor='val_loss',
                                                                 save_best_only=True,
                                                                 mode='min',
-                                                                verbose=2)
+                                                                verbose=0)
                                 # keras.callbacks.TensorBoard(log_dir=run_dir),
                                 # hp.KerasCallback(run_dir + '/hparam', {
                                 #     self.hparam[0]: float(int(round())),
@@ -137,16 +136,16 @@ def fit_model_with(optimizer, activation, dropout, num_layer, num_units, batch_s
         output_diff2.append(output[0][2] - y_eval[counter][2])
         output_diff3.append(output[0][3] - y_eval[counter][3])
 
-    score.append(100-(100 / y_eval[0][0] * abs(sum(output_diff0) / len(output_diff0))))
-    score.append(100-(100 / y_eval[0][0] * abs(sum(output_diff1) / len(output_diff1))))
-    score.append(100-(100 / y_eval[0][0] * abs(sum(output_diff2) / len(output_diff2))))
-    score.append(100-(100 / y_eval[0][0] * abs(sum(output_diff3) / len(output_diff3))))
+    score.append(100 - (100 / y_eval[0][0] * abs(sum(output_diff0) / len(output_diff0))))
+    score.append(100 - (100 / y_eval[0][0] * abs(sum(output_diff1) / len(output_diff1))))
+    score.append(100 - (100 / y_eval[0][0] * abs(sum(output_diff2) / len(output_diff2))))
+    score.append(100 - (100 / y_eval[0][0] * abs(sum(output_diff3) / len(output_diff3))))
 
     out_score = sum(score) / len(score)
     print(out_score)
 
     # denormalize for readable output
-    print(output[0])
+    # print(output[0])
     factor_dict = dict()
     with open(r".\Data\analysis_results.txt") as f:
         content = f.readlines()
@@ -157,8 +156,6 @@ def fit_model_with(optimizer, activation, dropout, num_layer, num_units, batch_s
         maxrul_STR = 'maxRUL' + str(i)
         output[0][i] = output[0][i] * factor_dict[maxrul_STR]
     print(output[0])
-
-
 
     # Return the accuracy.
     return out_score

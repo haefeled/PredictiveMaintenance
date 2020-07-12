@@ -144,7 +144,7 @@ class DataPreparation:
         data_reader = DataReader()
         data_prep = DataPreparation()
         data = data_reader.load_data_from_sqlite3(filepath)
-        data = data_prep.sort_dict_into_list(data, True)
+        data = data_prep.sort_dict_into_list(data, False)
         return data_prep.list_to_dataframe(data)
 
     def prepare_data(self, df):
