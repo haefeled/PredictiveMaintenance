@@ -132,7 +132,7 @@ class DataPreparation:
             outer_list.append(list(row[key] for key in row.keys()))
         return pandas.DataFrame(outer_list, columns=list(list_data[0].keys()))
 
-    def load_data(self, filename):
+    def load_data(self, filepath):
         """
         load the data with proper order for training
 
@@ -141,7 +141,7 @@ class DataPreparation:
         """
         data_reader = DataReader()
         data_prep = DataPreparation()
-        data = data_reader.load_data_from_sqlite3(r".\Data\AllData\\" + filename)
+        data = data_reader.load_data_from_sqlite3(filepath)
         data = data_prep.sort_dict_into_list(data, True)
         return data_prep.list_to_dataframe(data)
 
