@@ -100,11 +100,11 @@ def fit_model_with(optimizer, activation, dropout, num_layer, num_units, batch_s
 
         # Train the model with the train dataset.
         history = model.fit(x_train, y_train,
-                            epochs=3000, batch_size=pow(2, int(round(batch_size))), validation_split=0.3, verbose=0,
+                            epochs=3000, batch_size=pow(2, int(round(batch_size))), validation_split=0.3, verbose=1,
                             callbacks=[
                                 keras.callbacks.EarlyStopping(monitor='val_loss',
-                                                              min_delta=0,
-                                                              patience=5,
+                                                              min_delta=1,
+                                                              patience=3,
                                                               verbose=0,
                                                               mode='min'),
 
@@ -112,7 +112,7 @@ def fit_model_with(optimizer, activation, dropout, num_layer, num_units, batch_s
                                                                 monitor='val_loss',
                                                                 save_best_only=True,
                                                                 mode='min',
-                                                                verbose=0)
+                                                                verbose=1)
                                 # keras.callbacks.TensorBoard(log_dir=run_dir),
                                 # hp.KerasCallback(run_dir + '/hparam', {
                                 #     self.hparam[0]: float(int(round())),
@@ -160,15 +160,16 @@ def fit_model_with(optimizer, activation, dropout, num_layer, num_units, batch_s
     # logging into file
     with open(r".\Data\train_results.txt", "a") as out_file:
         out_file.write(
-            "Score:{} Optimizer:{} Activation:{} Dropout:{}\n".format(
+            "Score:{} Optimizer:{} Activation:{} Dropout:{} Layer:{} Units:{} Batch size:{}\n".format(
                 out_score,
                 OPTIMIZER[int(round(optimizer))],
                 ACTIVATION[int(round(activation))],
                 round(dropout, 1),
-                
+                round(num_layer),
+                round(num_units),
+                round(batch_size)
             )
         )
-
     # Return the accuracy.
     return out_score
 
