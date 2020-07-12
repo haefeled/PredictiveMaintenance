@@ -83,7 +83,7 @@ def fit_model_with(optimizer, activation, dropout, num_layer, num_units, batch_s
     model = get_model(activation, dropout, num_layer, num_units)
     model_path = r".\Model\lstm_model_" + str(OPTIMIZER[int(round(optimizer))]) + "_" + str(
         ACTIVATION[int(round(activation))]) + "_" + str(round(dropout, 1)) + "_" + str(
-        int(round(num_layer))) + "_" + str(int(round(num_units))) + "_" + str(pow(2, round(batch_size))) + ".h5"
+        int(round(num_layer))) + "_" + str(int(round(num_units))) + "_" + str(int(pow(2, round(batch_size)))) + ".h5"
     data_prep = DataPreparation()
 
     # define database list incl. paths
