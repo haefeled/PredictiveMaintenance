@@ -157,6 +157,18 @@ def fit_model_with(optimizer, activation, dropout, num_layer, num_units, batch_s
         output[0][i] = output[0][i] * factor_dict[maxrul_STR]
     print(output[0])
 
+    # logging into file
+    with open(r".\Data\train_results.txt", "a") as out_file:
+        out_file.write(
+            "Score:{} Optimizer:{} Activation:{} Dropout:{}\n".format(
+                out_score,
+                OPTIMIZER[int(round(optimizer))],
+                ACTIVATION[int(round(activation))],
+                round(dropout, 1),
+                
+            )
+        )
+
     # Return the accuracy.
     return out_score
 
