@@ -14,7 +14,7 @@ data_prep = DataPreparation()
 def analyze(filename, isFirst):
     print("read {}".format(filename))
     data = data_reader.load_data_from_sqlite3(r".\Data\AllData\\" + filename)
-    data = data_prep.sort_dict_into_list(data, True)
+    data = data_prep.sort_dict_into_list(data, False)
     df = data_prep.list_to_dataframe(data)
 
     maxrul_list = [df.loc[df.query('tyresWear0 < 50').tyresWear0.count(), 'sessionTime'],

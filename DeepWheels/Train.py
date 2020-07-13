@@ -11,7 +11,7 @@ from tensorboard.plugins.hparams import api as hp
 from DataPreparation import DataPreparation
 
 OPTIMIZER = ['adam', 'rmsprop', 'sgd', 'nadam']
-ACTIVATION = ['tanh', 'linear', 'elu', 'relu', 'sigmoid']  # prelu was unkown
+ACTIVATION = ['tanh', 'linear', 'relu', 'sigmoid']  # prelu was unkown
 TIMESTEPS = 30
 N_FEATURES = 520
 
@@ -27,8 +27,8 @@ def optimize_hyperparameters():
         'activation': (0, len(ACTIVATION) - 1),
         'dropout': (.1, .5),
         'num_layer': (0, 2),
-        'num_units': (20, 300),
-        'batch_size': (5, 9)
+        'num_units': (50, 300),
+        'batch_size': (4, 5)
     }
     # hparam = []
     # for key, val in pbounds.items():
@@ -42,8 +42,8 @@ def optimize_hyperparameters():
     )
 
     optimizer.maximize(
-        init_points=60,
-        n_iter=15,
+        init_points=10,
+        n_iter=2,
     )
 
     print(optimizer.max)
@@ -100,19 +100,19 @@ def fit_model_with(optimizer, activation, dropout, num_layer, num_units, batch_s
 
         # Train the model with the train dataset.
         history = model.fit(x_train, y_train,
-                            epochs=3000, batch_size=pow(2, int(round(batch_size))), validation_split=0.3, verbose=1,
+                            epochs=3000, batch_size=pow(2, int(round(batch_size))), validation_split=0.3, verbose=2,
                             callbacks=[
                                 keras.callbacks.EarlyStopping(monitor='val_loss',
                                                               min_delta=1,
                                                               patience=3,
-                                                              verbose=0,
+                                                              verbose=2,
                                                               mode='min'),
 
                                 keras.callbacks.ModelCheckpoint(model_path,
                                                                 monitor='val_loss',
                                                                 save_best_only=True,
                                                                 mode='min',
-                                                                verbose=1)
+                                                                verbose=2)
                                 # keras.callbacks.TensorBoard(log_dir=run_dir),
                                 # hp.KerasCallback(run_dir + '/hparam', {
                                 #     self.hparam[0]: float(int(round())),
@@ -135,6 +135,7 @@ def fit_model_with(optimizer, activation, dropout, num_layer, num_units, batch_s
         output_diff1.append(output[0][1] - y_eval[counter][1])
         output_diff2.append(output[0][2] - y_eval[counter][2])
         output_diff3.append(output[0][3] - y_eval[counter][3])
+        counter += 1
 
     score.append(100 - (100 / y_eval[0][0] * abs(sum(output_diff0) / len(output_diff0))))
     score.append(100 - (100 / y_eval[0][0] * abs(sum(output_diff1) / len(output_diff1))))
@@ -158,7 +159,7 @@ def fit_model_with(optimizer, activation, dropout, num_layer, num_units, batch_s
     print(output[0])
 
     # logging into file
-    with open(r".\Data\train_results.txt", "a") as out_file:
+    with open(r".\Data\train_results_mac.txt", "a") as out_file:
         out_file.write(
             "Score:{} Optimizer:{} Activation:{} Dropout:{} Layer:{} Units:{} Batch size:{}\n".format(
                 out_score,

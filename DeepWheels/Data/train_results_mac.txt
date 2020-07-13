@@ -1,0 +1,1 @@
+Score:40.547266844781255 Optimizer:adam Activation:linear Dropout:0.1 Layer:1.0 Units:87.0 Batch size:5.0
