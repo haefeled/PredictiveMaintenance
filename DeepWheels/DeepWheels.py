@@ -28,14 +28,14 @@ class DeepWheels:
         """
         # example
         # data = self.data_reader.load_data_from_sqlite3(r".\Data\AllData\example.sqlite3")
-        tmp_list = pd.DataFrame()
+        tmp_list = []
         for i in range(0, 30):
             data = self.data_reader.listen_udp(1)
             data = self.data_prep.sort_dict_into_list(data, False)
             self.data_writer.insert_data(data[0])
-            frames = [tmp_list, self.data_prep.list_to_dataframe(data)]
-            tmp_list = pd.concat(frames)
-        self.prep_list = deepcopy(tmp_list)
+            tmp_list.append(deepcopy(data))
+        tmp_df = self.data_prep.list_to_dataframe(tmp_list)
+        self.prep_list = deepcopy(tmp_df)
         predict_process = threading.Thread(target=Predict.predict, args=(self.data_predict, self.prep_list, self.prep_writer))
         predict_process.start()
         predict_process.join()
