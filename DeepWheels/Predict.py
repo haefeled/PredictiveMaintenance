@@ -1,32 +1,31 @@
 from copy import deepcopy
 from DataPreparation import DataPreparation
 from DataReader import DataReader
+from DataWriter import DataWriter
 import matplotlib.pyplot as plt
-from keras.models import load_model
+import tensorflow as tf
 
 
 class Predict:
     def __init__(self):
         self.TIMESTEPS = 30
         self.N_FEATURES = 520
+        self.model = tf.keras.models.load_model(r".\Model\lstm_model_adam_relu_0.1_1_128_2048.h5")
+        self.model.load_weights(r".\Model\lstm_model_adam_relu_0.1_1_128_2048.h5")
+        self.model.compile(loss='mse', optimizer='adam')
+        self.data_prep = DataPreparation()
 
-    def predict(self, current_df):  # prep_writer
+    def predict(self, current_df, prep_writer):
         """
         Predicts RUL values for a list of a list of timestep-related features.
 
         :param current_df: DataFrame A DataFrame containing more than one sample.
         :return: list<float> A list of predicted RUL values.
         """
-
-        data_prep = DataPreparation()
-        X_predict = data_prep.prepare_data(current_df, False)
+        X_predict = self.data_prep.prepare_data(current_df, False)
 
         # predict
-
-        model = load_model(r".\Model\models_over_90%\lstm_model_adam_relu_0.1_1_128_2048.h5")
-        model.load_weights(r".\Model\models_over_90%\lstm_model_adam_relu_0.1_1_128_2048.h5")
-        model.compile(loss='mse', optimizer='adam')
-        pred = model.predict((X_predict.reshape(1, self.TIMESTEPS, self.N_FEATURES)))
+        pred = self.model.predict(X_predict.reshape(1, self.TIMESTEPS, self.N_FEATURES))
 
         # Denormalize
         factor_dict = dict()
@@ -38,17 +37,14 @@ class Predict:
         for i in range(len(pred[0])):
             maxrul_STR = 'maxRUL' + str(i)
             pred[0][i] = pred[0][i] * factor_dict[maxrul_STR] / 60
+            if pred[0][i] < 0.0:
+                pred[0][i] = 0.0
 
-        # # RUL [RL, RR, FL, FR]
-        # current_rul_list = [current_rul0, current_rul1, current_rul2, current_rul3]
-        #
-        # for i in range(len(current_rul_list)):
-        #     if current_rul_list[i] < 0:
-        #         current_rul_list[i] = 0.0
-        #     print("\nRUL: {} min\n".format(current_rul_list[i]))
-        #
-        # prep_writer.insert_data({'rul0': current_rul_list[0], 'rul1': current_rul_list[1], 'rul2': current_rul_list[2],
-        #                          'rul3': current_rul_list[3]})
+        print("\nRL: {}min, RR: {}min, FL: {}min, FR: {}min\n".format(pred[0][0], pred[0][1], pred[0][2], pred[0][3]))
+
+        # RUL [RL, RR, FL, FR]
+        prep_writer.insert_data({'rul0': pred[0][0], 'rul1': pred[0][1], 'rul2': pred[0][2], 'rul3': pred[0][3]})
+
         return pred[0]
 
 
@@ -57,7 +53,8 @@ if __name__ == "__main__":
     data_pred = Predict()
     data_reader = DataReader()
     data_prep = DataPreparation()
-    data = data_reader.load_data_from_sqlite3(r"Data\AllData\0ff7c436c1c21664.sqlite3")
+    prep_writer = DataWriter("prep_data")
+    data = data_reader.load_data_from_sqlite3(r"Data\AllData\Dani_mittlere_Fahrhilfe_manuellGetriebe_kaputerFrontFluegel_Boxstop_30min_97%.sqlite3")
     data = data_prep.sort_dict_into_list(data, False)
     df = data_prep.list_to_dataframe(data)
 
@@ -84,7 +81,7 @@ if __name__ == "__main__":
                 compare3.append((maxrul_list[3] - df.loc[counter - 1, 'sessionTime']) / 60)
                 tmp_list.append(paket)
                 tmp_df = data_prep.list_to_dataframe(tmp_list)
-                output.append(data_pred.predict(tmp_df))
+                output.append(data_pred.predict(tmp_df, prep_writer))
             tmp_list.clear()
         else:
             tmp_list.append(paket)

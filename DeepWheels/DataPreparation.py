@@ -185,8 +185,8 @@ class DataPreparation:
         for i in range(len(maxrul_list)):
             tmp_list = []
             maxrul_STR = 'maxRUL' + str(i)
-            for j in range(df.shape[0]):
-                tmp_list.append((maxrul_list[i] - df.loc[j, 'sessionTime']) / factor_dict[maxrul_STR])
+            for _, row in df.iterrows():
+                tmp_list.append((maxrul_list[i] - row['sessionTime']) / factor_dict[maxrul_STR])
             output_seq.append(deepcopy(tmp_list))
         output_seq = np.array(output_seq)
 
