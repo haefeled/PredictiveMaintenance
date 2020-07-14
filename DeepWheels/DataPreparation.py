@@ -1,11 +1,7 @@
 import ctypes
-import socket
-import time
 import progressbar
 import pandas
 import numpy as np
-from sklearn import preprocessing
-from sklearn.preprocessing import StandardScaler
 
 from DataReader import DataReader
 from f1_2019_telemetry.packets import PackedLittleEndianStructure, PacketHeader
@@ -147,7 +143,7 @@ class DataPreparation:
         data = data_prep.sort_dict_into_list(data, False)
         return data_prep.list_to_dataframe(data)
 
-    def prepare_data(self, df):
+    def prepare_data(self, df, trainflag=True):
         """
         Prepare the Data to a proper format for the LSTM
 
@@ -155,10 +151,13 @@ class DataPreparation:
         :return: X Array with an Array of 30 Pakets inside, y the RUL of the 30 Pakets
         """
         # define MAX_RUL for each tyre
-        maxrul_list = [df.loc[df.query('tyresWear0 < 50').tyresWear0.count(), 'sessionTime'],
-                       df.loc[df.query('tyresWear1 < 50').tyresWear1.count(), 'sessionTime'],
-                       df.loc[df.query('tyresWear2 < 50').tyresWear2.count(), 'sessionTime'],
-                       df.loc[df.query('tyresWear3 < 50').tyresWear3.count(), 'sessionTime']]
+        if trainflag:
+            maxrul_list = [df.loc[df.query('tyresWear0 < 50').tyresWear0.count(), 'sessionTime'],
+                           df.loc[df.query('tyresWear1 < 50').tyresWear1.count(), 'sessionTime'],
+                           df.loc[df.query('tyresWear2 < 50').tyresWear2.count(), 'sessionTime'],
+                           df.loc[df.query('tyresWear3 < 50').tyresWear3.count(), 'sessionTime']]
+        else:
+            maxrul_list = [0, 0, 0, 0]
 
         # MinMax normalization (from -1 to 1) and convert all to float
         factor_dict = dict()
@@ -175,7 +174,6 @@ class DataPreparation:
             else:
                 norm_df[colum] = df[colum] / factor_dict[colum]
 
-
         # define input array for each tyre
         input_seq0 = np.array(norm_df)
         input_seq1 = np.array(norm_df)
@@ -187,12 +185,10 @@ class DataPreparation:
         for i in range(len(maxrul_list)):
             tmp_list = []
             maxrul_STR = 'maxRUL' + str(i)
-            for j in range(len(input_seq0)):
+            for j in range(df.shape[0]):
                 tmp_list.append((maxrul_list[i] - df.loc[j, 'sessionTime']) / factor_dict[maxrul_STR])
             output_seq.append(deepcopy(tmp_list))
         output_seq = np.array(output_seq)
-
-
 
         # transpose output
         tmp_array = [[0 for i in range(len(output_seq))] for j in range(len(output_seq[0]))]
@@ -204,9 +200,13 @@ class DataPreparation:
         # horizontally stack columns
         dataset = np.hstack((input_seq0, input_seq1, input_seq2, input_seq3, output_seq))
 
-        # convert into input/output
-        X, y = self.split_sequences(dataset, 30)
-        return X, y
+        if trainflag:
+            # convert into input/output
+            X, y = self.split_sequences(dataset, 30)
+            return X, y
+        else:
+            X = dataset[0:30, :520]
+            return np.array(X)
 
     def split_sequences(self, sequences, n_steps):
         """

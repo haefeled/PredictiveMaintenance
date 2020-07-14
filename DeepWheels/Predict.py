@@ -1,80 +1,114 @@
-import pandas as pd
-from Train import Train
+from copy import deepcopy
+from DataPreparation import DataPreparation
+from DataReader import DataReader
+import matplotlib.pyplot as plt
 from keras.models import load_model
-from sklearn.preprocessing import StandardScaler
 
 
 class Predict:
     def __init__(self):
-        self.model_path0 = r".\Model\lstm_model0.h5"
-        self.model_path1 = r".\Model\lstm_model1.h5"
-        self.model_path2 = r".\Model\lstm_model2.h5"
-        self.model_path3 = r".\Model\lstm_model3.h5"
-        self.model0 = load_model(self.model_path0)
-        self.model1 = load_model(self.model_path1)
-        self.model2 = load_model(self.model_path2)
-        self.model3 = load_model(self.model_path3)
-        self.model0.load_weights(self.model_path0)
-        self.model1.load_weights(self.model_path1)
-        self.model2.load_weights(self.model_path2)
-        self.model3.load_weights(self.model_path3)
-        self.model0.compile(loss='mean_squared_error', optimizer='adam')
-        self.model1.compile(loss='mean_squared_error', optimizer='adam')
-        self.model2.compile(loss='mean_squared_error', optimizer='adam')
-        self.model3.compile(loss='mean_squared_error', optimizer='adam')
+        self.TIMESTEPS = 30
+        self.N_FEATURES = 520
 
-        self.df = pd.DataFrame()
-        self.current_rul = []
-
-    def predict(self, current_df, prep_writer):
+    def predict(self, current_df):  # prep_writer
         """
         Predicts RUL values for a list of a list of timestep-related features.
 
         :param current_df: DataFrame A DataFrame containing more than one sample.
         :return: list<float> A list of predicted RUL values.
         """
-        # number of last timesteps
-        TIMESTEPS = 10
 
-        self.df = pd.concat([self.df, current_df])
-        self.df.append(current_df)
+        data_prep = DataPreparation()
+        X_predict = data_prep.prepare_data(current_df, False)
 
-        # Removing target and unused columns
-        features = self.df.columns.tolist()
-        features.remove('sessionTime')
+        # predict
 
-        # List of shifted dataframes according to the number of TIMESTEPS
-        df_list = [self.df[features].shift(shift_val) if (shift_val == 0)
-                   else self.df[features].shift(-shift_val).add_suffix(f'_{shift_val}')
-                   for shift_val in range(0, TIMESTEPS)]
+        model = load_model(r".\Model\models_over_90%\lstm_model_adam_relu_0.1_1_128_2048.h5")
+        model.load_weights(r".\Model\models_over_90%\lstm_model_adam_relu_0.1_1_128_2048.h5")
+        model.compile(loss='mse', optimizer='adam')
+        pred = model.predict((X_predict.reshape(1, self.TIMESTEPS, self.N_FEATURES)))
 
-        # Concatenating list
-        df_concat = pd.concat(df_list, axis=1, sort=False)
-        df_test = df_concat.iloc[:-TIMESTEPS, :]
+        # Denormalize
+        factor_dict = dict()
+        with open(r".\Data\analysis_results.txt") as f:
+            content = f.readlines()
+            for line in content:
+                entry = line.strip().split(':')
+                factor_dict[deepcopy(entry[0])] = deepcopy(float(entry[1]))
+        for i in range(len(pred[0])):
+            maxrul_STR = 'maxRUL' + str(i)
+            pred[0][i] = pred[0][i] * factor_dict[maxrul_STR] / 60
 
-        scaler = StandardScaler()
-        scaler.fit(df_test)
+        # # RUL [RL, RR, FL, FR]
+        # current_rul_list = [current_rul0, current_rul1, current_rul2, current_rul3]
+        #
+        # for i in range(len(current_rul_list)):
+        #     if current_rul_list[i] < 0:
+        #         current_rul_list[i] = 0.0
+        #     print("\nRUL: {} min\n".format(current_rul_list[i]))
+        #
+        # prep_writer.insert_data({'rul0': current_rul_list[0], 'rul1': current_rul_list[1], 'rul2': current_rul_list[2],
+        #                          'rul3': current_rul_list[3]})
+        return pred[0]
 
-        df_test_lstm = pd.DataFrame(data=scaler.transform(df_test), columns=df_test.columns)
-        df_3D = Train.to_3D(df_test_lstm, features, timesteps=TIMESTEPS)
-        rul_pred0 = self.model0.predict(df_3D)
-        rul_pred1 = self.model1.predict(df_3D)
-        rul_pred2 = self.model2.predict(df_3D)
-        rul_pred3 = self.model3.predict(df_3D)
 
-        session_time_min = self.df.iloc[len(self.df.index) - 1]['sessionTime'] / 60
-        current_rul0 = (rul_pred0[0][0]/60) - session_time_min
-        current_rul1 = (rul_pred1[0][0]/60) - session_time_min
-        current_rul2 = (rul_pred2[0][0]/60) - session_time_min
-        current_rul3 = (rul_pred3[0][0]/60) - session_time_min
+if __name__ == "__main__":
+    # just for testing
+    data_pred = Predict()
+    data_reader = DataReader()
+    data_prep = DataPreparation()
+    data = data_reader.load_data_from_sqlite3(r"Data\AllData\0ff7c436c1c21664.sqlite3")
+    data = data_prep.sort_dict_into_list(data, False)
+    df = data_prep.list_to_dataframe(data)
 
-        # RUL [RL, RR, FL, FR]
-        current_rul_list = [current_rul0, current_rul1, current_rul2, current_rul3]
+    maxrul_list = [df.loc[df.query('tyresWear0 < 50').tyresWear0.count(), 'sessionTime'],
+                   df.loc[df.query('tyresWear1 < 50').tyresWear1.count(), 'sessionTime'],
+                   df.loc[df.query('tyresWear2 < 50').tyresWear2.count(), 'sessionTime'],
+                   df.loc[df.query('tyresWear3 < 50').tyresWear3.count(), 'sessionTime']]
 
-        for i in range(len(current_rul_list)):
-            if current_rul_list[i] < 0:
-                current_rul_list[i] = 0.0
-            print("\nRUL: {} min\n".format(current_rul_list[i]))
+    compare0 = []
+    compare1 = []
+    compare2 = []
+    compare3 = []
+    tmp_list = []
+    output = []
+    counter = 0
+    for paket in data:
+        if counter == 0:
+            tmp_list.append(paket)
+        elif counter % 30 == 0:
+            if counter % 120 == 0:
+                compare0.append((maxrul_list[0] - df.loc[counter - 1, 'sessionTime']) / 60)
+                compare1.append((maxrul_list[1] - df.loc[counter - 1, 'sessionTime']) / 60)
+                compare2.append((maxrul_list[2] - df.loc[counter - 1, 'sessionTime']) / 60)
+                compare3.append((maxrul_list[3] - df.loc[counter - 1, 'sessionTime']) / 60)
+                tmp_list.append(paket)
+                tmp_df = data_prep.list_to_dataframe(tmp_list)
+                output.append(data_pred.predict(tmp_df))
+            tmp_list.clear()
+        else:
+            tmp_list.append(paket)
+        counter += 1
 
-        prep_writer.insert_data({'rul0': current_rul_list[0], 'rul1': current_rul_list[1], 'rul2': current_rul_list[2],
-                                 'rul3': current_rul_list[3]})
+    output0 = []
+    output1 = []
+    output2 = []
+    output3 = []
+
+    for i in range(len(output)):
+        output0.append(output[i][0])
+        output1.append(output[i][1])
+        output2.append(output[i][2])
+        output3.append(output[i][3])
+
+    output_list = [output0, output1, output2, output3]
+    compare_list = [compare0, compare1, compare2, compare3]
+    for i in range(4):
+        plt.figure(figsize=(10, 8), dpi=90)
+        plt.title('wheel' + str(i), loc='center')
+        plt.plot(compare_list[i], label='Actual RUL')
+        plt.plot(output_list[i], label='Pred RUL')
+        plt.xlabel('time in packet-send-cycles')
+        plt.ylabel('RUL')
+        plt.legend()
+    plt.show()
