@@ -1,7 +1,11 @@
 import ctypes
+import socket
+import time
 import progressbar
 import pandas
 import numpy as np
+from sklearn import preprocessing
+from sklearn.preprocessing import StandardScaler
 
 from DataReader import DataReader
 from f1_2019_telemetry.packets import PackedLittleEndianStructure, PacketHeader
@@ -161,7 +165,7 @@ class DataPreparation:
 
         # MinMax normalization (from -1 to 1) and convert all to float
         factor_dict = dict()
-        with open(r".\Data\analysis_results.txt") as f:
+        with open("Data/analysis_results.txt") as f:
             content = f.readlines()
             for line in content:
                 entry = line.strip().split(':')
@@ -174,11 +178,6 @@ class DataPreparation:
             else:
                 norm_df[colum] = df[colum] / factor_dict[colum]
 
-        # define input array for each tyre
-        input_seq0 = np.array(norm_df)
-        input_seq1 = np.array(norm_df)
-        input_seq2 = np.array(norm_df)
-        input_seq3 = np.array(norm_df)
 
         # define output
         output_seq = []
@@ -189,6 +188,28 @@ class DataPreparation:
                 tmp_list.append((maxrul_list[i] - df.loc[j, 'sessionTime']) / factor_dict[maxrul_STR])
             output_seq.append(deepcopy(tmp_list))
         output_seq = np.array(output_seq)
+
+        # filter some data
+        del norm_df['sessionTime']
+        del norm_df['carPosition']
+        del norm_df['bestLapTime']
+        del norm_df['currentLapInvalid']
+        del norm_df['driverStatus']
+        del norm_df['gridPosition']
+        del norm_df['penalties']
+        del norm_df['drs']
+        del norm_df['revLightsPercent']
+        del norm_df['tractionControl']
+        del norm_df['ersStoreEnergy']
+        del norm_df['drsAllowed']
+        del norm_df['ersHarvestedThisLapMGUH']
+        del norm_df['ersHarvestedThisLapMGUK']
+
+        # define input array for each tyre
+        input_seq0 = np.array(norm_df)
+        input_seq1 = np.array(norm_df)
+        input_seq2 = np.array(norm_df)
+        input_seq3 = np.array(norm_df)
 
         # transpose output
         tmp_array = [[0 for i in range(len(output_seq))] for j in range(len(output_seq[0]))]
@@ -205,8 +226,9 @@ class DataPreparation:
             X, y = self.split_sequences(dataset, 30)
             return X, y
         else:
-            X = dataset[0:30, :520]
+            X = dataset[0:30, :464]
             return np.array(X)
+
 
     def split_sequences(self, sequences, n_steps):
         """
@@ -220,13 +242,14 @@ class DataPreparation:
             # find the end of this pattern
             end_ix = i + n_steps
             # check if we are beyond the dataset
-            if end_ix > len(sequences) - 1:
+            if end_ix > len(sequences)-1:
                 break
             # gather input and output parts of the pattern
-            seq_x, seq_y = sequences[i:end_ix, :520], sequences[end_ix, 520:]
+            seq_x, seq_y = sequences[i:end_ix, :464], sequences[end_ix, 464:]
             X.append(seq_x)
             y.append(seq_y)
         return np.array(X), np.array(y)
+
 
 
     #def normalize_Dataset(self):
@@ -234,7 +257,7 @@ class DataPreparation:
 if __name__ == "__main__":
     # example for gathering data for training
     data_prep = DataPreparation()
-    data = data_prep.load_data(r".\Data\AllData\0ff7c436c1c21664.sqlite3")
+    data = data_prep.load_data("Data/AllData/0ff7c436c1c21664.sqlite3")
     x_train, y_train = data_prep.prepare_data(data)
     print(x_train[0], y_train[0])
 
