@@ -10,9 +10,9 @@ from keras.models import Sequential
 
 from DataPreparation import DataPreparation
 
-OPTIMIZER = ['adam', 'rmsprop']
-ACTIVATION = ['swish', 'linear', 'tanh', 'sigmoid']  # prelu was unkown
-TIMESTEPS = 30
+OPTIMIZER = ['adam', 'adamax']
+ACTIVATION = ['swish', 'linear']  # prelu was unkown
+TIMESTEPS = 10
 N_FEATURES = 464
 
 
@@ -69,7 +69,7 @@ def get_model(activation, num_layer, num_units):
     ))
     model.add(Dropout(round(random.uniform(0.1, 0.5), 1)))
     model.add(Dense(units=4, activation=ACTIVATION[int(round(activation))]))
-    print(model.summary())
+    # print(model.summary())
 
     return model
 
@@ -90,9 +90,10 @@ def fit_model_with(optimizer, activation, num_layer, num_units):
         ACTIVATION[int(round(activation))]) + "_" + str(
         int(round(num_layer))) + "_" + str(int(pow(2, round(num_units)))) + ".h5"
     data_prep = DataPreparation()
+    print(model_path)
 
     # define database list incl. paths
-    databases = glob.glob('./Data/AllData/*.sqlite3')
+    databases = glob.glob('./Data/TrainData/*.sqlite3')
 
     # define run_dir
     # time_stamp = datetime.timestamp()
@@ -101,7 +102,7 @@ def fit_model_with(optimizer, activation, num_layer, num_units):
     for _ in range(1):
         for database in databases:
             print("##########################################################")
-            print(str(data_counter) + "/" + str(2*len(databases)) + " Database")
+            print(str(data_counter) + "/" + str(len(databases)) + " Database")
             print("##########################################################")
             data_counter += 1
             data = data_prep.load_data(database)
@@ -110,19 +111,19 @@ def fit_model_with(optimizer, activation, num_layer, num_units):
 
             # Train the model with the train dataset.
             history = model.fit(x_train, y_train,
-                                epochs=3000, batch_size=4096, validation_split=0.3, verbose=1,
+                                epochs=3000, batch_size=4096, validation_split=0.3, verbose=0,
                                 callbacks=[
                                     keras.callbacks.EarlyStopping(monitor='val_loss',
                                                                   min_delta=0,
                                                                   patience=5,
-                                                                  verbose=1,
+                                                                  verbose=0,
                                                                   mode='min'),
 
                                     keras.callbacks.ModelCheckpoint(model_path,
                                                                     monitor='val_loss',
                                                                     save_best_only=True,
                                                                     mode='min',
-                                                                    verbose=1)
+                                                                    verbose=0)
                                     # keras.callbacks.TensorBoard(log_dir=run_dir),
                                     # hp.KerasCallback(run_dir + '/hparam', {
                                     #     self.hparam[0]: float(int(round())),
@@ -130,44 +131,62 @@ def fit_model_with(optimizer, activation, num_layer, num_units):
                                     # }),
                                 ])
 
-    # score = model.evaluate()...
-    eval_data = data_prep.load_data("Data/EvalData/a0466252c5ce018b.sqlite3")
-    x_eval, y_eval = data_prep.prepare_data(eval_data)
-    output_diff0 = []
-    output_diff1 = []
-    output_diff2 = []
-    output_diff3 = []
-    score = []
-    counter = 0
-    for packet in x_eval:
-        if (counter % 100) == 0:
-            output = model.predict((packet.reshape(1, TIMESTEPS, N_FEATURES)))
-            output_diff0.append(output[0][0] - y_eval[counter][0])
-            output_diff1.append(output[0][1] - y_eval[counter][1])
-            output_diff2.append(output[0][2] - y_eval[counter][2])
-            output_diff3.append(output[0][3] - y_eval[counter][3])
-        counter += 1
+            # score = model.evaluate()...
+            eval_data = data_prep.load_data("Data/EvalData/a0466252c5ce018b.sqlite3")
+            x_eval, y_eval = data_prep.prepare_data(eval_data)
+            output_diff0 = []
+            output_diff1 = []
+            output_diff2 = []
+            output_diff3 = []
+            score = []
+            counter = 0
+            factor_dict = dict()
+            with open("Data/analysis_results.txt") as f:
+                content = f.readlines()
+                for line in content:
+                    entry = line.strip().split(':')
+                    factor_dict[deepcopy(entry[0])] = deepcopy(float(entry[1]))
 
-    score.append(100 - (100 / y_eval[0][0] * abs(sum(output_diff0) / len(output_diff0))))
-    score.append(100 - (100 / y_eval[0][0] * abs(sum(output_diff1) / len(output_diff1))))
-    score.append(100 - (100 / y_eval[0][0] * abs(sum(output_diff2) / len(output_diff2))))
-    score.append(100 - (100 / y_eval[0][0] * abs(sum(output_diff3) / len(output_diff3))))
+            for packet in x_eval:
+                if (counter % 100) == 0:
+                    output = model.predict((packet.reshape(1, TIMESTEPS, N_FEATURES)))
+                    if counter == 100:
+                        # for logging
+                        first_pred = deepcopy(output)
+                        for i in range(len(first_pred[0])):
+                            maxrul_STR = 'maxRUL' + str(i)
+                            first_pred[0][i] = first_pred[0][i] * factor_dict[maxrul_STR]
+                        print("start: {}, {}, {}, {} min".format(
+                            first_pred[0][0],
+                            first_pred[0][1],
+                            first_pred[0][2],
+                            first_pred[0][3],
+                        ))
+                    output_diff0.append(output[0][0] - y_eval[counter][0])
+                    output_diff1.append(output[0][1] - y_eval[counter][1])
+                    output_diff2.append(output[0][2] - y_eval[counter][2])
+                    output_diff3.append(output[0][3] - y_eval[counter][3])
+                counter += 1
+
+            score.append(100 - (100 / y_eval[0][0] * abs(sum(output_diff0) / len(output_diff0))))
+            score.append(100 - (100 / y_eval[0][0] * abs(sum(output_diff1) / len(output_diff1))))
+            score.append(100 - (100 / y_eval[0][0] * abs(sum(output_diff2) / len(output_diff2))))
+            score.append(100 - (100 / y_eval[0][0] * abs(sum(output_diff3) / len(output_diff3))))
+
+            # denormalize for readable output
+            # print(output[0])
+
+            for i in range(len(output[0])):
+                maxrul_STR = 'maxRUL' + str(i)
+                output[0][i] = output[0][i] * factor_dict[maxrul_STR]
+            print("end: {}, {}, {}, {} min".format(
+                output[0][0],
+                output[0][1],
+                output[0][2],
+                output[0][3],
+            ))
 
     out_score = sum(score) / len(score)
-    print(out_score)
-
-    # denormalize for readable output
-    # print(output[0])
-    factor_dict = dict()
-    with open("Data/analysis_results.txt") as f:
-        content = f.readlines()
-        for line in content:
-            entry = line.strip().split(':')
-            factor_dict[deepcopy(entry[0])] = deepcopy(float(entry[1]))
-    for i in range(len(output[0])):
-        maxrul_STR = 'maxRUL' + str(i)
-        output[0][i] = output[0][i] * factor_dict[maxrul_STR]
-    print(output[0])
 
     # logging into file
     with open("Data/train_results_mac.txt", "a") as out_file:

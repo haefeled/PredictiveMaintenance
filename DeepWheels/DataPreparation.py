@@ -13,6 +13,9 @@ from copy import deepcopy
 
 
 class DataPreparation:
+    def __init__(self):
+        self.TIMESTEPS = 10
+
     def filter_entries(self, entries, data):
         """
         This function is the third step to transform all received packets of f1_2019_telemetry.
@@ -156,10 +159,10 @@ class DataPreparation:
         """
         # define MAX_RUL for each tyre
         if trainflag:
-            maxrul_list = [df.loc[df.query('tyresWear0 < 50').tyresWear0.count(), 'sessionTime'],
-                           df.loc[df.query('tyresWear1 < 50').tyresWear1.count(), 'sessionTime'],
-                           df.loc[df.query('tyresWear2 < 50').tyresWear2.count(), 'sessionTime'],
-                           df.loc[df.query('tyresWear3 < 50').tyresWear3.count(), 'sessionTime']]
+            maxrul_list = [df.loc[df.query('tyresWear0 < 50').tyresWear0.count(), 'sessionTime'] / 60,
+                           df.loc[df.query('tyresWear1 < 50').tyresWear1.count(), 'sessionTime'] / 60,
+                           df.loc[df.query('tyresWear2 < 50').tyresWear2.count(), 'sessionTime'] / 60,
+                           df.loc[df.query('tyresWear3 < 50').tyresWear3.count(), 'sessionTime'] / 60]
         else:
             maxrul_list = [0, 0, 0, 0]
 
@@ -178,7 +181,7 @@ class DataPreparation:
             else:
                 norm_df[colum] = df[colum] / factor_dict[colum]
 
-
+        df['sessionTime'] = df['sessionTime'] / 60
         # define output
         output_seq = []
         for i in range(len(maxrul_list)):
@@ -223,10 +226,10 @@ class DataPreparation:
 
         if trainflag:
             # convert into input/output
-            X, y = self.split_sequences(dataset, 30)
+            X, y = self.split_sequences(dataset, self.TIMESTEPS)
             return X, y
         else:
-            X = dataset[0:30, :464]
+            X = dataset[0:self.TIMESTEPS, :464]
             return np.array(X)
 
 
@@ -242,7 +245,7 @@ class DataPreparation:
             # find the end of this pattern
             end_ix = i + n_steps
             # check if we are beyond the dataset
-            if end_ix > len(sequences)-1:
+            if end_ix > len(sequences) - 1:
                 break
             # gather input and output parts of the pattern
             seq_x, seq_y = sequences[i:end_ix, :464], sequences[end_ix, 464:]

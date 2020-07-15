@@ -7,7 +7,7 @@ from keras.models import load_model
 
 class Predict:
     def __init__(self):
-        self.TIMESTEPS = 30
+        self.TIMESTEPS = 10
         self.N_FEATURES = 464
 
     def predict(self, current_df):  # prep_writer
@@ -23,8 +23,8 @@ class Predict:
 
         # predict
 
-        model = load_model('Model/lstm_model_adam_swish_01_1_256_4096.h5')
-        model.load_weights('Model/lstm_model_adam_swish_01_1_256_4096.h5')
+        model = load_model('Model/lstm_model_adam_swish_0_256.h5')
+        model.load_weights('Model/lstm_model_adam_swish_0_256.h5')
         model.compile(loss='mse', optimizer='adam')
         pred = model.predict((X_predict.reshape(1, self.TIMESTEPS, self.N_FEATURES)))
 
@@ -37,7 +37,7 @@ class Predict:
                 factor_dict[deepcopy(entry[0])] = deepcopy(float(entry[1]))
         for i in range(len(pred[0])):
             maxrul_STR = 'maxRUL' + str(i)
-            pred[0][i] = pred[0][i] * factor_dict[maxrul_STR] / 60
+            pred[0][i] = pred[0][i] * factor_dict[maxrul_STR]
 
         # # RUL [RL, RR, FL, FR]
         # current_rul_list = [current_rul0, current_rul1, current_rul2, current_rul3]
@@ -61,10 +61,10 @@ if __name__ == "__main__":
     data = data_prep.sort_dict_into_list(data, False)
     df = data_prep.list_to_dataframe(data)
 
-    maxrul_list = [df.loc[df.query('tyresWear0 < 50').tyresWear0.count()-1, 'sessionTime'],
-                   df.loc[df.query('tyresWear1 < 50').tyresWear1.count()-1, 'sessionTime'],
-                   df.loc[df.query('tyresWear2 < 50').tyresWear2.count()-1, 'sessionTime'],
-                   df.loc[df.query('tyresWear3 < 50').tyresWear3.count()-1, 'sessionTime']]
+    maxrul_list = [df.loc[df.query('tyresWear0 < 50').tyresWear0.count()-1, 'sessionTime'] / 60,
+                   df.loc[df.query('tyresWear1 < 50').tyresWear1.count()-1, 'sessionTime'] / 60,
+                   df.loc[df.query('tyresWear2 < 50').tyresWear2.count()-1, 'sessionTime'] / 60,
+                   df.loc[df.query('tyresWear3 < 50').tyresWear3.count()-1, 'sessionTime'] / 60]
 
     compare0 = []
     compare1 = []
