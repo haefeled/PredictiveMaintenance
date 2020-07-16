@@ -1,19 +1,27 @@
 import glob
-from copy import deepcopy
+import os
 import random
-
 import keras
+import progressbar
+
+import matplotlib.pyplot as plt
+import numpy as np
+
 from bayes_opt import BayesianOptimization
 from keras.layers import Dense, Dropout, LSTM, PReLU
 from keras.models import Sequential
+from copy import deepcopy
+
 
 
 from DataPreparation import DataPreparation
 
-OPTIMIZER = ['adam', 'adamax']
+OPTIMIZER = ['adamax', 'adam']
 ACTIVATION = ['swish', 'linear']  # prelu was unkown
 TIMESTEPS = 10
-N_FEATURES = 464
+N_FEATURES = 356
+
+
 
 
 def optimize_hyperparameters():
@@ -25,8 +33,8 @@ def optimize_hyperparameters():
     pbounds = {
         'optimizer': (0, len(OPTIMIZER) - 1),
         'activation': (0, len(ACTIVATION) - 1),
-        'num_layer': (0, 3),
-        'num_units': (7, 11)
+        'num_layer': (2, 3),
+        'num_units': (6, 7)
     }
     # hparam = []
     # for key, val in pbounds.items():
@@ -40,8 +48,8 @@ def optimize_hyperparameters():
     )
 
     optimizer.maximize(
-        init_points=30,
-        n_iter=3,
+        init_points=12,
+        n_iter=0,
     )
 
     print(optimizer.max)
@@ -95,96 +103,156 @@ def fit_model_with(optimizer, activation, num_layer, num_units):
     # define database list incl. paths
     databases = glob.glob('./Data/TrainData/*.sqlite3')
 
-    # define run_dir
-    # time_stamp = datetime.timestamp()
-    # run_dir = f'logs/run{time_stamp}'
-    data_counter = 1
-    for _ in range(1):
-        for database in databases:
-            print("##########################################################")
-            print(str(data_counter) + "/" + str(len(databases)) + " Database")
-            print("##########################################################")
-            data_counter += 1
-            data = data_prep.load_data(database)
-            x_train, y_train = data_prep.prepare_data(data)
-            model.compile(loss='mse', optimizer=OPTIMIZER[int(round(optimizer))])
+    # define shape of input and output data
+    x_train = np.array([[[0] * N_FEATURES for i in range(TIMESTEPS)]])
+    y_train = np.array([[0] * 4])
+    # load all databases
+    widgets = [
+        '\x1b[33mCollecting Data... \x1b[39m',
+        progressbar.Percentage(),
+        progressbar.Bar(marker='\x1b[32m#\x1b[39m'),
+    ]
+    bar = progressbar.ProgressBar(widgets=widgets, min_value=0, max_value=len(databases)*2).start()
+    bar_counter = 0
+    first_database = True
+    for database in databases:
+        # print("##########################################################")
+        # print(str(data_counter) + "/" + str(len(databases)) + " Database")
+        # print("##########################################################")
+        data = data_prep.load_data(database)
+        bar_counter += 1
+        bar.update(bar_counter)
+        x, y = data_prep.prepare_data(data, shuffle=True)
+        x_train = np.concatenate((x_train, x))
+        y_train = np.concatenate((y_train, y))
+        bar_counter += 1
+        bar.update(bar_counter)
+        # remove empty first row
+        if first_database:
+            x_train = np.delete(x_train, 0, axis=0)
+            y_train = np.delete(y_train, 0, axis=0)
+            first_database = False
+    print()
+    model.compile(loss='mse', optimizer=OPTIMIZER[int(round(optimizer))])
 
-            # Train the model with the train dataset.
-            history = model.fit(x_train, y_train,
-                                epochs=3000, batch_size=4096, validation_split=0.3, verbose=0,
-                                callbacks=[
-                                    keras.callbacks.EarlyStopping(monitor='val_loss',
-                                                                  min_delta=0,
-                                                                  patience=5,
-                                                                  verbose=0,
-                                                                  mode='min'),
+    # Train the model with the train dataset.
+    history = model.fit(x_train, y_train,
+                        epochs=3000, batch_size=4096, validation_split=0.3, verbose=1,
+                        callbacks=[
+                            keras.callbacks.EarlyStopping(monitor='val_loss',
+                                                          min_delta=0,
+                                                          patience=5,
+                                                          verbose=1,
+                                                          mode='min'),
 
-                                    keras.callbacks.ModelCheckpoint(model_path,
-                                                                    monitor='val_loss',
-                                                                    save_best_only=True,
-                                                                    mode='min',
-                                                                    verbose=0)
-                                    # keras.callbacks.TensorBoard(log_dir=run_dir),
-                                    # hp.KerasCallback(run_dir + '/hparam', {
-                                    #     self.hparam[0]: float(int(round())),
-                                    #
-                                    # }),
-                                ])
+                            keras.callbacks.ModelCheckpoint(model_path,
+                                                            monitor='val_loss',
+                                                            save_best_only=True,
+                                                            mode='min',
+                                                            verbose=1)
+                            # keras.callbacks.TensorBoard(log_dir=run_dir),
+                            # hp.KerasCallback(run_dir + '/hparam', {
+                            #     self.hparam[0]: float(int(round())),
+                            #
+                            # }),
+                        ])
 
-            # score = model.evaluate()...
-            eval_data = data_prep.load_data("Data/EvalData/a0466252c5ce018b.sqlite3")
-            x_eval, y_eval = data_prep.prepare_data(eval_data)
-            output_diff0 = []
-            output_diff1 = []
-            output_diff2 = []
-            output_diff3 = []
-            score = []
-            counter = 0
-            factor_dict = dict()
-            with open("Data/analysis_results.txt") as f:
-                content = f.readlines()
-                for line in content:
-                    entry = line.strip().split(':')
-                    factor_dict[deepcopy(entry[0])] = deepcopy(float(entry[1]))
+    model_name = str(OPTIMIZER[int(round(optimizer))]) + "_" + str(
+        ACTIVATION[int(round(activation))]) + "_" + str(
+        int(round(num_layer))) + "_" + str(
+        int(pow(2, round(num_units))))
+    if not os.path.exists("Data/Plots/" + model_name):
+        os.mkdir("Data/Plots/" + model_name)
+    plt.figure(figsize=(10, 8), dpi=90)
+    plt.plot(history.history['val_loss'], label='val_loss')
+    plt.plot(history.history['loss'], label='loss')
+    plt.xlabel('Epochs')
+    plt.ylabel('Mean Squared Error (MSE)')
+    plt.legend()
+    plt.savefig("Data/Plots/" + model_name + "/loss_" + model_name + ".png")
+    plt.close()
 
-            for packet in x_eval:
-                if (counter % 100) == 0:
-                    output = model.predict((packet.reshape(1, TIMESTEPS, N_FEATURES)))
-                    if counter == 100:
-                        # for logging
-                        first_pred = deepcopy(output)
-                        for i in range(len(first_pred[0])):
-                            maxrul_STR = 'maxRUL' + str(i)
-                            first_pred[0][i] = first_pred[0][i] * factor_dict[maxrul_STR]
-                        print("start: {}, {}, {}, {} min".format(
-                            first_pred[0][0],
-                            first_pred[0][1],
-                            first_pred[0][2],
-                            first_pred[0][3],
-                        ))
-                    output_diff0.append(output[0][0] - y_eval[counter][0])
-                    output_diff1.append(output[0][1] - y_eval[counter][1])
-                    output_diff2.append(output[0][2] - y_eval[counter][2])
-                    output_diff3.append(output[0][3] - y_eval[counter][3])
-                counter += 1
+    eval_data = data_prep.load_data("Data/EvalData/Ernoe2.sqlite3")
+    x_eval, y_eval = data_prep.prepare_data(eval_data, shuffle=False)
+    output_diff0 = []
+    output_diff1 = []
+    output_diff2 = []
+    output_diff3 = []
+    score = []
+    counter = 0
+    factor_dict = dict()
+    with open("Data/analysis_results.txt") as f:
+        content = f.readlines()
+        for line in content:
+            entry = line.strip().split(':')
+            factor_dict[deepcopy(entry[0])] = deepcopy(float(entry[1]))
 
-            score.append(100 - (100 / y_eval[0][0] * abs(sum(output_diff0) / len(output_diff0))))
-            score.append(100 - (100 / y_eval[0][0] * abs(sum(output_diff1) / len(output_diff1))))
-            score.append(100 - (100 / y_eval[0][0] * abs(sum(output_diff2) / len(output_diff2))))
-            score.append(100 - (100 / y_eval[0][0] * abs(sum(output_diff3) / len(output_diff3))))
+    widgets2 = [
+        '\x1b[33Evaluating Data... \x1b[39m',
+        progressbar.Percentage(),
+        progressbar.Bar(marker='\x1b[32m#\x1b[39m'),
+    ]
+    bar2 = progressbar.ProgressBar(widgets=widgets2, min_value=0, max_value=len(x_eval)/30).start()
+    bar_counter = 0
+    for packet in x_eval:
+        if (counter % 30) == 0:
+            output = model.predict((packet.reshape(1, TIMESTEPS, N_FEATURES)))
+            bar_counter += 1
+            bar2.update(bar_counter)
+            if counter == 0:
+                # for logging
+                first_pred = deepcopy(output)
+                for i in range(len(first_pred[0])):
+                    maxrul_STR = 'maxRUL' + str(i)
+                    first_pred[0][i] = first_pred[0][i] * factor_dict[maxrul_STR]
+                print("start: {}, {}, {}, {} min".format(
+                    first_pred[0][0],
+                    first_pred[0][1],
+                    first_pred[0][2],
+                    first_pred[0][3],
+                ))
+            output_diff0.append(abs(output[0][0] - y_eval[counter][0]))
+            output_diff1.append(abs(output[0][1] - y_eval[counter][1]))
+            output_diff2.append(abs(output[0][2] - y_eval[counter][2]))
+            output_diff3.append(abs(output[0][3] - y_eval[counter][3]))
+        counter += 1
+    print()
+    score.append(100 - abs(100 / y_eval[0][0] * (sum(output_diff0) / len(output_diff0))))
+    score.append(100 - abs(100 / y_eval[0][0] * (sum(output_diff1) / len(output_diff1))))
+    score.append(100 - abs(100 / y_eval[0][0] * (sum(output_diff2) / len(output_diff2))))
+    score.append(100 - abs(100 / y_eval[0][0] * (sum(output_diff3) / len(output_diff3))))
 
-            # denormalize for readable output
-            # print(output[0])
 
-            for i in range(len(output[0])):
-                maxrul_STR = 'maxRUL' + str(i)
-                output[0][i] = output[0][i] * factor_dict[maxrul_STR]
-            print("end: {}, {}, {}, {} min".format(
-                output[0][0],
-                output[0][1],
-                output[0][2],
-                output[0][3],
-            ))
+    # denormalize for readable output
+    # print(output[0])
+
+    for i in range(len(output[0])):
+        maxrul_STR = 'maxRUL' + str(i)
+        output[0][i] = output[0][i] * factor_dict[maxrul_STR]
+    print("end: {}, {}, {}, {} min".format(
+        output[0][0],
+        output[0][1],
+        output[0][2],
+        output[0][3],
+    ))
+    for i in range(len(output_diff0)):
+        output_diff0[i] = round(output_diff0[i] * factor_dict['maxRUL0'], 2)
+        output_diff1[i] = round(output_diff1[i] * factor_dict['maxRUL1'], 2)
+        output_diff2[i] = round(output_diff2[i] * factor_dict['maxRUL2'], 2)
+        output_diff3[i] = round(output_diff3[i] * factor_dict['maxRUL3'], 2)
+
+    plt.figure(figsize=(10, 8), dpi=90)
+    plt.plot(output_diff0, label='RL Differenz')
+    plt.plot(output_diff1, label='RR Differenz')
+    plt.plot(output_diff2, label='FL Differenz')
+    plt.plot(output_diff3, label='FR Differenz')
+    plt.xlabel('seconds')
+    plt.ylabel('diff in minutes')
+    plt.legend()
+    plt.savefig("Data/Plots/" + model_name + "/diff_" + model_name + ".png")
+    plt.close()
+
+
 
     out_score = sum(score) / len(score)
 
