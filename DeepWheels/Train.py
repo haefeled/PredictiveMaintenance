@@ -1,12 +1,13 @@
 import glob
 import os
 import random
+from time import sleep
+
 import keras
 import progressbar
 
 import matplotlib.pyplot as plt
 import numpy as np
-
 from bayes_opt import BayesianOptimization
 from keras.layers import Dense, Dropout, LSTM, PReLU
 from keras.models import Sequential
@@ -16,12 +17,10 @@ from copy import deepcopy
 
 from DataPreparation import DataPreparation
 
-OPTIMIZER = ['adamax', 'adam']
-ACTIVATION = ['swish', 'linear']  # prelu was unkown
+OPTIMIZER = ['nadam']
+ACTIVATION = ['linear', 'swish']  # prelu was unkown
 TIMESTEPS = 10
 N_FEATURES = 356
-
-
 
 
 def optimize_hyperparameters():
@@ -33,8 +32,8 @@ def optimize_hyperparameters():
     pbounds = {
         'optimizer': (0, len(OPTIMIZER) - 1),
         'activation': (0, len(ACTIVATION) - 1),
-        'num_layer': (2, 3),
-        'num_units': (6, 7)
+        'num_layer': (1, 3),
+        'num_units': (6, 8)
     }
     # hparam = []
     # for key, val in pbounds.items():
@@ -44,11 +43,11 @@ def optimize_hyperparameters():
     optimizer = BayesianOptimization(
         f=fit_model_with,
         pbounds=pbounds,
-        random_state=1,
+        random_state=7,
     )
 
     optimizer.maximize(
-        init_points=12,
+        init_points=15,
         n_iter=0,
     )
 
@@ -132,7 +131,8 @@ def fit_model_with(optimizer, activation, num_layer, num_units):
             x_train = np.delete(x_train, 0, axis=0)
             y_train = np.delete(y_train, 0, axis=0)
             first_database = False
-    print()
+    bar.finish()
+    sleep(0.2)
     model.compile(loss='mse', optimizer=OPTIMIZER[int(round(optimizer))])
 
     # Train the model with the train dataset.
@@ -157,21 +157,6 @@ def fit_model_with(optimizer, activation, num_layer, num_units):
                             # }),
                         ])
 
-    model_name = str(OPTIMIZER[int(round(optimizer))]) + "_" + str(
-        ACTIVATION[int(round(activation))]) + "_" + str(
-        int(round(num_layer))) + "_" + str(
-        int(pow(2, round(num_units))))
-    if not os.path.exists("Data/Plots/" + model_name):
-        os.mkdir("Data/Plots/" + model_name)
-    plt.figure(figsize=(10, 8), dpi=90)
-    plt.plot(history.history['val_loss'], label='val_loss')
-    plt.plot(history.history['loss'], label='loss')
-    plt.xlabel('Epochs')
-    plt.ylabel('Mean Squared Error (MSE)')
-    plt.legend()
-    plt.savefig("Data/Plots/" + model_name + "/loss_" + model_name + ".png")
-    plt.close()
-
     eval_data = data_prep.load_data("Data/EvalData/Ernoe2.sqlite3")
     x_eval, y_eval = data_prep.prepare_data(eval_data, shuffle=False)
     output_diff0 = []
@@ -192,7 +177,7 @@ def fit_model_with(optimizer, activation, num_layer, num_units):
         progressbar.Percentage(),
         progressbar.Bar(marker='\x1b[32m#\x1b[39m'),
     ]
-    bar2 = progressbar.ProgressBar(widgets=widgets2, min_value=0, max_value=len(x_eval)/30).start()
+    bar2 = progressbar.ProgressBar(widgets=widgets2, min_value=0, max_value=((len(x_eval)/30)+1)).start()
     bar_counter = 0
     for packet in x_eval:
         if (counter % 30) == 0:
@@ -216,7 +201,8 @@ def fit_model_with(optimizer, activation, num_layer, num_units):
             output_diff2.append(abs(output[0][2] - y_eval[counter][2]))
             output_diff3.append(abs(output[0][3] - y_eval[counter][3]))
         counter += 1
-    print()
+    bar2.finish()
+    sleep(0.2)
     score.append(100 - abs(100 / y_eval[0][0] * (sum(output_diff0) / len(output_diff0))))
     score.append(100 - abs(100 / y_eval[0][0] * (sum(output_diff1) / len(output_diff1))))
     score.append(100 - abs(100 / y_eval[0][0] * (sum(output_diff2) / len(output_diff2))))
@@ -240,6 +226,21 @@ def fit_model_with(optimizer, activation, num_layer, num_units):
         output_diff1[i] = round(output_diff1[i] * factor_dict['maxRUL1'], 2)
         output_diff2[i] = round(output_diff2[i] * factor_dict['maxRUL2'], 2)
         output_diff3[i] = round(output_diff3[i] * factor_dict['maxRUL3'], 2)
+
+    model_name = str(OPTIMIZER[int(round(optimizer))]) + "_" + str(
+        ACTIVATION[int(round(activation))]) + "_" + str(
+        int(round(num_layer))) + "_" + str(
+        int(pow(2, round(num_units))))
+    if not os.path.exists("Data/Plots/" + model_name):
+        os.mkdir("Data/Plots/" + model_name)
+    plt.figure(figsize=(10, 8), dpi=90)
+    plt.plot(history.history['val_loss'], label='val_loss')
+    plt.plot(history.history['loss'], label='loss')
+    plt.xlabel('Epochs')
+    plt.ylabel('Mean Squared Error (MSE)')
+    plt.legend()
+    plt.savefig("Data/Plots/" + model_name + "/loss_" + model_name + ".png")
+    plt.close()
 
     plt.figure(figsize=(10, 8), dpi=90)
     plt.plot(output_diff0, label='RL Differenz')

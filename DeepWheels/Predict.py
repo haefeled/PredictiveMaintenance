@@ -1,4 +1,7 @@
 from copy import deepcopy
+
+import progressbar
+
 from DataPreparation import DataPreparation
 from DataReader import DataReader
 import matplotlib.pyplot as plt
@@ -23,8 +26,8 @@ class Predict:
 
         # predict
 
-        model = load_model('Model/lstm_model_adamax_swish_3_64.h5')
-        model.load_weights('Model/lstm_model_adamax_swish_3_64.h5')
+        model = load_model('Model/lstm_model_nadam_swish_4_128.h5')
+        model.load_weights('Model/lstm_model_nadam_swish_4_128.h5')
         model.compile(loss='mse', optimizer='adam')
         pred = model.predict((X_predict.reshape(1, self.TIMESTEPS, self.N_FEATURES)))
 
@@ -64,22 +67,30 @@ if __name__ == "__main__":
     tmp_list = []
     output = []
     counter = 0
+    widgets = [
+        '\x1b[33mCollecting Data... \x1b[39m',
+        progressbar.Percentage(),
+        progressbar.Bar(marker='\x1b[32m#\x1b[39m'),
+    ]
+    bar = progressbar.ProgressBar(widgets=widgets, max_value=len(data)).start()
     for paket in data:
         if counter == 0:
             tmp_list.append(paket)
         elif counter % 30 == 0:
-            compare0.append((maxrul_list[0] - df.loc[counter - 1, 'sessionTime']))
-            compare1.append((maxrul_list[1] - df.loc[counter - 1, 'sessionTime']))
-            compare2.append((maxrul_list[2] - df.loc[counter - 1, 'sessionTime']))
-            compare3.append((maxrul_list[3] - df.loc[counter - 1, 'sessionTime']))
-            tmp_list.append(paket)
-            tmp_df = data_prep.list_to_dataframe(tmp_list)
-            output.append(data_pred.predict(tmp_df))
+            if counter % 120 == 0:
+                compare0.append((maxrul_list[0] - df.loc[counter - 1, 'sessionTime']))
+                compare1.append((maxrul_list[1] - df.loc[counter - 1, 'sessionTime']))
+                compare2.append((maxrul_list[2] - df.loc[counter - 1, 'sessionTime']))
+                compare3.append((maxrul_list[3] - df.loc[counter - 1, 'sessionTime']))
+                tmp_list.append(paket)
+                tmp_df = data_prep.list_to_dataframe(tmp_list)
+                output.append(data_pred.predict(tmp_df))
             tmp_list.clear()
         else:
             tmp_list.append(paket)
         counter += 1
-
+        bar.update(counter)
+    bar.finish()
     output0 = []
     output1 = []
     output2 = []
@@ -110,4 +121,5 @@ if __name__ == "__main__":
         plt.xlabel('time in seconds')
         plt.ylabel('RUL')
         plt.legend()
-        plt.show()
+        plt.savefig("Data/Plots/acctest_wheel" + str(i) + ".png")
+        plt.close()
