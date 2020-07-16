@@ -1,10 +1,12 @@
 import ctypes
+import random
 import socket
 import time
 import progressbar
 import pandas
 import numpy as np
 from sklearn import preprocessing
+from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 
 from DataReader import DataReader
@@ -226,14 +228,14 @@ class DataPreparation:
 
         if trainflag:
             # convert into input/output
-            X, y = self.split_sequences(dataset, self.TIMESTEPS)
+            X, y = self.split_sequences(dataset, self.TIMESTEPS, shuffle=True)
+
             return X, y
         else:
             X = dataset[0:self.TIMESTEPS, :464]
             return np.array(X)
 
-
-    def split_sequences(self, sequences, n_steps):
+    def split_sequences(self, sequences, n_steps, shuffle=False):
         """
 
         :param sequences: Dataset for the training including RUL for each Tyre for each paket
@@ -241,16 +243,16 @@ class DataPreparation:
         :return: X Array with an Array of 30 Pakets inside, y the RUL of the 30 Pakets
         """
         X, y = list(), list()
+        counter = np.array([i for i in range(len(sequences))])
+        if shuffle:
+            np.random.shuffle(counter)
         for i in range(len(sequences)):
-            # find the end of this pattern
-            end_ix = i + n_steps
-            # check if we are beyond the dataset
-            if end_ix > len(sequences) - 1:
-                break
-            # gather input and output parts of the pattern
-            seq_x, seq_y = sequences[i:end_ix, :464], sequences[end_ix, 464:]
-            X.append(seq_x)
-            y.append(seq_y)
+            end_ix = counter[i]+n_steps
+            if end_ix < len(sequences):
+                # gather input and output parts of the pattern
+                seq_x, seq_y = sequences[counter[i]:end_ix, :464], sequences[end_ix, 464:]
+                X.append(seq_x)
+                y.append(seq_y)
         return np.array(X), np.array(y)
 
 
