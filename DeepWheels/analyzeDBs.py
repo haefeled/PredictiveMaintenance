@@ -1,15 +1,13 @@
 from copy import deepcopy
-
-import pandas as pd
-import numpy as np
 from os import listdir
 from os.path import isfile, join
 
-from DataReader import DataReader
 from DataPreparation import DataPreparation
+from DataReader import DataReader
 
 data_reader = DataReader()
 data_prep = DataPreparation()
+
 
 def analyze(filename, isFirst):
     print("read {}".format(filename))
@@ -35,7 +33,6 @@ def analyze(filename, isFirst):
                 entry = line.strip().split(':')
                 compare_dict[deepcopy(entry[0])] = deepcopy(float(entry[1]))
 
-
     with open(r".\Data\analysis_results.txt", "w") as out_file:
         for colum in colums:
             if abs(df[colum].max()) >= abs(df[colum].min()):
@@ -58,7 +55,6 @@ def analyze(filename, isFirst):
                 )
 
 
-
 def analyze_all_datasets(path_to_datasets):
     """
     Initiates training on a series of databases.
@@ -71,6 +67,7 @@ def analyze_all_datasets(path_to_datasets):
             analyze(db_file_names[i], True)
         else:
             analyze(db_file_names[i], False)
+
 
 def main():
     analyze_all_datasets(r".\Data\AllData")

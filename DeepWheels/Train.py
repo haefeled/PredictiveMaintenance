@@ -2,19 +2,17 @@ import glob
 import math
 import os
 import random
+from copy import deepcopy
 from time import sleep
 
 import keras
-import progressbar
-
 import matplotlib.pyplot as plt
 import numpy as np
-from bayes_opt import BayesianOptimization
-from keras.layers import Dense, Dropout, LSTM, PReLU
-from keras.models import Sequential
-from copy import deepcopy
-
+import progressbar
 from DataPreparation import DataPreparation
+from bayes_opt import BayesianOptimization
+from keras.layers import Dense, Dropout, LSTM
+from keras.models import Sequential
 
 OPTIMIZER = ['adamax', 'Nadam']
 ACTIVATION = ['linear', 'swish']  # prelu was unkown

@@ -10,8 +10,8 @@ class GrafanaManager:
 
     def start_grafana_server(self):
         if not self.check_if_server_running():
-            #TODO: ADD -config
-            subprocess.Popen([r".\GrafanaServer\bin\grafana-server.exe",  "-homepath", r".\GrafanaServer"],
+            # TODO: ADD -config
+            subprocess.Popen([r".\GrafanaServer\bin\grafana-server.exe", "-homepath", r".\GrafanaServer"],
                              stdout=subprocess.PIPE,
                              universal_newlines=True)
 

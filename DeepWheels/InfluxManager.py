@@ -33,7 +33,7 @@ class InfluxManager:
         return False
 
     def close_server(self):
-        process_name = 'influxd.exe'
+        process_name = 'influxd.exe '
         for proc in psutil.process_iter():
             try:
                 # Check if process name contains the given name string.

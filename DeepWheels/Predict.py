@@ -1,9 +1,10 @@
 from copy import deepcopy
+
+import matplotlib.pyplot as plt
+import tensorflow as tf
 from DataPreparation import DataPreparation
 from DataReader import DataReader
 from DataWriter import DataWriter
-import matplotlib.pyplot as plt
-import tensorflow as tf
 
 
 class Predict:
@@ -53,7 +54,8 @@ if __name__ == "__main__":
     data_reader = DataReader()
     data_prep = DataPreparation()
     prep_writer = DataWriter("prep_data")
-    data = data_reader.load_data_from_sqlite3(r"Data\AllData\Dani_mittlere_Fahrhilfe_manuellGetriebe_kaputerFrontFluegel_Boxstop_30min_97%.sqlite3")
+    data = data_reader.load_data_from_sqlite3(
+        r"Data\AllData\Dani_mittlere_Fahrhilfe_manuellGetriebe_kaputerFrontFluegel_Boxstop_30min_97%.sqlite3")
     data = data_prep.sort_dict_into_list(data, False)
     df = data_prep.list_to_dataframe(data)
 

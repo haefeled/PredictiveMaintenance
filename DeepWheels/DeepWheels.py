@@ -1,13 +1,10 @@
-import subprocess
 import threading
 from copy import deepcopy
 
 import pandas as pd
-
-from DataWriter import DataWriter
 from DataPreparation import DataPreparation
 from DataReader import DataReader
-from multiprocessing import Process
+from DataWriter import DataWriter
 from Predict import Predict
 
 
@@ -16,7 +13,6 @@ class DeepWheels:
         self.data_reader = DataReader()
         self.data_prep = DataPreparation()
         self.data_writer = DataWriter("live_data")
-        self.last_session_writer = DataWriter("last_session_data")
         self.prep_writer = DataWriter("prep_data")
         self.data_predict = Predict()
         self.prep_list = pd.DataFrame()
@@ -37,7 +33,9 @@ class DeepWheels:
             tmp_list.append(deepcopy(data[0]))
         tmp_df = self.data_prep.list_to_dataframe(tmp_list)
         self.prep_list = deepcopy(tmp_df)
-        predict_process = threading.Thread(target=Predict.predict, args=(self.data_predict, self.prep_list, self.prep_writer))
+        predict_process = threading.Thread(target=Predict.predict,
+                                           args=(self.data_predict, self.prep_list, self.prep_writer))
+        predict_process.daemon = True
         predict_process.start()
         predict_process.join()
 
@@ -48,4 +46,3 @@ if __name__ == '__main__':
     deepwheels = DeepWheels()
     while True:
         deepwheels.predict()
-

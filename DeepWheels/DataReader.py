@@ -1,12 +1,13 @@
-import sqlite3
-import os
-import progressbar
-import socket
 import datetime
-
+import os
+import socket
+import sqlite3
 from copy import deepcopy
 from threading import Thread
+
+import progressbar
 from f1_2019_telemetry.packets import unpack_udp_packet
+
 
 class DataReader:
     def __init__(self):
@@ -37,7 +38,7 @@ class DataReader:
             progressbar.Percentage(),
             progressbar.Bar(marker='\x1b[32m#\x1b[39m'),
         ]
-        #bar = progressbar.ProgressBar(widgets=widgets, max_value=max_rows).start()
+        # bar = progressbar.ProgressBar(widgets=widgets, max_value=max_rows).start()
         data_list = []
         for i in range(1, max_rows):
             # Collecting data
@@ -70,7 +71,7 @@ class DataReader:
             counter = 0
             tmp_list = []
             last_sessiontime = 0
-            while counter/4 < 1:
+            while counter / 4 < 1:
                 try:
                     udp_packet = self.udp_socket.recv(2048)
                     packet = unpack_udp_packet(udp_packet)
@@ -113,21 +114,21 @@ class DataReader:
         :param buffer_time_in_seconds: int buffer time in seconds
         '''
         data_list = []
-    
-        #only for testing purposes
-        thread = Thread(target = DataReader.replay_database, args = [r".\Data\AllData\Fabi_ohneFahrhilfe_crash3.sqlite3"])
+
+        # only for testing purposes
+        thread = Thread(target=DataReader.replay_database, args=[r".\Data\AllData\Fabi_ohneFahrhilfe_crash3.sqlite3"])
         thread.start()
-    
+
         packet_already_received = False
         start_packet_missing_time = datetime.datetime.now()
         start_buffer_time = datetime.datetime.now()
-    
+
         while True:
             # gather packet 0, 2, 6 and 7 of the same cycle
             counter = 0
             tmp_list = []
             last_sessionTime = 0
-            while counter/4 < 1:
+            while counter / 4 < 1:
                 try:
                     udp_packet = udp_conn.recv(2048)
                     packet = unpack_udp_packet(udp_packet)
@@ -142,7 +143,7 @@ class DataReader:
                         tmp_list.append(packet)
                         counter += 1
                         last_sessionTime = current_sessionTime
-                #if no packets were received
+                # if no packets were received
                 except socket.error:
                     if packet_already_received == True:
                         packet_missing_duration = datetime.datetime.now() - start_packet_missing_time
@@ -151,12 +152,12 @@ class DataReader:
             tmp_list = deepcopy(tmp_list)
             for entry in tmp_list:
                 data_list.append(entry)
-    
+
             current_buffer_time = datetime.datetime.now() - start_buffer_time
             if current_buffer_time.seconds > buffer_time_in_seconds:
                 func(data_list)
                 start_buffer_time = datetime.datetime.now()
-                #data_list = []
+                # data_list = []
 
 
 if __name__ == "__main__":
@@ -164,7 +165,6 @@ if __name__ == "__main__":
     data_reader = DataReader()
     path_to_db = r".\Data\AllData\0ff7c436c1c21664.sqlite3"
     data = data_reader.load_data_from_sqlite3(path_to_db)
-
 
     # # just for testing
     # udp_socket = socket.socket(family=socket.AF_INET, type=socket.SOCK_DGRAM)

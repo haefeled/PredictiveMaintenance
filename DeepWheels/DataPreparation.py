@@ -1,11 +1,11 @@
 import ctypes
-import progressbar
-import pandas
-import numpy as np
+from copy import deepcopy
 
+import numpy as np
+import pandas
+import progressbar
 from DataReader import DataReader
 from f1_2019_telemetry.packets import PackedLittleEndianStructure, PacketHeader
-from copy import deepcopy
 
 
 class DataPreparation:
@@ -198,18 +198,18 @@ class DataPreparation:
             for j in range(len(output_seq[0])):
                 tmp_array[j][i] = output_seq[i][j]
         output_seq = np.array(deepcopy(tmp_array))
-        del tmp_array   # memory cleanup
+        del tmp_array  # memory cleanup
 
         # horizontally stack columns
         dataset = np.hstack((input_seq0, input_seq1, input_seq2, input_seq3, output_seq))
-        self.n_features = dataset.shape[1]-4
+        self.n_features = dataset.shape[1] - 4
         if trainflag:
             # convert into input/output
             X, y = self.split_sequences(dataset, self.TIMESTEPS, shuffle=shuffle)
 
             return X, y
         else:
-            X = dataset[df.shape[0]-self.TIMESTEPS:, :self.n_features]
+            X = dataset[df.shape[0] - self.TIMESTEPS:, :self.n_features]
             return np.array(X)
 
     def split_sequences(self, sequences, n_steps, shuffle=False):
@@ -226,7 +226,7 @@ class DataPreparation:
         if shuffle:
             np.random.shuffle(counter)
         for i in range(int(len(sequences))):
-            end_ix = counter[i]+n_steps
+            end_ix = counter[i] + n_steps
             if end_ix < len(sequences):
                 # gather input and output parts of the pattern
                 seq_x, seq_y = sequences[counter[i]:end_ix, :self.n_features], sequences[end_ix, self.n_features:]
@@ -313,14 +313,13 @@ class DataPreparation:
 
         return norm_df
 
+
 if __name__ == "__main__":
     # example for gathering data for training
     data_prep = DataPreparation()
     data = data_prep.load_data(r".\Data\AllData\0ff7c436c1c21664.sqlite3")
     x_train, y_train = data_prep.prepare_data(data)
     print(x_train[0], y_train[0])
-
-
 
     # # live
     # print('starting test')

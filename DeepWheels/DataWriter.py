@@ -1,8 +1,8 @@
 from DataPreparation import DataPreparation
 from DataReader import DataReader
+from GrafanaManager import GrafanaManager
 from InfluxManager import InfluxManager
 from influxdb import InfluxDBClient
-from GrafanaManager import GrafanaManager
 
 
 class DataWriter:
@@ -37,7 +37,7 @@ class DataWriter:
         print(bla)
 
     def __del__(self):
-        del()
+        del ()
 
 
 if __name__ == '__main__':
