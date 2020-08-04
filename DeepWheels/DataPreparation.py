@@ -9,6 +9,10 @@ from copy import deepcopy
 
 
 class DataPreparation:
+    def __init__(self):
+        self.TIMESTEPS = 10
+        self.n_features = 0
+
     def filter_entries(self, entries, data):
         """
         This function is the third step to transform all received packets of f1_2019_telemetry.
@@ -65,7 +69,7 @@ class DataPreparation:
             tmp_dict['sessionTime'] = getattr(data, 'sessionTime')
         return tmp_dict
 
-    def sort_dict_into_list(self, data, train_flag):
+    def sort_dict_into_list(self, data, active_progressbar):
         """
         This function is the first step to transform all received packets of f1_2019_telemetry.
         This function has the task to split the list and put the results of the transform into a list.
@@ -77,7 +81,7 @@ class DataPreparation:
         :return:    list<dict>  A list containing the dictionaries including the filtered features
         """
         result = []
-        if train_flag:
+        if active_progressbar:
             widgets = [
                 '\x1b[33mFilter Data... \x1b[39m',
                 progressbar.Percentage(),
@@ -93,10 +97,10 @@ class DataPreparation:
                         result[-1][key] = deepcopy(tmp[key])
                 else:
                     result.append(deepcopy(tmp))
-            if train_flag:
+            if active_progressbar:
                 bar_counter += 1
                 bar.update(bar_counter)
-        if train_flag:
+        if active_progressbar:
             bar.finish()
         result = self.check_dict_in_list(result)
         return result
@@ -134,7 +138,7 @@ class DataPreparation:
         """
         load the data with proper order for training
 
-        :param filename: String path to the file
+        :param filepath: String     path to the file
         :return: pandas.DataFrame
         """
         data_reader = DataReader()
@@ -143,22 +147,100 @@ class DataPreparation:
         data = data_prep.sort_dict_into_list(data, False)
         return data_prep.list_to_dataframe(data)
 
-    def prepare_data(self, df, trainflag=True):
+    def prepare_data(self, df, trainflag=True, shuffle=False):
         """
         Prepare the Data to a proper format for the LSTM
 
+        :param shuffle: Boolean to enable data shuffling
+        :param trainflag: Boolean to distinguish between training mode and prediction mode
         :param df: pandas.DataFrame Input Data as DataFrame
         :return: X Array with an Array of 30 Pakets inside, y the RUL of the 30 Pakets
         """
+        # convert to minutes
+        df['sessionTime'] = df['sessionTime'] / 60
+
         # define MAX_RUL for each tyre
         if trainflag:
-            maxrul_list = [df.loc[df.query('tyresWear0 < 50').tyresWear0.count(), 'sessionTime'],
-                           df.loc[df.query('tyresWear1 < 50').tyresWear1.count(), 'sessionTime'],
-                           df.loc[df.query('tyresWear2 < 50').tyresWear2.count(), 'sessionTime'],
-                           df.loc[df.query('tyresWear3 < 50').tyresWear3.count(), 'sessionTime']]
+            maxrul_list = [df.loc[df.query('tyresWear0 < 50').tyresWear0.count() - 1, 'sessionTime'],
+                           df.loc[df.query('tyresWear1 < 50').tyresWear1.count() - 1, 'sessionTime'],
+                           df.loc[df.query('tyresWear2 < 50').tyresWear2.count() - 1, 'sessionTime'],
+                           df.loc[df.query('tyresWear3 < 50').tyresWear3.count() - 1, 'sessionTime']]
         else:
             maxrul_list = [0, 0, 0, 0]
 
+        # normalize data
+        norm_df, factor_dict = self.normalize_data(df)
+
+        # define output
+        output_seq = []
+        for i in range(len(maxrul_list)):
+            tmp_list = []
+            maxrul_STR = 'maxRUL' + str(i)
+            for j in range(df.shape[0]):
+                tmp_list.append((maxrul_list[i] - df.loc[j, 'sessionTime']) / (factor_dict[maxrul_STR]))
+            output_seq.append(deepcopy(tmp_list))
+            del tmp_list
+        output_seq = np.array(output_seq)
+
+        # filter unnecessary data
+        filtered_norm_df = self.filter_norm_data(norm_df)
+        del norm_df  # memory cleanup
+
+        # define input array for each tyre
+        input_seq0 = np.array(filtered_norm_df)
+        input_seq1 = np.array(filtered_norm_df)
+        input_seq2 = np.array(filtered_norm_df)
+        input_seq3 = np.array(filtered_norm_df)
+
+        # transpose output
+        tmp_array = [[0 for i in range(len(output_seq))] for j in range(len(output_seq[0]))]
+        for i in range(len((output_seq))):
+            for j in range(len(output_seq[0])):
+                tmp_array[j][i] = output_seq[i][j]
+        output_seq = np.array(deepcopy(tmp_array))
+        del tmp_array   # memory cleanup
+
+        # horizontally stack columns
+        dataset = np.hstack((input_seq0, input_seq1, input_seq2, input_seq3, output_seq))
+        self.n_features = dataset.shape[1]-4
+        if trainflag:
+            # convert into input/output
+            X, y = self.split_sequences(dataset, self.TIMESTEPS, shuffle=shuffle)
+
+            return X, y
+        else:
+            X = dataset[df.shape[0]-self.TIMESTEPS:, :self.n_features]
+            return np.array(X)
+
+    def split_sequences(self, sequences, n_steps, shuffle=False):
+        """
+        This function divides the data packets according to the number of timesteps and shuffles them if desired.
+
+        :param shuffle: Boolean to enable data shuffling
+        :param sequences: Dataset for the training including RUL for each Tyre for each paket
+        :param n_steps: Integer number of Timesteps
+        :return: X Array with an Array of 30 Pakets inside, y the RUL of the 30 Pakets
+        """
+        X, y = list(), list()
+        counter = np.array([i for i in range(int(len(sequences)))])
+        if shuffle:
+            np.random.shuffle(counter)
+        for i in range(int(len(sequences))):
+            end_ix = counter[i]+n_steps
+            if end_ix < len(sequences):
+                # gather input and output parts of the pattern
+                seq_x, seq_y = sequences[counter[i]:end_ix, :self.n_features], sequences[end_ix, self.n_features:]
+                X.append(seq_x)
+                y.append(seq_y)
+        return np.array(X), np.array(y)
+
+    def normalize_data(self, df):
+        """
+        This function normalize each value with its proper global maximum.
+
+        :param df: data as dataframe
+        :return: normalized data
+        """
         # MinMax normalization (from -1 to 1) and convert all to float
         factor_dict = dict()
         with open(r".\Data\analysis_results.txt") as f:
@@ -173,63 +255,63 @@ class DataPreparation:
                 norm_df[colum] = 0
             else:
                 norm_df[colum] = df[colum] / factor_dict[colum]
+        return norm_df, factor_dict
 
-        # define input array for each tyre
-        input_seq0 = np.array(norm_df)
-        input_seq1 = np.array(norm_df)
-        input_seq2 = np.array(norm_df)
-        input_seq3 = np.array(norm_df)
-
-        # define output
-        output_seq = []
-        for i in range(len(maxrul_list)):
-            tmp_list = []
-            maxrul_STR = 'maxRUL' + str(i)
-            for j in range(df.shape[0]):
-                tmp_list.append((maxrul_list[i] - df.loc[j, 'sessionTime']) / factor_dict[maxrul_STR])
-            output_seq.append(deepcopy(tmp_list))
-        output_seq = np.array(output_seq)
-
-        # transpose output
-        tmp_array = [[0 for i in range(len(output_seq))] for j in range(len(output_seq[0]))]
-        for i in range(len((output_seq))):
-            for j in range(len(output_seq[0])):
-                tmp_array[j][i] = output_seq[i][j]
-        output_seq = np.array(deepcopy(tmp_array))
-
-        # horizontally stack columns
-        dataset = np.hstack((input_seq0, input_seq1, input_seq2, input_seq3, output_seq))
-
-        if trainflag:
-            # convert into input/output
-            X, y = self.split_sequences(dataset, 30)
-            return X, y
-        else:
-            X = dataset[0:30, :520]
-            return np.array(X)
-
-    def split_sequences(self, sequences, n_steps):
+    def filter_norm_data(self, norm_df):
         """
+        This function removes unnecessary data which is not required for our use case.
 
-        :param sequences: Dataset for the training including RUL for each Tyre for each paket
-        :param n_steps: number of Timesteps
-        :return: X Array with an Array of 30 Pakets inside, y the RUL of the 30 Pakets
+        :param norm_df: data as dataframe
+        :return: filtered dataframe
         """
-        X, y = list(), list()
-        for i in range(len(sequences)):
-            # find the end of this pattern
-            end_ix = i + n_steps
-            # check if we are beyond the dataset
-            if end_ix > len(sequences) - 1:
-                break
-            # gather input and output parts of the pattern
-            seq_x, seq_y = sequences[i:end_ix, :520], sequences[end_ix, 520:]
-            X.append(seq_x)
-            y.append(seq_y)
-        return np.array(X), np.array(y)
+        # filter some data
+        del norm_df['sessionTime']
+        # filter CarMotionData
+        del norm_df['worldVelocityX']
+        del norm_df['worldVelocityY']
+        del norm_df['worldVelocityZ']
+        del norm_df['worldForwardDirX']
+        del norm_df['worldForwardDirY']
+        del norm_df['worldForwardDirZ']
+        del norm_df['worldRightDirX']
+        del norm_df['worldRightDirY']
+        del norm_df['worldRightDirZ']
+        # filter LapData
+        del norm_df['lastLapTime']
+        del norm_df['currentLapTime']
+        del norm_df['bestLapTime']
+        del norm_df['sector1Time']
+        del norm_df['sector2Time']
+        del norm_df['safetyCarDelta']
+        del norm_df['carPosition']
+        del norm_df['pitStatus']
+        del norm_df['sector']
+        del norm_df['currentLapInvalid']
+        del norm_df['penalties']
+        del norm_df['gridPosition']
+        del norm_df['driverStatus']
+        del norm_df['resultStatus']
+        # filter CarTelemetryData
+        del norm_df['buttonStatus']
+        del norm_df['clutch']
+        del norm_df['drs']
+        del norm_df['revLightsPercent']
+        # filter CarStatusData
+        del norm_df['tractionControl']
+        del norm_df['antiLockBrakes']
+        del norm_df['pitLimiterStatus']
+        del norm_df['fuelCapacity']
+        del norm_df['maxRPM']
+        del norm_df['maxGears']
+        del norm_df['drsAllowed']
+        del norm_df['vehicleFiaFlags']
+        del norm_df['ersStoreEnergy']
+        del norm_df['ersDeployMode']
+        del norm_df['ersHarvestedThisLapMGUH']
+        del norm_df['ersHarvestedThisLapMGUK']
+        del norm_df['ersDeployedThisLap']
 
-
-    #def normalize_Dataset(self):
+        return norm_df
 
 if __name__ == "__main__":
     # example for gathering data for training

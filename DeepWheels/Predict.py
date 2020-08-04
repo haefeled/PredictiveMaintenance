@@ -8,17 +8,18 @@ import tensorflow as tf
 
 class Predict:
     def __init__(self):
-        self.TIMESTEPS = 30
-        self.N_FEATURES = 520
+        self.TIMESTEPS = 10
+        self.N_FEATURES = 356
         self.model = tf.keras.models.load_model(r".\Model\lstm_model_adam_relu_0.1_1_128_2048.h5")
         self.model.load_weights(r".\Model\lstm_model_adam_relu_0.1_1_128_2048.h5")
-        self.model.compile(loss='mse', optimizer='adam')
+        self.model.compile(loss='mean_squared_error', optimizer='adam')
         self.data_prep = DataPreparation()
 
     def predict(self, current_df, prep_writer):
         """
         Predicts RUL values for a list of a list of timestep-related features.
 
+        :param prep_writer: DataWriter Object to write prediction into InfluxDB.
         :param current_df: DataFrame A DataFrame containing more than one sample.
         :return: list<float> A list of predicted RUL values.
         """
@@ -39,8 +40,6 @@ class Predict:
             pred[0][i] = pred[0][i] * factor_dict[maxrul_STR] / 60
             if pred[0][i] < 0.0:
                 pred[0][i] = 0.0
-
-        print("\nRL: {}min, RR: {}min, FL: {}min, FR: {}min\n".format(pred[0][0], pred[0][1], pred[0][2], pred[0][3]))
 
         # RUL [RL, RR, FL, FR]
         prep_writer.insert_data({'rul0': pred[0][0], 'rul1': pred[0][1], 'rul2': pred[0][2], 'rul3': pred[0][3]})

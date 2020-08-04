@@ -23,6 +23,7 @@ class DeepWheels:
 
     def predict(self):
         """
+        This function is the main of the project. It collects the live data and starts the prediction process.
 
         :return:
         """
