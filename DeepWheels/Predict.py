@@ -10,9 +10,9 @@ class Predict:
     def __init__(self):
         self.TIMESTEPS = 10
         self.N_FEATURES = 356
-        self.model = tf.keras.models.load_model(r".\Model\lstm_model_adam_relu_0.1_1_128_2048.h5")
-        self.model.load_weights(r".\Model\lstm_model_adam_relu_0.1_1_128_2048.h5")
-        self.model.compile(loss='mean_squared_error', optimizer='adam')
+        self.model = tf.keras.models.load_model(r".\Model\lstm_model_adamax_swish_3_64.h5")
+        self.model.load_weights(r".\Model\lstm_model_adamax_swish_3_64.h5")
+        self.model.compile(loss='mean_squared_error', optimizer='adamax')
         self.data_prep = DataPreparation()
 
     def predict(self, current_df, prep_writer):
@@ -37,7 +37,7 @@ class Predict:
                 factor_dict[deepcopy(entry[0])] = deepcopy(float(entry[1]))
         for i in range(len(pred[0])):
             maxrul_STR = 'maxRUL' + str(i)
-            pred[0][i] = pred[0][i] * factor_dict[maxrul_STR] / 60
+            pred[0][i] = pred[0][i] * factor_dict[maxrul_STR]
             if pred[0][i] < 0.0:
                 pred[0][i] = 0.0
 
