@@ -10,6 +10,13 @@ data_prep = DataPreparation()
 
 
 def analyze(filename, isFirst):
+    """
+    Compares all values of a dataset to receive the maximum of each values and writes them into a texfile.
+
+    :param filename: String Variable with the name of the file
+    :param isFirst: Boolean Variable to distinguish the first database to the rest
+    :return:
+    """
     print("read {}".format(filename))
     data = data_reader.load_data_from_sqlite3(r".\Data\AllData\\" + filename)
     data = data_prep.sort_dict_into_list(data, False)
@@ -57,7 +64,7 @@ def analyze(filename, isFirst):
 
 def analyze_all_datasets(path_to_datasets):
     """
-    Initiates training on a series of databases.
+    Initiates analyze on a series of databases.
 
     :param path_to_datasets: str Represents the path where all databases can be located.
     """
