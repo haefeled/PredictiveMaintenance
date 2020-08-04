@@ -1,11 +1,11 @@
-from copy import deepcopy
-
 import progressbar
-
+from copy import deepcopy
+from keras.models import load_model
 from DataPreparation import DataPreparation
 from DataReader import DataReader
 import matplotlib.pyplot as plt
-from keras.models import load_model
+
+
 
 
 class Predict:
@@ -26,9 +26,9 @@ class Predict:
 
         # predict
 
-        model = load_model('Model/lstm_model_nadam_swish_4_128.h5')
-        model.load_weights('Model/lstm_model_nadam_swish_4_128.h5')
-        model.compile(loss='mse', optimizer='adam')
+        model = load_model('Model/save/lstm_model_adamax_swish_3_128.h5')
+        model.load_weights('Model/lstm_model_adamax_swish_3_128.h5')
+        model.compile(loss='mean_squared_error', optimizer='adamax')
         pred = model.predict((X_predict.reshape(1, self.TIMESTEPS, self.N_FEATURES)))
 
         # Denormalize
@@ -50,7 +50,7 @@ if __name__ == "__main__":
     data_reader = DataReader()
     data_prep = DataPreparation()
     data = data_reader.load_data_from_sqlite3('Data/EvalData/Ernoe2.sqlite3')
-    data = data_prep.sort_dict_into_list(data, False)
+    data = data_prep.sort_dict_into_list(data, active_progressbar=False)
     df = data_prep.list_to_dataframe(data)
 
     df['sessionTime'] = df['sessionTime'] / 60
@@ -68,7 +68,7 @@ if __name__ == "__main__":
     output = []
     counter = 0
     widgets = [
-        '\x1b[33mCollecting Data... \x1b[39m',
+        '\x1b[33mPrediction in progress... \x1b[39m',
         progressbar.Percentage(),
         progressbar.Bar(marker='\x1b[32m#\x1b[39m'),
     ]

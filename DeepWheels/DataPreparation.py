@@ -69,7 +69,7 @@ class DataPreparation:
             tmp_dict['sessionTime'] = getattr(data, 'sessionTime')
         return tmp_dict
 
-    def sort_dict_into_list(self, data, train_flag):
+    def sort_dict_into_list(self, data, active_progressbar):
         """
         This function is the first step to transform all received packets of f1_2019_telemetry.
         This function has the task to split the list and put the results of the transform into a list.
@@ -81,7 +81,7 @@ class DataPreparation:
         :return:    list<dict>  A list containing the dictionaries including the filtered features
         """
         result = []
-        if train_flag:
+        if active_progressbar:
             widgets = [
                 '\x1b[33mFilter Data... \x1b[39m',
                 progressbar.Percentage(),
@@ -97,10 +97,10 @@ class DataPreparation:
                         result[-1][key] = deepcopy(tmp[key])
                 else:
                     result.append(deepcopy(tmp))
-            if train_flag:
+            if active_progressbar:
                 bar_counter += 1
                 bar.update(bar_counter)
-        if train_flag:
+        if active_progressbar:
             bar.finish()
         result = self.check_dict_in_list(result)
         return result
@@ -177,10 +177,12 @@ class DataPreparation:
             for j in range(df.shape[0]):
                 tmp_list.append((maxrul_list[i] - df.loc[j, 'sessionTime']) / (factor_dict[maxrul_STR]))
             output_seq.append(deepcopy(tmp_list))
+            del tmp_list
         output_seq = np.array(output_seq)
 
         # filter unnecessary data
         filtered_norm_df = self.filter_norm_data(norm_df)
+        del norm_df  # memory cleanup
 
         # define input array for each tyre
         input_seq0 = np.array(filtered_norm_df)
@@ -194,6 +196,7 @@ class DataPreparation:
             for j in range(len(output_seq[0])):
                 tmp_array[j][i] = output_seq[i][j]
         output_seq = np.array(deepcopy(tmp_array))
+        del tmp_array   # memory cleanup
 
         # horizontally stack columns
         dataset = np.hstack((input_seq0, input_seq1, input_seq2, input_seq3, output_seq))
@@ -204,7 +207,7 @@ class DataPreparation:
 
             return X, y
         else:
-            X = dataset[0:self.TIMESTEPS, :self.n_features]
+            X = dataset[df.shape[0]-self.TIMESTEPS:, :self.n_features]
             return np.array(X)
 
     def split_sequences(self, sequences, n_steps, shuffle=False):
@@ -215,10 +218,10 @@ class DataPreparation:
         :return: X Array with an Array of 30 Pakets inside, y the RUL of the 30 Pakets
         """
         X, y = list(), list()
-        counter = np.array([i for i in range(len(sequences))])
+        counter = np.array([i for i in range(int(len(sequences)))])
         if shuffle:
             np.random.shuffle(counter)
-        for i in range(len(sequences)):
+        for i in range(int(len(sequences))):
             end_ix = counter[i]+n_steps
             if end_ix < len(sequences):
                 # gather input and output parts of the pattern
