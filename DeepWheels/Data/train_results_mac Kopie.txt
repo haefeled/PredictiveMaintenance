@@ -1,0 +1,21 @@
+Score:77.07484710329089 Optimizer:sgd Activation:linear Dropout:0.3 Layer:1.0 Units:155.0 Batch size:7.0
+Score:73.45206457040902 Optimizer:adam Activation:linear Dropout:0.1 Layer:1.0 Units:87.0 Batch size:9.0
+Score:76.19256658156195 Optimizer:sgd Activation:linear Dropout:0.3 Layer:1.0 Units:155.0 Batch size:7.0
+Score:70.79796566681739 Optimizer:rmsprop Activation:tanh Dropout:0.1 Layer:1.0 Units:87.0 Batch size:9.0
+Score:73.88879981328209 Optimizer:rmsprop Activation:tanh Dropout:0.1 Layer:1.0 Units:87.0 Batch size:9.0
+Score:72.52756537164313 Optimizer:adam Activation:tanh Dropout:0.3 Layer:1.0 Units:155.0 Batch size:7.0
+Score:74.62034435488405 Optimizer:adam Activation:tanh Dropout:0.1 Layer:1.0 Units:154.0 Batch size:9.0
+###############Old Tests###############
+###############new evalData############
+Score:90.58257359138081 Optimizer:adam Activation:linear Dropout:0.1 Layer:1.0 Units:87.0 Batch size:11.0
+###############now pyramid structure######################
+Score:83.641439254326 Optimizer:adam Activation:linear Dropout:0.1 Layer:1.0 Units:7.0 Batch size:11.0
+Score:88.14521090998312 Optimizer:sgd Activation:linear Dropout:0.3 Layer:2.0 Units:8.0 Batch size:10.0
+Score:91.62704280852799 Optimizer:adam Activation:relu Dropout:0.1 Layer:1.0 Units:7.0 Batch size:11.0
+###############latest runs with models saved#################
+Score:88.12082709782052 Optimizer:adam Activation:swish Dropout:0.1 Layer:1.0 Units:256 Batch size:4096
+Score:92.3675263993662 Optimizer:rmsprop Activation:swish Dropout:0.3 Layer:2.0 Units:512 Batch size:1024
+#################running 2 times for each database################
+Score:86.10510176391338 Optimizer:adam Activation:swish Dropout:0.1 Layer:1.0 Units:256 Batch size:4096
+##############now with random dropout an batchsize 8k#############
+
