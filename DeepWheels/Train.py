@@ -16,8 +16,8 @@ from copy import deepcopy
 
 from DataPreparation import DataPreparation
 
-OPTIMIZER = ['adamax', 'Nadam']
-ACTIVATION = ['linear', 'swish']  # prelu was unkown
+OPTIMIZER = ['adamax']
+ACTIVATION = ['swish']  # prelu was unkown
 TIMESTEPS = 10
 N_FEATURES = 356
 
@@ -31,8 +31,8 @@ def optimize_hyperparameters():
     pbounds = {
         'optimizer': (0, len(OPTIMIZER) - 1),
         'activation': (0, len(ACTIVATION) - 1),
-        'num_layer': (1, 3),
-        'num_units': (6, 9)
+        'num_layer': (3, 3),
+        'num_units': (6, 6)
     }
     # hparam = []
     # for key, val in pbounds.items():
@@ -46,8 +46,8 @@ def optimize_hyperparameters():
     )
 
     optimizer.maximize(
-        init_points=10,
-        n_iter=2,
+        init_points=2,
+        n_iter=0,
     )
 
     print(optimizer.max)
@@ -56,7 +56,6 @@ def optimize_hyperparameters():
 def get_model(activation, num_layer, num_units):
     """
     :param activation: activation-function
-    :param dropout: dropout-value
     :param num_layer: number of hidden layers
     :param num_units: number of units per hidden layer
     :return: model
@@ -84,10 +83,8 @@ def get_model(activation, num_layer, num_units):
 def fit_model_with(optimizer, activation, num_layer, num_units):
     """
     Trains a model with all given databases in AllData folder.
-    :param batch_size: pow factor batch-size
     :param optimizer:  optimizer-function
     :param activation: activation-function
-    :param dropout: dropout-value
     :param num_layer: number of hidden layers
     :param num_units: number of units per hidden layer
     :return: the accuracy
@@ -141,7 +138,7 @@ def fit_model_with(optimizer, activation, num_layer, num_units):
 
     # Train the model with the train dataset.
     history = model.fit(x_train, y_train,
-                        epochs=3000, batch_size=1024, validation_split=0.3, verbose=1,
+                        epochs=3000, batch_size=2048, validation_split=0.3, verbose=1,
                         callbacks=[
                             keras.callbacks.EarlyStopping(monitor='val_loss',
                                                           min_delta=0,
@@ -210,10 +207,12 @@ def fit_model_with(optimizer, activation, num_layer, num_units):
         output[0][3],
     ))
 
-    model_name = str(OPTIMIZER[int(round(optimizer))]) + "_" + str(
-        ACTIVATION[int(round(activation))]) + "_" + str(
-        int(round(num_layer))) + "_" + str(
-        int(pow(2, round(num_units))))
+    model_name = "{}_{}_{}_{}".format(
+        OPTIMIZER[int(round(optimizer))],
+        ACTIVATION[int(round(activation))],
+        int(round(num_layer)),
+        int(pow(2, round(num_units)))
+    )
     if not os.path.exists("Data/Plots/" + model_name):
         os.mkdir("Data/Plots/" + model_name)
     plt.figure(figsize=(10, 8), dpi=90)

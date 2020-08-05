@@ -26,8 +26,8 @@ class Predict:
 
         # predict
 
-        model = load_model('Model/save/lstm_model_adamax_swish_3_128.h5')
-        model.load_weights('Model/lstm_model_adamax_swish_3_128.h5')
+        model = load_model('Model/lstm_model_adamax_swish_3_64.h5')
+        model.load_weights('Model/lstm_model_adamax_swish_3_64.h5')
         model.compile(loss='mean_squared_error', optimizer='adamax')
         pred = model.predict((X_predict.reshape(1, self.TIMESTEPS, self.N_FEATURES)))
 
@@ -77,14 +77,13 @@ if __name__ == "__main__":
         if counter == 0:
             tmp_list.append(paket)
         elif counter % 30 == 0:
-            if counter % 120 == 0:
-                compare0.append((maxrul_list[0] - df.loc[counter - 1, 'sessionTime']))
-                compare1.append((maxrul_list[1] - df.loc[counter - 1, 'sessionTime']))
-                compare2.append((maxrul_list[2] - df.loc[counter - 1, 'sessionTime']))
-                compare3.append((maxrul_list[3] - df.loc[counter - 1, 'sessionTime']))
-                tmp_list.append(paket)
-                tmp_df = data_prep.list_to_dataframe(tmp_list)
-                output.append(data_pred.predict(tmp_df))
+            compare0.append((maxrul_list[0] - df.loc[counter - 1, 'sessionTime']))
+            compare1.append((maxrul_list[1] - df.loc[counter - 1, 'sessionTime']))
+            compare2.append((maxrul_list[2] - df.loc[counter - 1, 'sessionTime']))
+            compare3.append((maxrul_list[3] - df.loc[counter - 1, 'sessionTime']))
+            tmp_list.append(paket)
+            tmp_df = data_prep.list_to_dataframe(tmp_list)
+            output.append(data_pred.predict(tmp_df))
             tmp_list.clear()
         else:
             tmp_list.append(paket)
@@ -101,15 +100,6 @@ if __name__ == "__main__":
         output1.append(output[i][1])
         output2.append(output[i][2])
         output3.append(output[i][3])
-        if output[i][0] < 0:
-            output[i][0] = 0
-        if output[i][1] < 0:
-            output[i][1] = 0
-        if output[i][2] < 0:
-            output[i][2] = 0
-        if output[i][3] < 0:
-            output[i][3] = 0
-
 
     output_list = [output0, output1, output2, output3]
     compare_list = [compare0, compare1, compare2, compare3]

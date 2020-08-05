@@ -104,14 +104,23 @@ Score:87.85557089986428 Optimizer:Nadam Activation:linear Layer:2.0 Units:256
 Score:89.12358987883898 Optimizer:Nadam Activation:linear Layer:1.0 Units:128
 
 #############new acc testing################
-Score:97.88723856722379 Optimizer:Nadam Activation:linear Layer:3.0 Units:128 
-Score:97.31022981268133 Optimizer:adamax Activation:swish Layer:2.0 Units:256 
-Score:96.79188650757953 Optimizer:Nadam Activation:linear Layer:2.0 Units:256 
-Score:97.6720297899879 Optimizer:Nadam Activation:linear Layer:1.0 Units:128 
-Score:97.14629631208376 Optimizer:adamax Activation:linear Layer:2.0 Units:512 
-Score:96.55217174522085 Optimizer:Nadam Activation:swish Layer:3.0 Units:128 
-Score:96.15830951089916 Optimizer:Nadam Activation:swish Layer:1.0 Units:256 
-Score:96.4791888784315 Optimizer:adamax Activation:swish Layer:2.0 Units:128 
-Score:96.97797009745807 Optimizer:Nadam Activation:linear Layer:2.0 Units:128 
-Score:97.55317966028717 Optimizer:adamax Activation:swish Layer:2.0 Units:256 
-Score:97.64752308852961 Optimizer:Nadam Activation:linear Layer:3.0 Units:128 
+
+Score:97.05200992805482 Optimizer:adamax Activation:swish Layer:3.0 Units:64 
+Score:97.02199999266495 Optimizer:adamax Activation:swish Layer:2.0 Units:128 
+Score:91.85288219863907 Optimizer:adamax Activation:swish Layer:2.0 Units:128 
+Score:95.88067688407662 Optimizer:adamax Activation:swish Layer:2.0 Units:128 
+Score:96.35562116104228 Optimizer:adamax Activation:swish Layer:2.0 Units:64 
+Score:95.76527107827663 Optimizer:adamax Activation:swish Layer:2.0 Units:64 
+Score:95.49111009758528 Optimizer:adamax Activation:swish Layer:2.0 Units:128 
+Score:96.3774261883253 Optimizer:adamax Activation:swish Layer:2.0 Units:128 
+Score:96.2509115623766 Optimizer:adamax Activation:swish Layer:3.0 Units:128 
+Score:95.7127907812702 Optimizer:adamax Activation:swish Layer:2.0 Units:64 
+Score:95.94212219566097 Optimizer:adamax Activation:swish Layer:2.0 Units:128 
+Score:95.7872072777439 Optimizer:adamax Activation:swish Layer:3.0 Units:64 
+Score:95.6134720059716 Optimizer:adamax Activation:swish Layer:3.0 Units:64 
+Score:95.65244683490562 Optimizer:adamax Activation:swish Layer:2.0 Units:64 
+Score:95.95345848493088 Optimizer:adamax Activation:swish Layer:2.0 Units:128 
+Score:95.99139618913867 Optimizer:adamax Activation:swish Layer:2.0 Units:64 
+Score:95.59615943492544 Optimizer:nadam Activation:swish Layer:3.0 Units:128 
+Score:95.53381213343471 Optimizer:adamax Activation:swish Layer:3.0 Units:128 
+Score:96.92951928209096 Optimizer:adamax Activation:swish Layer:3.0 Units:64 
